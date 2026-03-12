@@ -1,335 +1,1096 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Ranjith_Gopinath</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="./tailwind.config.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Ranjith's Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Ovo&display=swap" rel="stylesheet">
+    :root {
+      --bg: #080808;
+      --surface: rgba(255,255,255,0.04);
+      --surface-border: rgba(255,255,255,0.08);
+      --text: #f0ede6;
+      --text-muted: rgba(240,237,230,0.45);
+      --accent: #e8c97a;
+      --accent-glow: rgba(232,201,122,0.18);
+      --chat-bg: rgba(255,255,255,0.03);
+      --user-bubble: rgba(232,201,122,0.15);
+      --input-bg: rgba(255,255,255,0.05);
+      --scrollbar: rgba(255,255,255,0.07);
+      --transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-theme="light"] {
+      --bg: #f5f0e8;
+      --surface: rgba(255,255,255,0.7);
+      --surface-border: rgba(0,0,0,0.08);
+      --text: #1a1612;
+      --text-muted: rgba(26,22,18,0.45);
+      --accent: #c8860a;
+      --accent-glow: rgba(200,134,10,0.12);
+      --chat-bg: rgba(255,255,255,0.5);
+      --user-bubble: rgba(200,134,10,0.12);
+      --input-bg: rgba(255,255,255,0.6);
+      --scrollbar: rgba(0,0,0,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Syne', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background var(--transition), color var(--transition);
+      overflow-x: hidden;
+    }
+
+    /* dot grid background */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.55) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 0;
+    }
+    [data-theme="light"] body::before { opacity: 0.06; }
+
+    /* ambient glow */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background: radial-gradient(ellipse 70% 50% at 50% 40%, var(--accent-glow), transparent 70%);
+      pointer-events: none;
+      transition: background var(--transition);
+      z-index: 0;
+    }
+
+    /* ── Theme Toggle ── */
+    .theme-toggle {
+      position: fixed; top: 28px; right: 32px; z-index: 200;
+      background: var(--surface); border: 1px solid var(--surface-border);
+      border-radius: 50px; padding: 8px 16px; cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+      font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-muted);
+      letter-spacing: 0.05em; backdrop-filter: blur(12px);
+      transition: all 0.3s ease, background var(--transition);
+    }
+    .theme-toggle:hover { color: var(--text); border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); }
+    .orb { width: 22px; height: 22px; border-radius: 50%; position: relative; flex-shrink: 0; transition: all 0.5s ease; }
+    [data-theme="dark"] .orb { background: #f5d060; box-shadow: 0 0 12px #f5d06080, 0 0 30px #f5d06030; }
+    [data-theme="light"] .orb { background: #c8c8e0; box-shadow: inset -4px -2px 0 #a0a0c0; }
+    [data-theme="dark"] .orb::after {
+      content: ''; position: absolute; inset: -5px; border-radius: 50%;
+      box-shadow: 0 -9px 0 2px #f5d060, 0 9px 0 2px #f5d060, -9px 0 0 2px #f5d060, 9px 0 0 2px #f5d060;
+      transform: scale(0.55);
+    }
+
+    /* ════════════════════════════════
+       SECTION 1 — HERO
+    ════════════════════════════════ */
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 1;
+    }
+
+    .card {
+      width: 100%; max-width: 540px;
+      background: var(--surface); border: 1px solid var(--surface-border);
+      border-radius: 24px; padding: 28px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.4), 0 0 0 1px var(--surface-border);
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    /* bitmoji + bubble */
+    .bitmoji-row { display: flex; align-items: flex-end; gap: 18px; margin-bottom: 18px; }
+    .avatar-col { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+
+    .avatar-wrap {
+      position: relative; width: 100px; cursor: pointer;
+      animation: bodyFloat 3.6s ease-in-out infinite;
+      transform-origin: bottom center;
+    }
+    @keyframes bodyFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+    .avatar-img { width:100px; height:110px; object-fit:contain; display:block; filter:drop-shadow(0 10px 28px rgba(232,201,122,0.3)); transition:filter 0.4s; }
+    .avatar-wrap:hover .avatar-img { filter:drop-shadow(0 14px 36px rgba(232,201,122,0.5)); }
+
+    .wave-hand { position:absolute; top:2px; right:-14px; font-size:28px; display:none; animation:waveArm 1.8s ease-in-out infinite; transform-origin:bottom center; }
+    .wave-hand.visible { display:block; }
+    @keyframes waveArm {
+      0%,100%{transform:rotate(-15deg)}
+      25%{transform:rotate(20deg) translateX(3px) translateY(-3px)}
+      50%{transform:rotate(-8deg)}
+      75%{transform:rotate(16deg) translateX(2px) translateY(-2px)}
+    }
+
+    .avatar-placeholder { width:100px; height:110px; border-radius:20px; border:2px dashed var(--surface-border); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; background:var(--chat-bg); transition:border-color .25s, background .25s; }
+    .avatar-placeholder:hover { border-color:var(--accent); background:var(--accent-glow); }
+    .avatar-placeholder .ph-emoji { font-size:30px; }
+    .avatar-placeholder .ph-text { font-family:'DM Mono',monospace; font-size:9px; color:var(--text-muted); text-align:center; line-height:1.4; padding:0 8px; }
+
+    .avatar-shadow { width:55px; height:8px; background:radial-gradient(ellipse, rgba(232,201,122,0.22) 0%, transparent 70%); border-radius:50%; margin-top:-2px; animation:shadowPulse 3.6s ease-in-out infinite; }
+    @keyframes shadowPulse { 0%,100%{transform:scaleX(1);opacity:.7} 50%{transform:scaleX(.65);opacity:.25} }
+
+    .speech-bubble { flex:1; position:relative; background:var(--chat-bg); border:1px solid var(--surface-border); border-radius:16px; border-bottom-left-radius:4px; padding:14px 16px; margin-bottom:8px; transition:background var(--transition), border-color var(--transition); }
+    .speech-bubble::before { content:''; position:absolute; left:-9px; bottom:14px; border:8px solid transparent; border-right-color:var(--surface-border); }
+    .speech-bubble::after  { content:''; position:absolute; left:-7px; bottom:15px; border:7px solid transparent; border-right-color:var(--chat-bg); }
+    .bubble-tag { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.14em; color:var(--accent); text-transform:uppercase; margin-bottom:5px; }
+    .bubble-headline { font-size:clamp(17px,3.5vw,22px); font-weight:800; letter-spacing:-.02em; line-height:1.2; color:var(--text); }
+    .bubble-headline span { color:var(--accent); }
+    .bubble-sub { font-family:'DM Mono',monospace; font-size:11px; color:var(--text-muted); margin-top:6px; }
+
+    #bitmoji-input { display:none; }
+    .upload-hint { display:flex; align-items:flex-start; gap:10px; margin-bottom:16px; padding:10px 14px; background:rgba(232,201,122,0.04); border:1px dashed rgba(232,201,122,0.22); border-radius:10px; cursor:pointer; transition:background .25s, border-color .25s; }
+    .upload-hint:hover { background:var(--accent-glow); border-color:var(--accent); }
+    .upload-hint .uh-icon { font-size:20px; flex-shrink:0; margin-top:1px; }
+    .upload-hint p { font-family:'DM Mono',monospace; font-size:10.5px; color:var(--text-muted); line-height:1.55; }
+    .upload-hint p strong { color:var(--accent); }
+    .upload-hint.hidden { display:none; }
+
+    .divider { height:1px; background:var(--surface-border); margin:16px 0; transition:background var(--transition); }
+
+    .chat-label { font-family:'DM Mono',monospace; font-size:10.5px; letter-spacing:.12em; color:var(--text-muted); text-transform:uppercase; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+    .chat-label::before { content:''; width:6px; height:6px; border-radius:50%; background:#4ade80; box-shadow:0 0 6px #4ade80; }
+
+    .chat-messages { min-height:80px; max-height:175px; overflow-y:auto; margin-bottom:10px; display:flex; flex-direction:column; gap:8px; scrollbar-width:thin; scrollbar-color:var(--scrollbar) transparent; padding-right:4px; }
+    .chat-messages::-webkit-scrollbar { width:3px; }
+    .chat-messages::-webkit-scrollbar-thumb { background:var(--scrollbar); border-radius:4px; }
+
+    .msg { display:flex; flex-direction:column; animation:msgIn .3s cubic-bezier(.34,1.56,.64,1) both; }
+    @keyframes msgIn { from{opacity:0;transform:translateY(8px) scale(.97)} to{opacity:1;transform:none} }
+    .msg-bubble { padding:9px 13px; border-radius:13px; font-family:'DM Mono',monospace; font-size:12px; line-height:1.55; max-width:88%; }
+    .msg.bot  .msg-bubble { background:var(--chat-bg); border:1px solid var(--surface-border); color:var(--text); border-bottom-left-radius:4px; align-self:flex-start; }
+    .msg.user .msg-bubble { background:var(--user-bubble); border:1px solid rgba(232,201,122,.2); color:var(--text); border-bottom-right-radius:4px; align-self:flex-end; }
+
+    .typing-indicator { display:none; gap:4px; padding:9px 13px; background:var(--chat-bg); border:1px solid var(--surface-border); border-radius:13px; border-bottom-left-radius:4px; width:fit-content; align-self:flex-start; }
+    .typing-indicator.visible { display:flex; }
+    .typing-indicator span { width:5px; height:5px; border-radius:50%; background:var(--text-muted); animation:typingBounce 1.2s ease-in-out infinite; }
+    .typing-indicator span:nth-child(2){animation-delay:.2s} .typing-indicator span:nth-child(3){animation-delay:.4s}
+    @keyframes typingBounce { 0%,60%,100%{transform:translateY(0);opacity:.4} 30%{transform:translateY(-5px);opacity:1} }
+
+    .chat-input-row { display:flex; gap:8px; align-items:center; }
+    .chat-input { flex:1; background:var(--input-bg); border:1px solid var(--surface-border); border-radius:11px; padding:9px 13px; font-family:'DM Mono',monospace; font-size:12px; color:var(--text); outline:none; transition:border-color .25s, background var(--transition), color var(--transition); }
+    .chat-input::placeholder { color:var(--text-muted); }
+    .chat-input:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-glow); }
+    .send-btn { width:38px; height:38px; border-radius:11px; background:var(--accent); border:none; cursor:pointer; display:grid; place-items:center; flex-shrink:0; transition:transform .18s, box-shadow .18s, opacity .18s; }
+    .send-btn:hover { transform:translateY(-1px); box-shadow:0 6px 20px var(--accent-glow); }
+    .send-btn:active { transform:scale(.95); }
+    .send-btn:disabled { opacity:.4; cursor:not-allowed; transform:none; }
+    .send-btn svg { width:15px; height:15px; fill:#080808; }
+
+    .api-notice { margin-top:12px; padding:9px 13px; border-radius:10px; background:rgba(232,201,122,.06); border:1px solid rgba(232,201,122,.15); font-family:'DM Mono',monospace; font-size:11px; color:var(--text-muted); line-height:1.6; display:none; }
+    .api-notice.visible { display:block; }
+    .api-notice a { color:var(--accent); text-decoration:none; }
+
+    /* Quick chips */
+    .quick-chips {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-bottom: 8px;
+    }
+    .chip {
+      font-family: 'DM Mono', monospace; font-size: 10.5px;
+      padding: 5px 11px; border-radius: 20px;
+      background: var(--input-bg);
+      border: 1px solid var(--surface-border);
+      color: var(--text-muted); cursor: pointer;
+      transition: background .2s, border-color .2s, color .2s;
+      white-space: nowrap;
+    }
+    .chip:hover { background: var(--accent-glow); border-color: var(--accent); color: var(--accent); }
+
+    /* scroll hint arrow */
+    .scroll-hint {
+      margin-top: 28px;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      cursor: pointer;
+      animation: hintBounce 2s ease-in-out infinite;
+    }
+    .scroll-hint span { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.12em; color:var(--text-muted); text-transform:uppercase; }
+    .scroll-hint svg { width:20px; height:20px; stroke:var(--text-muted); fill:none; stroke-width:2; stroke-linecap:round; }
+    @keyframes hintBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+    /* ════════════════════════════════
+       SECTION 2 — INFO ROWS
+    ════════════════════════════════ */
+    .cards-section {
+      position: relative;
+      padding: 80px 32px 100px;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: .2em;
+      color: var(--text-muted); text-transform: uppercase;
+      margin-bottom: 48px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-label::before, .section-label::after {
+      content: ''; height: 1px; width: 60px; background: var(--surface-border);
+    }
+
+    .info-stack {
+      width: 100%; max-width: 860px;
+      display: flex; flex-direction: column; gap: 28px;
+    }
+
+    /* ── shared row base ── */
+    .info-row {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: border-color .35s, box-shadow .35s, transform .3s;
+    }
+    .info-row:hover {
+      border-color: var(--accent);
+      box-shadow: 0 16px 50px rgba(0,0,0,0.35), 0 0 40px var(--accent-glow);
+      transform: translateY(-4px);
+    }
+
+    /* row label strip */
+    .row-label {
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      letter-spacing: .16em; color: var(--accent); text-transform: uppercase;
+      padding: 14px 24px 0;
+    }
+
+    /* ══════════════════
+       ROW 1 — EDUCATION
+       Wide banner layout
+    ══════════════════ */
+    .edu-row { padding-bottom: 24px; }
+
+    .edu-inner {
+      display: flex; align-items: flex-start;
+      gap: 32px; padding: 16px 24px 0;
+    }
+
+    .edu-icon { font-size: 36px; flex-shrink: 0; margin-top: 2px; transition: transform .4s cubic-bezier(.34,1.56,.64,1); }
+    .info-row:hover .edu-icon { transform: rotate(-8deg) scale(1.15); }
+
+    .edu-main { flex: 1; }
+    .edu-title { font-size: 26px; font-weight: 800; letter-spacing: -.02em; line-height: 1.1; margin-bottom: 14px; }
+    .edu-title span { color: var(--accent); }
+
+    .edu-degrees {
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+    .edu-degree {
+      flex: 1; min-width: 200px;
+      background: var(--chat-bg);
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      transition: border-color .3s, background .3s;
+    }
+    .info-row:hover .edu-degree { border-color: rgba(232,201,122,.2); background: rgba(232,201,122,.03); }
+    .deg-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+    .deg-school { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--accent); margin-bottom: 6px; }
+    .deg-year { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); }
+
+    .edu-skills {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      padding: 16px 24px 0;
+    }
+    .skill-pill {
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      padding: 4px 10px; border-radius: 20px;
+      background: rgba(232,201,122,.06);
+      border: 1px solid rgba(232,201,122,.15);
+      color: var(--accent);
+      transition: background .25s, border-color .25s;
+    }
+    .info-row:hover .skill-pill { background: rgba(232,201,122,.12); border-color: rgba(232,201,122,.3); }
+
+    /* ══════════════════════════
+       ROW 2 — EXPERIENCE
+       Horizontal company bubbles
+    ══════════════════════════ */
+    .exp-row { padding-bottom: 24px; }
+
+    .exp-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 24px 0;
+    }
+    .exp-icon { font-size: 28px; transition: transform .4s cubic-bezier(.34,1.56,.64,1); }
+    .info-row:hover .exp-icon { transform: rotate(-8deg) scale(1.15); }
+    .exp-title { font-size: 22px; font-weight: 800; letter-spacing: -.02em; }
+
+    /* horizontal scrollable company strip */
+    .exp-strip {
+      display: flex; gap: 14px;
+      padding: 16px 24px 20px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(232,201,122,.35) transparent;
+      cursor: grab;
+    }
+    .exp-strip:active { cursor: grabbing; }
+    .exp-strip::-webkit-scrollbar { height: 4px; }
+    .exp-strip::-webkit-scrollbar-thumb { background: rgba(232,201,122,.35); border-radius: 4px; }
+    .exp-strip::-webkit-scrollbar-track { background: transparent; }
+    .company-bubble { scroll-snap-align: start; }
+
+    .company-bubble {
+      flex-shrink: 0;
+      background: var(--chat-bg);
+      border: 1px solid var(--surface-border);
+      border-radius: 16px;
+      padding: 16px 20px;
+      min-width: 210px;
+      cursor: default;
+      transition: border-color .3s, transform .3s, background .3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .company-bubble::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0; transition: opacity .3s;
+    }
+    .info-row:hover .company-bubble { border-color: rgba(232,201,122,.25); background: rgba(255,255,255,.03); }
+    .info-row:hover .company-bubble:hover { transform: translateY(-3px); border-color: var(--accent); background: rgba(232,201,122,.06); }
+    .info-row:hover .company-bubble:hover::before { opacity: 1; }
+
+    .cb-logo {
+      font-size: 22px; margin-bottom: 8px; display: block;
+      transition: transform .3s;
+    }
+    .company-bubble:hover .cb-logo { transform: scale(1.2); }
+    .cb-company { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+    .cb-role { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); margin-bottom: 5px; }
+    .cb-period { font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--text-muted); margin-bottom: 8px; }
+    .cb-desc { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ══════════════════════════
+       ROW 3 — PROJECTS
+       Two overlapping panels
+    ══════════════════════════ */
+    .proj-row { padding: 20px 24px 24px; }
+
+    .proj-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
+    }
+    .proj-icon { font-size: 28px; transition: transform .4s cubic-bezier(.34,1.56,.64,1); }
+    .info-row:hover .proj-icon { transform: rotate(-8deg) scale(1.15); }
+    .proj-title { font-size: 22px; font-weight: 800; letter-spacing: -.02em; }
+
+    .proj-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .proj-panel {
+      background: var(--chat-bg);
+      border: 1px solid var(--surface-border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s, transform .3s, background .3s;
+    }
+    .proj-panel::after {
+      content: '';
+      position: absolute; bottom: 0; right: 0;
+      width: 60px; height: 60px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      opacity: 0; transition: opacity .3s;
+    }
+    .info-row:hover .proj-panel { border-color: rgba(232,201,122,.2); }
+    .info-row:hover .proj-panel:hover { transform: translateY(-3px); border-color: var(--accent); background: rgba(232,201,122,.04); }
+    .info-row:hover .proj-panel:hover::after { opacity: 1; }
+
+    .pp-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+    .pp-name { font-size: 14px; font-weight: 800; color: var(--text); margin-bottom: 4px; letter-spacing: -.01em; }
+    .pp-sub { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); margin-bottom: 8px; }
+    .pp-desc { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); line-height: 1.55; margin-bottom: 10px; }
+    .pp-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .pp-tag {
+      font-family: 'DM Mono', monospace; font-size: 9px;
+      padding: 3px 8px; border-radius: 20px;
+      background: rgba(232,201,122,.08); border: 1px solid rgba(232,201,122,.18);
+      color: var(--accent);
+    }
+
+    /* Store buttons */
+    .store-btns {
+      display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;
+    }
+    .store-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      padding: 7px 12px; border-radius: 10px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--text); text-decoration: none;
+      transition: background .25s, border-color .25s, transform .2s, box-shadow .2s;
+    }
+    .store-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .store-btn:hover {
+      background: rgba(232,201,122,.12);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px var(--accent-glow);
+    }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE — all phones supported
+    ══════════════════════════════════════ */
+
+    /* Tablet — 768px and below */
+    @media (max-width: 768px) {
+      .theme-toggle { top: 16px; right: 16px; padding: 6px 12px; font-size: 11px; }
+      .orb { width: 18px; height: 18px; }
+      .hero-section { padding: 16px; }
+      .card { padding: 20px; border-radius: 20px; }
+      .bitmoji-row { gap: 14px; }
+      .avatar-wrap { width: 80px; }
+      .avatar-img { width: 80px; height: 90px; }
+      .avatar-placeholder { width: 80px; height: 90px; }
+      .bubble-headline { font-size: 18px; }
+      .cards-section { padding: 48px 16px 64px; }
+      .info-stack { gap: 20px; }
+      .edu-title { font-size: 22px; }
+      .exp-title, .proj-title { font-size: 20px; }
+      .company-bubble { min-width: 200px; }
+    }
+
+    @media (max-width: 640px) {
+      .edu-degrees { flex-direction: column; gap: 10px; }
+      .edu-inner { flex-direction: column; gap: 12px; }
+      .edu-title { font-size: 20px; }
+      .proj-panels { grid-template-columns: 1fr; gap: 12px; }
+
+      /* Work history — vertical stack on mobile */
+      .exp-strip {
+        flex-direction: column;
+        overflow-x: visible;
+        overflow-y: visible;
+        cursor: default;
+        padding: 12px 18px 16px;
+        gap: 12px;
+      }
+      .company-bubble {
+        min-width: unset;
+        width: 100%;
+        scroll-snap-align: unset;
+      }
+
+      .section-label { margin-bottom: 28px; }
+      .section-label::before, .section-label::after { width: 30px; }
+      .row-label { font-size: 9.5px; padding: 12px 18px 0; }
+      .edu-inner { padding: 12px 18px 0; }
+      .edu-skills { padding: 12px 18px 0; }
+      .exp-header { padding: 12px 18px 0; }
+      .proj-row { padding: 14px 18px 18px; }
+    }
+
+    /* Small phone — 480px and below */
+    @media (max-width: 480px) {
+      .bubble-headline { font-size: 16px; }
+      .bubble-sub { font-size: 10px; }
+      .card { padding: 16px; border-radius: 16px; }
+      .bitmoji-row { gap: 10px; margin-bottom: 12px; }
+      .avatar-wrap { width: 72px; }
+      .avatar-img { width: 72px; height: 80px; }
+      .avatar-placeholder { width: 72px; height: 80px; }
+      .wave-hand { font-size: 22px; right: -10px; top: 0; }
+      .speech-bubble { padding: 10px 12px; }
+      .upload-hint { padding: 8px 10px; }
+      .upload-hint p { font-size: 9.5px; }
+      .chat-input { font-size: 12px; padding: 8px 10px; }
+      .msg-bubble { font-size: 11.5px; }
+      .cards-section { padding: 36px 12px 56px; }
+      .info-stack { gap: 16px; }
+      .info-row { border-radius: 16px; }
+      .edu-title { font-size: 18px; }
+      .exp-title, .proj-title { font-size: 18px; }
+      .company-bubble { min-width: unset; width: 100%; padding: 14px 16px; border-radius: 14px; }
+      .deg-name { font-size: 12px; }
+      .pp-name { font-size: 13px; }
+      .proj-panel { padding: 14px 16px; border-radius: 14px; }
+      .edu-degree { padding: 12px 14px; border-radius: 12px; }
+      .scroll-hint span { font-size: 9px; }
+    }
+
+    /* Extra small — 360px and below (small Androids) */
+    @media (max-width: 360px) {
+      .bubble-headline { font-size: 15px; }
+      .card { padding: 14px; }
+      .avatar-wrap { width: 64px; }
+      .avatar-img { width: 64px; height: 72px; }
+      .avatar-placeholder { width: 64px; height: 72px; }
+      .edu-title { font-size: 16px; }
+      .exp-title, .proj-title { font-size: 16px; }
+      .company-bubble { min-width: 78vw; }
+      .skill-pill { font-size: 9px; padding: 3px 8px; }
+    }
+  </style>
 </head>
+<body>
 
-<body class="over-flow-x-hidden font-Outfit leading-8 dark:bg-darkTheme dark:text-white ">
-    <div class="fixed top-0 right-0 w-11/12 -z-10 translate-y-[-80%] dark:hidden">
-        <img src="./images/header-bg-color.png" alt="" class="w-full">
+<input type="file" id="bitmoji-input" accept="image/*" onchange="loadBitmoji(event)"/>
+
+<button class="theme-toggle" onclick="toggleTheme()">
+  <div class="orb"></div>
+  <span id="theme-label">night</span>
+</button>
+
+<!-- ════ SECTION 1: HERO ════ -->
+<section class="hero-section" id="hero">
+  <div class="card">
+
+    <div class="bitmoji-row">
+      <div class="avatar-col">
+        <div class="avatar-wrap" id="avatarWrap"
+             onclick="document.getElementById('bitmoji-input').click()"
+             title="Click to upload your Bitmoji PNG">
+          <div id="avatarPlaceholder" class="avatar-placeholder">
+            <span class="ph-emoji">🙂</span>
+            <p class="ph-text">tap to add<br>your bitmoji</p>
+          </div>
+          <img id="avatarImg" class="avatar-img" src="" alt="Ranjith" style="display:none;"/>
+          <div id="waveHand" class="wave-hand">👋</div>
+        </div>
+        <div class="avatar-shadow"></div>
+      </div>
+
+      <div class="speech-bubble">
+        <div class="bubble-tag">hey there 👆</div>
+        <div class="bubble-headline">Welcome to<br><span>Ranjith's</span> Portfolio</div>
+        <div class="bubble-sub">full-stack engineer · designer · builder</div>
+      </div>
     </div>
 
-    <nav class="w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50">
-        <img src="./images/logo2.png"  alt="Logo"
-        class="cursor-pointer w-28 mr-14 dark:hidden rounded ">
-
-        <img src="./images/logo3.png" alt="Logo"
-        class="cursor-pointer w-28 mr-14 hidden dark:block rounded ">
-
-        <ul class="items-center hidden gap-6 px-12 py-3 bg-white bg-opacity-50 rounded-full shadow-sm md:flex lg:gap-8 font-Ovo 
-        dark:border dark:border-white/50 dark:bg-transparent
-        ">
-            <li><a href="#top">Home</a></li>
-            <li><a href="#about">About Me</a></li>
-            <li><a href="#services">Experience</a></li>
-            <li><a href="#work">My Work</a></li>
-            <li><a href="#contact">Contact Me</a></li>
-        </ul>
-        <div class="flex items-center gap-4">
-            <button onclick="toggleTheme()"><img src="./images/moon_icon.png" alt="" class="w-6 dark:hidden">
-                <img src="./images/sun_icon.png" alt="" class="w-6 hidden dark:block">
-            </button>
-            <a href="#contact" class="hidden lg:flex items-center gap-3  px-10 py-2.5 border border-gray-500 rounded-full ml-4 font-Ovo dark:border-white/50">Contact
-                
-                <img src="./images/arrow-icon.png" alt="" class="w-3 dark:hidden" >
-
-                <img src="./images/arrow-icon-dark.png" alt="" class="w-3 hidden dark:block">
-            </a>
-
-            <button class="block ml-3 md:hidden" onclick="openMenu()"> 
-                <img src="./images/menu-black.png" alt="" class="w-6 dark:hidden">
-                <img src="./images/menu-white.png" alt="" class="w-6 hidden dark:block ">
-
-            </button>
-
-        </div>
-
-       <!---------- mobile menu------>
-       <ul id="sideMenu" class="fixed top-0 bottom-0 z-50 flex flex-col w-64 h-screen gap-4 px-10 py-20 transition duration-500 md:hidden -right-64 bg-rose-50 font-Ovo dark:bg-darkHover dark:text-white">
-        <div class="absolute right-6 top-6" onclick="closeMenu()">
-            <img src="./images/close-black.png" alt="" class="w-5 cursor-pointer dark:hidden">
-            <img src="./images/close-white.png" alt="" class="w-5 cursor-pointer hidden dark:block">
-        </div>
-        <li><a href="#top" onclick="closeMenu()">Home</a></li>
-        <li><a href="#about" onclick="closeMenu()">About Me</a></li>
-        <li><a href="#services" onclick="closeMenu()">Work Experience</a></li>
-        <li><a href="#work" onclick="closeMenu()">My Work</a></li>
-        <li><a href="#contact" onclick="closeMenu()">Contact Me</a></li>
-       </ul>
-       
-    </nav>
-
-    <!--header-->
-
-    <div class="flex flex-col items-center justify-center w-11/12 h-screen max-w-3xl gap-4 mx-auto text-center">
-        <img src="./images/prf_img.png" alt="" class="w-32 rounded-full">
-        <h3 class="flex items-center gap-2 mb-3 text-xl md:text-2xl font-Ovo">Hi! I am Ranjith Gopinath <img src="./images/hand-icon.png" alt="" class="w-6"></h3>
-        <h1 class="text-3xl sm:text-6xl lg:text-[66px] font-Ovo">FullStack Web Developer in LA.</h1>
-        <p class="max-w-2xl mx-auto font-Ovo "> I am a FullStack Web Developer from California.</p>
-        <div class="flex flex-col items-center gap-4 mt-4 sm:flex-row">
-
-            <a href="#contact" class="px-10 py-3 border rounded-full bg-gradient-to-r from-[#b820e6] to-[#da7d20] text-white flex items-center gap-2  dark:border-transparent">Contact Me <img src="./images/right-arrow-white.png" alt="" class="w-4 "></a>
-
-            <a href="./images/Resume.pdf" download class="flex items-center gap-2 px-10 py-3 bg-white border border-gray-500 rounded-full dark:text-black ">My Resume <img src="./images/download-icon.png" alt="" class="w-4 "></a>
-        </div>
+    <div class="upload-hint" id="uploadHint" onclick="document.getElementById('bitmoji-input').click()">
+      <span class="uh-icon">📱</span>
+      <p><strong>Add your Bitmoji:</strong> Save sticker from Snapchat → click to upload PNG</p>
     </div>
 
-    <!----About me-->
-    <div id="about" class="w-full px-[12%] py-10 scroll-mt-20">
-        <h4 class="mb-2 text-lg text-center font-Ovo ">Introduction</h4>
-        <h2 class="text-5xl text-center font-Ovo">About Me</h2>
+    <div class="divider"></div>
 
-        <div class="flex flex-col items-center w-full gap-20 my-20 lg:flex-row">
-            <div class="relative mx-auto max-w-max">
-                <img src="./images/Profile_Img.png" alt="" class="w-64 sm:w-80 rounded-3xl max-w-none">
-                <div class="bg-white w-1/2 aspect-square absolute right-0 bottom-0 rounded-full translate-x-1/4 translate-y-1/3 shadow-[0_4px_55px_rgba(149,0,162,0.15)] flex items-center justify-center">
-                 <img src="./images/circular-text.png" class="w-full animate-spin_slow" alt="">
-                 <img src="./images/dev-icon.png" class="absolute w-1/4 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="">
-                </div>
-            </div>
-            <div class="flex-1">
-                <p class="max-w-2xl mb-10 font-Ovo"> I am an Experienced FullStack Web Developer. My current Position is IT Support Specialist at CSUDH. Had Over 3 years of experience in IT expertise and 2 years in Software development.</p>
-                <ul class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl">
-                    <li class="border-[0.5px] border-gray-400 rounded-xl p-6 cursor-pointer hover:bg-lightHover hover:-translate-y-1 duration-500 hover:shadow-black 
-                    dark:border-white dark:hover:shadow-white dark:hover:bg-darkHover/50
-                    "><img src="./images/code-icon.png" class="mt-3 w-7 dark:hidden " alt="">
-                    <img src="./images/code-icon-dark.png" class="mt-3 w-7 hidden dark:block " alt="">
-                    <h3 class="my-4 font-semibold text-gray-700 dark:text-white">Languages</h3>
-                    <p class="text-sm text-gray-600 dark:text-white/80">Python, Java, JavaScript, C, C++</p>
-                    </li> 
-
-                    <li class="border-[0.5px] border-gray-400 rounded-xl p-6 cursor-pointer hover:bg-lightHover hover:-translate-y-1 duration-500 hover:shadow-black dark:border-white dark:hover:shadow-white dark:hover:bg-darkHover/50"><img src="./images/edu-icon.png" class="mt-3 w-7 dark:hidden " alt="">
-                        <img src="./images/edu-icon-dark.png" class="mt-3 w-7 hidden dark:block" alt="">
-                        <h3 class="my-4 font-semibold text-gray-700 dark:text-white">Education</h3>
-                        <p class="text-sm text-gray-600 dark:text-white/80">Masters in Computer Science</p>
-                        </li>
-
-                        <li class="border-[0.5px] border-gray-400 rounded-xl p-6 cursor-pointer hover:bg-lightHover hover:-translate-y-1 duration-500 hover:shadow-black dark:border-white dark:hover:shadow-white dark:hover:bg-darkHover/50"><img src="./images/project-icon.png" class="mt-3 w-7 dark:hidden" alt="">
-                            <img src="./images/project-icon-dark.png" class="mt-3 w-7 hidden dark:block " alt="">
-                            <h3 class="my-4 font-semibold text-gray-700 dark:text-white">Projects</h3>
-                            <p class="text-sm text-gray-600 dark:text-white/80">Built more than 5 projects</p>
-                            </li>
-                </ul>
-                <h4 class="my-6 font-Ovo dark:text-white/80">Tools i use</h4>
-                <ul class="flex items-center gap-3 sm:gap-5">
-                    <li class="flex items-center justify-center w-12 duration-500 border border-gray-400 rounded-lg cursor-pointer sm:w-14 aspect-square hover:-translate-y-1">
-                        <img src="./images/vscode.png" class="w-5 sm:w-7" alt="">
-                    </li>
-                    <li class="flex items-center justify-center w-12 duration-500 border border-gray-400 rounded-lg cursor-pointer sm:w-14 aspect-square hover:-translate-y-1">
-                        <img src="./images/firebase.png" class="w-5 sm:w-7" alt="">
-                    </li>
-                    <li class="flex items-center justify-center w-12  border border-gray-400 rounded-lg cursor-pointer sm:w-14 aspect-square hover:-translate-y-1 duration-500">
-                        <img src="./images/mongodb.png" class="w-5 sm:w-7" alt="">
-                    </li>
-                    <li class="flex items-center justify-center w-12 duration-500 border border-gray-400 rounded-lg cursor-pointer sm:w-14 aspect-square hover:-translate-y-1">
-                        <img src="./images/figma.png" class="w-5 sm:w-7" alt="">
-                    </li>
-                    <li class="flex items-center justify-center w-12 duration-500 border border-gray-400 rounded-lg cursor-pointer sm:w-14 aspect-square hover:-translate-y-1">
-                        <img src="./images/git.png" class="w-5 sm:w-7" alt="">
-                    </li>
-                </ul>
-
-                </ul>
-            </div>
-        </div>
+    <div class="chat-label">ask me about ranjith</div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="msg bot">
+        <div class="msg-bubble">Hey! 👋 I'm Ranjith's AI assistant. Ask me anything — his skills, experience, projects, availability, or how to get in touch!</div>
+      </div>
+      <div class="typing-indicator" id="typingIndicator">
+        <span></span><span></span><span></span>
+      </div>
     </div>
 
-    <!---Services-->
-    <div id="services" class="w-full px-[12%] py-10 scroll-mt-20">
-        <h4 class="mb-2 text-lg text-center font-Ovo ">Experience</h4>
-        <h2 class="text-5xl text-center font-Ovo">Work Experience</h2>
-     
-
-        <div class="grid gap-6 my-10 grid-cols-auto">
-
-            <div class="border border-gray-400 rounded-lg px-8 py-12 hover:shadow-black cursor-pointer hover:bg-lightHover hover:-translate-y-1 duration-500 dark:hover:bg-darkHover dark:hover:shadow-white">
-    <img src="./images/ups.png" class="w-20 rounded" alt="UPS Store Logo">
-    <h3 class="my-4 text-lg text-gray-700 dark:text-white">The UPS Store</h3>
-    <p class="leading-5 text-gray-600 text-small dark:text-white/80">Tech Support Specialist</p>
-</div>
-       
-        <div class="border border-gray-400 rounded-lg px-8 py-12 hover:shadow-black cursor-pointer hover:bg-lightHover hover:-translate-y-1 duration-500 dark:hover:bg-darkHover dark:hover:shadow-white">
-            <img src="./images/csudh.png" class="w-20 rounded" alt="">
-            <h3 class="my-4 text-lg text-gray-700 dark:text-white">California State University</h3>
-            <p class="leading-5 text-gray-600 text-small dark:text-white/80">IT Support Specialist</p>
-            
-        </div>
-         <div class="border border-gray-400 rounded-lg px-8 py-12 hover:shadow-black cursor-pointer hover:bg-lightHover hover:-translate-y-1 duration-500 dark:hover:bg-darkHover dark:hover:shadow-white">
-            <img src="./images/tp.png" class="w-10 rounded " alt="">
-            <h3 class="my-4 text-lg text-gray-700 dark:text-white">Teleperformance</h3>
-            <p class="leading-5 text-gray-600 text-small dark:text-white/80">Customer Service Representative</p>
-            
-        </div>
-        <div class="border border-gray-400 rounded-lg px-8 py-12 hover:shadow-black cursor-pointer hover:bg-lightHover hover:-translate-y-1 duration-500 dark:hover:bg-darkHover dark:hover:shadow-white">
-            <img src="./images/sthrlnd.png" class="w-10 rounded" alt="">
-            <h3 class="my-4 text-lg text-gray-700 dark:text-white">Sutherland</h3>
-            <p class="leading-5 text-gray-600 text-small dark:text-white/80">Customer Service Associate</p>
-            
-        </div>
-       
-        </div>    
+    <div class="quick-chips">
+      <button class="chip" onclick="askChip('Is he available to work?')">Available? 🟢</button>
+      <button class="chip" onclick="askChip('What are his top skills?')">Top skills</button>
+      <button class="chip" onclick="askChip('Tell me about his projects')">Projects 🚀</button>
+      <button class="chip" onclick="askChip('How can I contact Ranjith?')">Contact 📬</button>
     </div>
 
-<!----My Work-->
-<div id="work" class="w-full px-4 sm:px-[12%] py-10 scroll-mt-20">
-  <h4 class="mb-2 text-lg text-center font-Ovo">My Portfolio</h4>
-  <h2 class="text-5xl text-center font-Ovo">My Latest Work</h2>
-
-  <!-- ✅ Text ABOVE video -->
-  
-  <p class="max-w-2xl mx-auto mt-5 mb-8 text-center font-Ovo text-gray-700 dark:text-white/80">
-  Developed an app for Android and the App Store — currently in closed testing.
-</p>
-
-  <!-- TikTok-style video card -->
-  <div class="w-full max-w-[430px] mx-auto rounded-2xl overflow-hidden relative bg-black">
-
-    <video
-      id="hwaiVideo"
-      src="./videos/hwai-demo.mp4"
-      class="w-full aspect-[9/16] object-cover"
-      muted
-      loop
-      playsinline
-      preload="metadata"
-      poster="./images/hwai.png"
-    ></video>
-
-    <!-- Center Play/Pause Button -->
-    <button
-      id="hwaiToggle"
-      type="button"
-      class="absolute inset-0 flex items-center justify-center z-10"
-      aria-label="Toggle video"
-    >
-      <span
-        id="hwaiIcon"
-        class="w-16 h-16 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center border border-white/30
-               transition active:scale-95"
-      >
-        <!-- PLAY icon (default) -->
-        <svg id="hwaiPlay" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-             class="w-8 h-8 fill-white translate-x-[1px]">
-          <path d="M8 5v14l11-7z"></path>
-        </svg>
-
-        <!-- PAUSE icon (hidden initially) -->
-        <svg id="hwaiPause" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-             class="w-8 h-8 fill-white hidden">
-          <path d="M6 5h4v14H6zm8 0h4v14h-4z"></path>
-        </svg>
-      </span>
-    </button>
-
-    <!-- Bottom title -->
-    <div class="absolute bottom-0 left-0 right-0 p-4 bg-black/40 text-white z-20">
-      <h3 class="font-semibold text-lg">Health W AI (HWAI)</h3>
+    <div class="chat-input-row">
+      <input class="chat-input" id="chatInput" type="text" placeholder="e.g. what are his skills? is he available?" autocomplete="off" onkeydown="if(event.key==='Enter') sendMessage()"/>
+      <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
     </div>
 
   </div>
-</div>
 
-<!---Contact-->
+  <!-- scroll arrow -->
+  <div class="scroll-hint" onclick="document.getElementById('info').scrollIntoView({behavior:'smooth'})">
+    <span>scroll to explore</span>
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
 
-<div id="contact" class="w-full px-[12%] py-10 scroll-mt-20 bg-[url('./images/footer-bg-color.png')] bg-no-repeat bg-[length:90%_auto] bg-center
-dark:bg-none">
-    <h4 class="mb-2 text-lg text-center font-Ovo ">Connect With Me</h4>
-    <h2 class="text-5xl text-center font-Ovo">Get in Touch</h2>
-    <p class="max-w-2xl mx-auto mt-5 mb-12 text-center font-Ovo">I'd love to hear from you! If you have any questions, comments or feedback, Please use the form below.</p>
+<!-- ════ SECTION 2: INFO ROWS ════ -->
+<section class="cards-section" id="info">
 
-    <form method="POST" action="https://api.web3forms.com/submit" class="max-w-2xl mx-auto">
+  <div class="section-label">about ranjith</div>
 
-        <input type="hidden" name="access_key" value="cf98479c-6a8f-4e84-ae36-2f2551d5002e">
-        <div class="grid gap-6 mt-10 mb-8 grid-cols-auto">
-            <input type="text" placeholder="Enter Your Name" class="flex-1 p-3 outline-none border-[0.5px] border-gray-400 rounded-md bg-white dark:bg-darkHover/30 dark:border-white/90" required name="name">
+  <div class="info-stack">
 
-            <input type="email" placeholder="Enter Your Email" class="flex-1 p-3 outline-none border-[0.5px] border-gray-400 rounded-md bg-white dark:bg-darkHover/30 dark:border-white/90" required name="email">
+    <!-- ── ROW 1: EDUCATION ── -->
+    <div class="info-row edu-row">
+      <div class="row-label">🎓 education</div>
+      <div class="edu-inner">
+        <div class="edu-main">
+          <div class="edu-title">Academic <span>Background</span></div>
+          <div class="edu-degrees">
+            <div class="edu-degree">
+              <div class="deg-name">M.S. Computer Science</div>
+              <div class="deg-school">California State University, Dominguez Hills</div>
+              <div class="deg-year">Aug 2022 – Dec 2024</div>
+            </div>
+            <div class="edu-degree">
+              <div class="deg-name">B.E. Electronics & Communications</div>
+              <div class="deg-school">Peri Institute of Technology</div>
+              <div class="deg-year">Aug 2016 – Dec 2020</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="edu-skills">
+        <span class="skill-pill">JavaScript</span>
+        <span class="skill-pill">TypeScript</span>
+        <span class="skill-pill">Python</span>
+        <span class="skill-pill">Java</span>
+        <span class="skill-pill">React.js</span>
+        <span class="skill-pill">React Native</span>
+        <span class="skill-pill">Node.js</span>
+        <span class="skill-pill">MongoDB</span>
+        <span class="skill-pill">Firebase</span>
+        <span class="skill-pill">AWS</span>
+        <span class="skill-pill">Azure</span>
+        <span class="skill-pill">Docker</span>
+        <span class="skill-pill">Git</span>
+        <span class="skill-pill">REST APIs</span>
+      </div>
+    </div>
+
+    <!-- ── ROW 2: EXPERIENCE ── -->
+    <div class="info-row exp-row">
+      <div class="row-label">💼 experience</div>
+      <div class="exp-header">
+        <div class="exp-title">Work History</div>
+      </div>
+      <div class="exp-strip">
+
+        <div class="company-bubble">
+          <span class="cb-logo">📦</span>
+          <div class="cb-company">The UPS Store</div>
+          <div class="cb-role">IT Systems Support Specialist</div>
+          <div class="cb-period">Jan 2025 – Present</div>
+          <div class="cb-desc">Administers 15+ POS systems &amp; networked devices, maintaining 99%+ uptime for 20+ daily users.</div>
         </div>
 
-        <textarea rows="6" placeholder="Enter Your Message" class="w-full p-4 outline-none border-[0.5px] border-gray-400 rounded-md bg-white mb-6 dark:bg-darkHover/30 dark:border-white/90" required name="message"></textarea>
-        <button class="flex items-center justify-between gap-2 px-8 py-3 mx-auto text-white duration-500 rounded-full w-max bg-black/80 hover:bg-black
-        dark:bg-transparent dark:border-[0.5px] dark:hover:bg-darkHover">Submit now <img src="./images/right-arrow-white.png" class="w-4" alt=""></button>
-    </form>
-</div>
+        <div class="company-bubble">
+          <span class="cb-logo">🏫</span>
+          <div class="cb-company">CSU Dominguez Hills</div>
+          <div class="cb-role">IT Support Engineer</div>
+          <div class="cb-period">Apr 2023 – Dec 2024</div>
+          <div class="cb-desc">Tier 1/2 support for 500+ staff &amp; students. Built Python scripts to automate account provisioning.</div>
+        </div>
 
-<!----Footer-->
+        <div class="company-bubble">
+          <span class="cb-logo">🛒</span>
+          <div class="cb-company">Sutherland (Amazon)</div>
+          <div class="cb-role">Technical Support Analyst</div>
+          <div class="cb-period">Apr 2022 – Jul 2022</div>
+          <div class="cb-desc">Resolved 50+ daily tickets for Amazon platform users. Maintained 95% customer satisfaction rate.</div>
+        </div>
 
-<div class="mt-20">
-<div class="text-center">
-     <img src="./images/logo2.png" class="mx-auto mb-2 w-36 dark:hidden rounded" alt="">
-     <img src="./images/logo3.png" class="mx-auto mb-2 w-36 hidden dark:block rounded" alt="">
-     <div class="flex items-center gap-2 mx-auto w-max">
-        <img src="./images/mail_icon.png" class="w-6 hidden" alt="">
-        <img src="./images/mail_icon_dark.png" class="w-6 hidden dark:block" alt="">
-        ranjithsreekarag@gmail.com
-     </div>
-</div>
-<div class="text-center sm:flex  items-center justify-between border-t border-gray-400 mx-[10%] mt-12 py-6">
-    <p>© 2026 Ranjith Gopinath. All rights reserved</p>
-    <ul class="flex items-center justify-center gap-10 mt-4 sm:mt-0 ">
-        <li><a href="https://instagram.com/ranjith_sreekar">Instagram</a></li>
-        <li><a href="https://github.com/ranjith053">Github</a></li>
-        <li><a href="https://www.linkedin.com/in/ag-ranjith-6957011a2/">LinkedIn</a></li>
-        <li><a href="https://x.com/RanjiBTC">Twitter</a></li>
-    </ul>
-</div>
-</div>
+      </div>
+    </div>
 
+    <!-- ── ROW 3: PROJECTS ── -->
+    <div class="info-row proj-row">
+      <div class="row-label">🚀 projects</div>
+      <div class="proj-header">
+        <div class="proj-title">What I've Built</div>
+      </div>
+      <div class="proj-panels">
 
+        <div class="proj-panel">
+          <span class="pp-icon">🏥</span>
+          <div class="pp-name">HealthW AI</div>
+          <div class="pp-sub">Full-Stack Mobile App · 2024 – Present</div>
+          <div class="pp-desc">Cross-platform iOS/Android health app. 5+ third-party APIs, JWT auth, real-time sync with MongoDB + Firebase, hosted on AWS.</div>
+          <div class="pp-tags">
+            <span class="pp-tag">React Native</span>
+            <span class="pp-tag">Node.js</span>
+            <span class="pp-tag">AWS</span>
+            <span class="pp-tag">Firebase</span>
+            <span class="pp-tag">MongoDB</span>
+          </div>
+          <div class="store-btns">
+            <a class="store-btn" href="https://apps.apple.com/app/id6755588655" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              App Store
+            </a>
+            <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.hwai.healthaimobile" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.19.96.07l12.14-6.98-2.61-2.61-10.49 9.52zM.44 1.6C.17 1.95.01 2.44.01 3.06v17.88c0 .62.16 1.11.43 1.46l.07.07 10.02-10.02v-.24L.51 1.53l-.07.07zM20.49 10.34l-2.89-1.66-2.93 2.93 2.93 2.93 2.91-1.67c.83-.48.83-1.26-.02-1.53zM3.18.24L15.67 7.2l-2.61 2.61L3.18.31V.24z"/></svg>
+              Play Store
+            </a>
+          </div>
+        </div>
 
+        <div class="proj-panel">
+          <span class="pp-icon">⚙️</span>
+          <div class="pp-name">ServiceNow ITSM Platform</div>
+          <div class="pp-sub">Automation · 2023 – 2024</div>
+          <div class="pp-desc">Python/Java automation reducing manual IT overhead by 40% across 100+ assets. REST API + Active Directory integration with real-time dashboards.</div>
+          <div class="pp-tags">
+            <span class="pp-tag">Python</span>
+            <span class="pp-tag">Java</span>
+            <span class="pp-tag">ServiceNow</span>
+            <span class="pp-tag">REST APIs</span>
+          </div>
+        </div>
 
-    <script src="./script.js"></script>
-    <script>
-  (function () {
-    const video = document.getElementById("hwaiVideo");
-    const btn = document.getElementById("hwaiToggle");
-    const playIcon = document.getElementById("hwaiPlay");
-    const pauseIcon = document.getElementById("hwaiPause");
-    const iconWrap = document.getElementById("hwaiIcon");
+      </div>
+    </div>
 
-    if (!video || !btn) return;
+  </div>
+</section>
 
-    function showPlay() {
-      playIcon.classList.remove("hidden");
-      pauseIcon.classList.add("hidden");
-      iconWrap.classList.remove("opacity-0");
+<script>
+  // ── CONFIG ─────────────────────────────────────────────────
+  // No API key needed — smart keyword chatbot built in! ✅
+
+  const RANJITH_CONTEXT = `
+You are Ranjith's portfolio AI assistant. You help recruiters and visitors learn about Ranjith.
+Be friendly, professional, and concise (3-4 sentences max per answer).
+Answer questions accurately based only on the information below.
+If asked something not covered, say "I don't have that info, but you can reach Ranjith directly at ranjithsreekarag@gmail.com".
+
+══ PERSONAL INFO ══
+Full Name: Ranjith Sreekar Gopinath
+Location: Long Beach, CA
+Phone: +1 (562) 837-7828
+Email: ranjithsreekarag@gmail.com
+Work Authorization: Currently on OPT/STEM OPT. Requires H-1B visa sponsorship. Available immediately.
+Job Target: Junior Software Engineer or Full-Stack Developer roles
+
+══ SUMMARY ══
+Entry-level Full-Stack Software Engineer and recent M.S. Computer Science graduate.
+Hands-on experience building and deploying cross-platform mobile and web applications.
+Proficient in JavaScript, TypeScript, Python, React Native, Node.js, REST APIs, MongoDB, and Firebase.
+Experienced with Git/GitHub, Agile/Scrum, CI/CD workflows, and cloud platforms including AWS and Azure.
+
+══ EDUCATION ══
+1. M.S. Computer Science — California State University, Dominguez Hills | Aug 2022 – Dec 2024
+2. B.E. Electronics and Communications — Peri Institute of Technology | Aug 2016 – Dec 2020
+
+══ TECHNICAL SKILLS ══
+Languages: JavaScript, TypeScript, Python, Java, HTML, CSS
+Frameworks & Libraries: React Native (Expo), React.js, Node.js, Express.js
+Databases: MongoDB, Firebase, SQL (basics)
+APIs & Integration: REST API design, Third-Party API Integration, JSON, Postman, JWT, OAuth
+Cloud & DevOps: AWS, Azure, Git, GitHub, CI/CD, Docker (basics), Agile/Scrum
+Testing & Tools: Unit Testing, Debugging, Postman, VS Code, Android Studio, Xcode
+Operating Systems: Linux (Ubuntu), Windows, macOS
+
+══ PROJECTS ══
+1. HealthW AI — Full-Stack Health & Wellness Mobile App (2024 – Present)
+   Tech: React Native (Expo), Node.js, MongoDB, Firebase, AWS
+   - Cross-platform iOS & Android app following modular component architecture
+   - Built RESTful Node.js/Express backend integrating 5+ third-party APIs (weather, geolocation, content delivery), hosted on AWS
+   - Implemented JWT + OAuth authentication with MongoDB + Firebase for real-time sync and offline capability
+   - Full SDLC using Git/GitHub with branching, PRs, and release management
+   - End-to-end testing, debugging, and performance optimization
+   - Live at: healthai.it.com | App Store: https://apps.apple.com/app/id6755588655 | Play Store: https://play.google.com/store/apps/details?id=com.hwai.healthaimobile
+
+2. ServiceNow ITSM Automation Platform (2023 – 2024)
+   Tech: Python, Java, ServiceNow, Active Directory, REST APIs
+   - Python and Java scripts for IT asset lifecycle management, reducing manual overhead by 40% across 100+ assets
+   - Integrated ServiceNow REST APIs with Active Directory for automated user provisioning/deprovisioning and RBAC enforcement
+   - Designed dashboards for real-time incident tracking, change management, and SLA reporting linked with Jira Service Management
+
+══ WORK EXPERIENCE ══
+1. IT Systems Support Specialist — The UPS Store | Jan 2025 – Present
+   - Administered and troubleshot 15+ POS systems, printers, and networked devices for 20+ daily users with 99%+ uptime
+   - Diagnosed hardware/software failures across Windows environments using root-cause analysis
+   - Managed system updates, patch deployments, and shipping portal integrations (UPS/USPS)
+
+2. IT Support Engineer — California State University, Dominguez Hills | Apr 2023 – Dec 2024
+   - Delivered Tier 1 and Tier 2 technical support to 500+ staff and students
+   - Automated account provisioning/deprovisioning using Python scripts
+   - Configured Active Directory, Azure AD, and group policies; resolved directory sync and auth issues
+
+3. Technical Support Analyst — Sutherland (Amazon) | Apr 2022 – Jul 2022
+   - Resolved 50+ daily technical and account support tickets for Amazon platform users
+   - Maintained 95% customer satisfaction rate using proprietary CRM tooling
+   - Documented resolutions, escalated complex cases, identified recurring issue patterns
+
+══ COMMON RECRUITER QUESTIONS ══
+Q: Is Ranjith available to work?
+A: Yes, Ranjith is available immediately. He is currently on OPT/STEM OPT and requires H-1B sponsorship.
+
+Q: What roles is Ranjith looking for?
+A: Junior Software Engineer or Full-Stack Developer roles, open to both full-time and freelance opportunities.
+
+Q: How can I contact Ranjith?
+A: Email ranjithsreekarag@gmail.com or call +1 (562) 837-7828.
+
+Q: What is Ranjith's strongest skill?
+A: Full-stack mobile and web development — React Native, Node.js, and cloud deployment on AWS.
+
+Q: Does Ranjith have production app experience?
+A: Yes — HealthW AI is a live production app available on both the App Store and Google Play Store.
+  `;
+  // ──────────────────────────────────────────────────────────
+
+  /* ── Bitmoji ── */
+  function loadBitmoji(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const r = new FileReader();
+    r.onload = (ev) => {
+      applyBitmoji(ev.target.result);
+      try { localStorage.setItem('ranjith_bitmoji', ev.target.result); } catch(_) {}
+    };
+    r.readAsDataURL(file);
+  }
+
+  function applyBitmoji(src) {
+    const img  = document.getElementById('avatarImg');
+    const ph   = document.getElementById('avatarPlaceholder');
+    const wave = document.getElementById('waveHand');
+    const hint = document.getElementById('uploadHint');
+    img.src = src;
+    img.style.display = 'block';
+    ph.style.display  = 'none';
+    wave.classList.add('visible');
+    hint.classList.add('hidden');
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const img  = document.getElementById('avatarImg');
+    const ph   = document.getElementById('avatarPlaceholder');
+    const wave = document.getElementById('waveHand');
+    const hint = document.getElementById('uploadHint');
+
+    function showBitmoji() {
+      img.style.display = 'block';
+      ph.style.display  = 'none';
+      wave.classList.add('visible');
+      if (hint) hint.classList.add('hidden');
     }
 
-    function showPauseThenHide() {
-      playIcon.classList.add("hidden");
-      pauseIcon.classList.remove("hidden");
-      // Hide the button after a moment (TikTok feel)
-      setTimeout(() => iconWrap.classList.add("opacity-0"), 700);
-    }
+    // Attach listeners FIRST, then set src
+    img.onload  = () => showBitmoji();
+    img.onerror = () => {
+      img.style.display = 'none';
+      // Try localStorage fallback
+      try {
+        const saved = localStorage.getItem('ranjith_bitmoji');
+        if (saved) {
+          img.onload = () => showBitmoji();
+          img.src = saved;
+        }
+      } catch(_) {}
+    };
 
-    btn.addEventListener("click", () => {
-      if (video.paused) {
-        video.play();
-        showPauseThenHide();
+    // Now trigger load — try file first, then localStorage
+    try {
+      const saved = localStorage.getItem('ranjith_bitmoji');
+      if (saved) {
+        img.src = saved; // localStorage takes priority (most up to date)
       } else {
-        video.pause();
-        showPlay();
+        img.src = 'bitmoji.png'; // fall back to file
       }
+    } catch(_) {
+      img.src = 'bitmoji.png';
+    }
+
+    document.getElementById('chatInput').focus();
+  });
+
+  // ── SMART CHATBOT — no API key needed ──────────────────────
+  const QA = [
+    {
+      keys: ['available','availability','hire','start','when','immediately','open'],
+      ans: "Yes! Ranjith is available immediately 🟢 He's currently on OPT/STEM OPT and open to Junior SWE or Full-Stack Developer roles. He requires H-1B visa sponsorship."
+    },
+    {
+      keys: ['visa','h1b','h-1b','sponsorship','work authorization','opt','stem'],
+      ans: "Ranjith is currently authorized to work in the U.S. on OPT/STEM OPT and is available immediately. He requires H-1B visa sponsorship for long-term employment."
+    },
+    {
+      keys: ['contact','email','phone','reach','call','message'],
+      ans: "You can reach Ranjith at 📧 ranjithsreekarag@gmail.com or 📞 +1 (562) 837-7828. He's based in Long Beach, CA and responds quickly!"
+    },
+    {
+      keys: ['skill','skills','tech','technology','stack','know','languages','expertise'],
+      ans: "Ranjith's core stack is JavaScript, TypeScript, Python, React Native, React.js, Node.js, Express.js, MongoDB, Firebase, AWS, Azure, Docker, and Git. He's strongest in full-stack mobile and web development!"
+    },
+    {
+      keys: ['react native','mobile','ios','android','app','expo'],
+      ans: "Ranjith built HealthW AI — a live cross-platform iOS & Android app using React Native (Expo). It's deployed on AWS with JWT auth, MongoDB, Firebase, and 5+ third-party APIs. You can download it on the App Store and Google Play!"
+    },
+    {
+      keys: ['react','frontend','ui','interface','web'],
+      ans: "Ranjith is proficient in React.js and React Native for building modern, responsive UIs. He follows modular component architecture and has hands-on experience shipping production apps."
+    },
+    {
+      keys: ['node','backend','server','express','api','rest'],
+      ans: "Ranjith has built RESTful Node.js/Express backends with third-party API integrations, JWT/OAuth authentication, and has deployed them on AWS with CI/CD pipelines."
+    },
+    {
+      keys: ['aws','cloud','azure','deploy','deployment','docker','devops'],
+      ans: "Ranjith has cloud experience with AWS (hosting Node.js backend for HealthW AI) and Azure (Azure AD, group policies at CSUDH). He also has basics in Docker and CI/CD workflows."
+    },
+    {
+      keys: ['python','automation','script','scripting'],
+      ans: "Ranjith used Python at CSUDH to automate account provisioning/deprovisioning, saving significant manual work. He also built Python automation scripts for ServiceNow ITSM that reduced IT overhead by 40%."
+    },
+    {
+      keys: ['database','mongodb','firebase','sql','data'],
+      ans: "Ranjith works with MongoDB and Firebase (real-time sync + offline capability) as his primary databases. He also has basic SQL knowledge."
+    },
+    {
+      keys: ['project','projects','built','portfolio','work','healthw','health','servicenow','itsm'],
+      ans: "Ranjith has two key projects: 1️⃣ HealthW AI — a live iOS/Android health app (React Native, Node.js, AWS, Firebase) available on App Store & Play Store. 2️⃣ ServiceNow ITSM Automation — Python/Java scripts that cut IT overhead by 40% across 100+ assets."
+    },
+    {
+      keys: ['healthw','healthai','health ai','health app'],
+      ans: "HealthW AI is Ranjith's flagship project — a production cross-platform health app on iOS & Android. Built with React Native, Node.js, AWS, MongoDB, and Firebase. Live at healthai.it.com and available on both app stores! 🏥"
+    },
+    {
+      keys: ['servicenow','itsm','automation','active directory','jira'],
+      ans: "The ServiceNow ITSM Platform used Python & Java to automate IT asset management, cutting manual overhead by 40% across 100+ assets. It integrated REST APIs with Active Directory for automated provisioning and had real-time dashboards linked to Jira."
+    },
+    {
+      keys: ['experience','work','job','employment','history','company','companies'],
+      ans: "Ranjith has worked as: 1️⃣ IT Systems Support Specialist at The UPS Store (Jan 2025–Present) 2️⃣ IT Support Engineer at CSUDH (2023–2024, Tier 1/2 for 500+ users) 3️⃣ Technical Support Analyst at Sutherland/Amazon (2022, 95% satisfaction rate)."
+    },
+    {
+      keys: ['ups','ups store'],
+      ans: "At The UPS Store (Jan 2025–Present), Ranjith administers 15+ POS systems and networked devices, maintaining 99%+ uptime for 20+ daily users. He handles hardware/software troubleshooting and system updates."
+    },
+    {
+      keys: ['csudh','dominguez','university','csu','college'],
+      ans: "Ranjith both studied and worked at CSU Dominguez Hills — earning his M.S. in Computer Science (2022–2024) while also working as an IT Support Engineer providing Tier 1/2 support to 500+ staff and students."
+    },
+    {
+      keys: ['amazon','sutherland'],
+      ans: "At Sutherland (supporting Amazon) in 2022, Ranjith resolved 50+ daily support tickets while maintaining a 95% customer satisfaction rate. He also contributed to process improvements by identifying recurring issue patterns."
+    },
+    {
+      keys: ['education','degree','study','studied','school','university','college','ms','masters','bachelor','be'],
+      ans: "Ranjith holds an M.S. in Computer Science from CSU Dominguez Hills (2022–2024) and a B.E. in Electronics & Communications from Peri Institute of Technology (2016–2020)."
+    },
+    {
+      keys: ['location','based','where','city','state','california','long beach'],
+      ans: "Ranjith is based in Long Beach, California 📍 and is open to both local and remote opportunities."
+    },
+    {
+      keys: ['remote','onsite','hybrid','reloc'],
+      ans: "Ranjith is open to remote, hybrid, or onsite roles. He's based in Long Beach, CA and is flexible with work arrangements."
+    },
+    {
+      keys: ['salary','compensation','pay','rate'],
+      ans: "For salary expectations, please reach out to Ranjith directly at ranjithsreekarag@gmail.com or +1 (562) 837-7828. He'd love to discuss!"
+    },
+    {
+      keys: ['github','portfolio','code','repository','repo'],
+      ans: "You can check out Ranjith's work on his GitHub portfolio. For the direct link, reach out at ranjithsreekarag@gmail.com. His live project HealthW AI is also available at healthai.it.com 🚀"
+    },
+    {
+      keys: ['agile','scrum','team','collaborate','communication'],
+      ans: "Ranjith has experience with Agile/Scrum development workflows, Git branching strategies, pull requests, and cross-team collaboration — both in academic and professional settings."
+    },
+    {
+      keys: ['testing','test','debug','debugging','quality'],
+      ans: "Ranjith has hands-on experience with unit testing, end-to-end debugging, Postman for API testing, and performance optimization across mobile and backend services."
+    },
+    {
+      keys: ['hello','hi','hey','howdy','sup','yo'],
+      ans: "Hey there! 👋 I'm Ranjith's AI assistant. Ask me anything about his skills, experience, projects, or how to get in touch. I'm here to help!"
+    },
+    {
+      keys: ['who','ranjith','about','tell me','describe','summary','introduce'],
+      ans: "Ranjith Sreekar Gopinath is an entry-level Full-Stack Software Engineer based in Long Beach, CA. He holds an M.S. in CS from CSUDH (2024) and specializes in React Native, Node.js, Python, and cloud platforms. He has a live app on both App Store & Play Store! 🚀"
+    },
+    {
+      keys: ['jwt','oauth','auth','authentication','security'],
+      ans: "Ranjith implemented secure JWT token + OAuth authentication in HealthW AI, with persistent data storage across MongoDB and Firebase supporting real-time sync and offline capability."
+    },
+    {
+      keys: ['app store','play store','download','google play','apple'],
+      ans: "HealthW AI is live on both stores! 📱 App Store: https://apps.apple.com/app/id6755588655 — Google Play: https://play.google.com/store/apps/details?id=com.hwai.healthaimobile"
+    },
+  ];
+
+  function getBotReply(input) {
+    const q = input.toLowerCase();
+    for (const item of QA) {
+      if (item.keys.some(k => q.includes(k))) return item.ans;
+    }
+    return "Great question! I don't have that specific detail, but you can ask Ranjith directly at 📧 ranjithsreekarag@gmail.com or 📞 +1 (562) 837-7828. He usually responds quickly! 😊";
+  }
+
+  const messages = [];
+  let isLoading = false;
+
+  function appendMessage(role, text) {
+    const box = document.getElementById('chatMessages');
+    const ind = document.getElementById('typingIndicator');
+    const div = document.createElement('div');
+    div.className = `msg ${role}`;
+    div.innerHTML = `<div class="msg-bubble">${text}</div>`;
+    box.insertBefore(div, ind);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function setTyping(show) {
+    document.getElementById('typingIndicator').classList.toggle('visible', show);
+    document.getElementById('chatMessages').scrollTop = 9999;
+  }
+
+  function askChip(question) {
+    const input = document.getElementById('chatInput');
+    input.value = question;
+    sendMessage();
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const btn   = document.getElementById('sendBtn');
+    const text  = input.value.trim();
+    if (!text || isLoading) return;
+
+    input.value = '';
+    isLoading = true;
+    btn.disabled = true;
+    appendMessage('user', text);
+    setTyping(true);
+
+    // Simulate typing delay for natural feel
+    setTimeout(() => {
+      const reply = getBotReply(text);
+      setTyping(false);
+      appendMessage('bot', reply);
+      isLoading = false;
+      btn.disabled = false;
+      input.focus();
+    }, 700 + Math.random() * 500);
+  }
+
+  // ── Drag to scroll exp strip (desktop) ──
+  document.addEventListener('DOMContentLoaded', () => {
+    const strip = document.querySelector('.exp-strip');
+    if (!strip) return;
+    let isDown = false, startX, scrollLeft;
+    strip.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - strip.offsetLeft; scrollLeft = strip.scrollLeft; strip.style.cursor = 'grabbing'; });
+    document.addEventListener('mouseup', () => { isDown = false; if (strip) strip.style.cursor = 'grab'; });
+    strip.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      strip.scrollLeft = scrollLeft - (e.pageX - strip.offsetLeft - startX);
     });
-
-    // Tapping the video area also toggles
-    video.addEventListener("click", () => btn.click());
-
-    // On end/pause, bring play icon back
-    video.addEventListener("pause", showPlay);
-    video.addEventListener("ended", showPlay);
-
-    // Start with play icon visible
-    showPlay();
-  })();
+  });
 </script>
 </body>
 </html>
