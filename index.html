@@ -907,6 +907,14 @@ A: Yes — HealthW AI is a live production app available on both the App Store a
     document.getElementById('chatInput').focus();
   });
 
+  /* ── Theme ── */
+  function toggleTheme() {
+    const html = document.documentElement;
+    const goLight = html.dataset.theme === 'dark';
+    html.dataset.theme = goLight ? 'light' : 'dark';
+    document.getElementById('theme-label').textContent = goLight ? 'day' : 'night';
+  }
+
   // ── SMART CHATBOT — no API key needed ──────────────────────
   const QA = [
     {
