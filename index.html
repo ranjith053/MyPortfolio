@@ -84,23 +84,16 @@
       transform: scale(0.55);
     }
 
-    /* ════ HERO ════ */
     .hero-section {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      z-index: 1;
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 24px; z-index: 1;
     }
 
     .card {
       width: 100%; max-width: 540px;
       background: var(--surface); border: 1px solid var(--surface-border);
-      border-radius: 24px; padding: 28px;
-      backdrop-filter: blur(20px);
+      border-radius: 24px; padding: 28px; backdrop-filter: blur(20px);
       box-shadow: 0 32px 80px rgba(0,0,0,0.4), 0 0 0 1px var(--surface-border);
       transition: background var(--transition), border-color var(--transition);
     }
@@ -110,28 +103,21 @@
 
     .avatar-wrap {
       position: relative; width: 100px; cursor: pointer;
-      animation: bodyFloat 3.6s ease-in-out infinite;
-      transform-origin: bottom center;
+      animation: bodyFloat 3.6s ease-in-out infinite; transform-origin: bottom center;
     }
     @keyframes bodyFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-
     .avatar-img { width:100px; height:110px; object-fit:contain; display:block; filter:drop-shadow(0 10px 28px rgba(232,201,122,0.3)); transition:filter 0.4s; }
     .avatar-wrap:hover .avatar-img { filter:drop-shadow(0 14px 36px rgba(232,201,122,0.5)); }
-
     .wave-hand { position:absolute; top:2px; right:-14px; font-size:28px; display:none; animation:waveArm 1.8s ease-in-out infinite; transform-origin:bottom center; }
     .wave-hand.visible { display:block; }
     @keyframes waveArm {
-      0%,100%{transform:rotate(-15deg)}
-      25%{transform:rotate(20deg) translateX(3px) translateY(-3px)}
-      50%{transform:rotate(-8deg)}
-      75%{transform:rotate(16deg) translateX(2px) translateY(-2px)}
+      0%,100%{transform:rotate(-15deg)} 25%{transform:rotate(20deg) translateX(3px) translateY(-3px)}
+      50%{transform:rotate(-8deg)} 75%{transform:rotate(16deg) translateX(2px) translateY(-2px)}
     }
-
     .avatar-placeholder { width:100px; height:110px; border-radius:20px; border:2px dashed var(--surface-border); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; background:var(--chat-bg); transition:border-color .25s, background .25s; }
     .avatar-placeholder:hover { border-color:var(--accent); background:var(--accent-glow); }
     .avatar-placeholder .ph-emoji { font-size:30px; }
     .avatar-placeholder .ph-text { font-family:'DM Mono',monospace; font-size:9px; color:var(--text-muted); text-align:center; line-height:1.4; padding:0 8px; }
-
     .avatar-shadow { width:55px; height:8px; background:radial-gradient(ellipse, rgba(232,201,122,0.22) 0%, transparent 70%); border-radius:50%; margin-top:-2px; animation:shadowPulse 3.6s ease-in-out infinite; }
     @keyframes shadowPulse { 0%,100%{transform:scaleX(1);opacity:.7} 50%{transform:scaleX(.65);opacity:.25} }
 
@@ -192,15 +178,7 @@
     @keyframes hintBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
 
     /* ════ CARDS SECTION ════ */
-    .cards-section {
-      position: relative;
-      padding: 80px 32px 100px;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
-    }
+    .cards-section { position: relative; padding: 80px 32px 100px; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 0; }
 
     .section-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .2em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 48px; display: flex; align-items: center; gap: 12px; }
     .section-label::before, .section-label::after { content: ''; height: 1px; width: 60px; background: var(--surface-border); }
@@ -212,11 +190,9 @@
 
     .row-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .16em; color: var(--accent); text-transform: uppercase; padding: 14px 24px 0; }
 
-    /* ── EDUCATION ── */
+    /* EDUCATION */
     .edu-row { padding-bottom: 24px; }
     .edu-inner { display: flex; align-items: flex-start; gap: 32px; padding: 16px 24px 0; }
-    .edu-icon { font-size: 36px; flex-shrink: 0; margin-top: 2px; transition: transform .4s cubic-bezier(.34,1.56,.64,1); }
-    .info-row:hover .edu-icon { transform: rotate(-8deg) scale(1.15); }
     .edu-main { flex: 1; }
     .edu-title { font-size: 26px; font-weight: 800; letter-spacing: -.02em; line-height: 1.1; margin-bottom: 14px; }
     .edu-title span { color: var(--accent); }
@@ -230,34 +206,29 @@
     .skill-pill { font-family: 'DM Mono', monospace; font-size: 10px; padding: 4px 10px; border-radius: 20px; background: rgba(232,201,122,.06); border: 1px solid rgba(232,201,122,.15); color: var(--accent); transition: background .25s, border-color .25s; }
     .info-row:hover .skill-pill { background: rgba(232,201,122,.12); border-color: rgba(232,201,122,.3); }
 
-    /* ── EXPERIENCE ── */
+    /* EXPERIENCE */
     .exp-row { padding-bottom: 24px; }
     .exp-header { display: flex; align-items: center; gap: 12px; padding: 16px 24px 0; }
-    .exp-icon { font-size: 28px; transition: transform .4s cubic-bezier(.34,1.56,.64,1); }
-    .info-row:hover .exp-icon { transform: rotate(-8deg) scale(1.15); }
     .exp-title { font-size: 22px; font-weight: 800; letter-spacing: -.02em; }
-
     .exp-strip { display: flex; gap: 14px; padding: 16px 24px 20px; overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: rgba(232,201,122,.35) transparent; cursor: grab; }
     .exp-strip:active { cursor: grabbing; }
     .exp-strip::-webkit-scrollbar { height: 4px; }
     .exp-strip::-webkit-scrollbar-thumb { background: rgba(232,201,122,.35); border-radius: 4px; }
     .exp-strip::-webkit-scrollbar-track { background: transparent; }
-
     .company-bubble { scroll-snap-align: start; flex-shrink: 0; background: var(--chat-bg); border: 1px solid var(--surface-border); border-radius: 16px; padding: 16px 20px; min-width: 220px; cursor: default; transition: border-color .3s, transform .3s, background .3s; position: relative; overflow: hidden; }
     .company-bubble::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), transparent); opacity: 0; transition: opacity .3s; }
     .info-row:hover .company-bubble { border-color: rgba(232,201,122,.25); background: rgba(255,255,255,.03); }
     .info-row:hover .company-bubble:hover { transform: translateY(-3px); border-color: var(--accent); background: rgba(232,201,122,.06); }
     .info-row:hover .company-bubble:hover::before { opacity: 1; }
-
     .cb-logo { font-size: 22px; margin-bottom: 8px; display: block; transition: transform .3s; }
     .company-bubble:hover .cb-logo { transform: scale(1.2); }
     .cb-company { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
     .cb-role { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); margin-bottom: 5px; }
-    .cb-period { font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--text-muted); margin-bottom: 8px; }
+    .cb-period { font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--text-muted); margin-bottom: 4px; }
     .cb-location { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-muted); margin-bottom: 8px; }
     .cb-desc { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); line-height: 1.5; }
 
-    /* ── PROJECTS ── */
+    /* PROJECTS */
     .proj-row { padding: 20px 24px 24px; }
     .proj-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
     .proj-icon { font-size: 28px; transition: transform .4s cubic-bezier(.34,1.56,.64,1); }
@@ -280,7 +251,6 @@
     .store-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
     .store-btn:hover { background: rgba(232,201,122,.12); border-color: var(--accent); color: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 18px var(--accent-glow); }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       .theme-toggle { top: 16px; right: 16px; padding: 6px 12px; font-size: 11px; }
       .orb { width: 18px; height: 18px; }
@@ -297,13 +267,12 @@
       .exp-title, .proj-title { font-size: 20px; }
       .company-bubble { min-width: 200px; }
     }
-
     @media (max-width: 640px) {
       .edu-degrees { flex-direction: column; gap: 10px; }
       .edu-inner { flex-direction: column; gap: 12px; }
       .edu-title { font-size: 20px; }
       .proj-panels { grid-template-columns: 1fr; gap: 12px; }
-      .exp-strip { flex-direction: column; overflow-x: visible; overflow-y: visible; cursor: default; padding: 12px 18px 16px; gap: 12px; }
+      .exp-strip { flex-direction: column; overflow-x: visible; cursor: default; padding: 12px 18px 16px; gap: 12px; }
       .company-bubble { min-width: unset; width: 100%; scroll-snap-align: unset; }
       .section-label { margin-bottom: 28px; }
       .section-label::before, .section-label::after { width: 30px; }
@@ -313,34 +282,23 @@
       .exp-header { padding: 12px 18px 0; }
       .proj-row { padding: 14px 18px 18px; }
     }
-
     @media (max-width: 480px) {
       .bubble-headline { font-size: 16px; }
-      .bubble-sub { font-size: 10px; }
       .card { padding: 16px; border-radius: 16px; }
       .bitmoji-row { gap: 10px; margin-bottom: 12px; }
       .avatar-wrap { width: 72px; }
       .avatar-img { width: 72px; height: 80px; }
       .avatar-placeholder { width: 72px; height: 80px; }
       .wave-hand { font-size: 22px; right: -10px; top: 0; }
-      .speech-bubble { padding: 10px 12px; }
-      .upload-hint { padding: 8px 10px; }
-      .upload-hint p { font-size: 9.5px; }
-      .chat-input { font-size: 12px; padding: 8px 10px; }
-      .msg-bubble { font-size: 11.5px; }
       .cards-section { padding: 36px 12px 56px; }
       .info-stack { gap: 16px; }
       .info-row { border-radius: 16px; }
       .edu-title { font-size: 18px; }
       .exp-title, .proj-title { font-size: 18px; }
       .company-bubble { min-width: unset; width: 100%; padding: 14px 16px; border-radius: 14px; }
-      .deg-name { font-size: 12px; }
-      .pp-name { font-size: 13px; }
       .proj-panel { padding: 14px 16px; border-radius: 14px; }
       .edu-degree { padding: 12px 14px; border-radius: 12px; }
-      .scroll-hint span { font-size: 9px; }
     }
-
     @media (max-width: 360px) {
       .bubble-headline { font-size: 15px; }
       .card { padding: 14px; }
@@ -349,7 +307,6 @@
       .avatar-placeholder { width: 64px; height: 72px; }
       .edu-title { font-size: 16px; }
       .exp-title, .proj-title { font-size: 16px; }
-      .company-bubble { min-width: 78vw; }
       .skill-pill { font-size: 9px; padding: 3px 8px; }
     }
   </style>
@@ -363,33 +320,52 @@
   <span id="theme-label">night</span>
 </button>
 
-<!-- ════ SECTION 1: HERO ════ -->
+<!-- HERO -->
 <section class="hero-section" id="hero">
   <div class="card">
-
     <div class="bitmoji-row">
       <div class="avatar-col">
         <div class="avatar-wrap" id="avatarWrap"
              onclick="document.getElementById('bitmoji-input').click()"
              title="Click to upload your Bitmoji PNG">
-          <div id="avatarPlaceholder" class="avatar-placeholder">
+          <div id="avatarPlaceholder" class="avatar-placeholder" style="display:none;">
+
             <span class="ph-emoji">🙂</span>
             <p class="ph-text">tap to add<br>your bitmoji</p>
           </div>
-          <img id="avatarImg" class="avatar-img" src="" alt="Ranjith" style="display:none;"/>
-          <div id="waveHand" class="wave-hand">👋</div>
+          <img id="avatarImg" class="avatar-img" src="bitmoji.png" alt="Ranjith"/>
+          <div id="waveHand" class="wave-hand visible">👋</div>
+
         </div>
         <div class="avatar-shadow"></div>
       </div>
-
       <div class="speech-bubble">
         <div class="bubble-tag">hey there 👆</div>
         <div class="bubble-headline">Welcome to<br><span>Ranjith's</span> Portfolio</div>
         <div class="bubble-sub">full-stack engineer · designer · builder</div>
+        
+
+<a href="./Resume.pdf" download class="resume-btn" style="
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 10px;
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  padding: 7px 14px; border-radius: 20px;
+  background: rgba(232,201,122,0.1);
+  border: 1px solid rgba(232,201,122,0.3);
+  color: var(--accent); text-decoration: none;
+  transition: background .25s, box-shadow .25s, transform .2s;
+  letter-spacing: 0.05em;
+" onmouseover="this.style.background='rgba(232,201,122,0.2)';this.style.boxShadow='0 4px 14px rgba(232,201,122,0.2)';this.style.transform='translateY(-1px)'"
+   onmouseout="this.style.background='rgba(232,201,122,0.1)';this.style.boxShadow='none';this.style.transform='none'">
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+  </svg>
+  Download Resume
+</a>
       </div>
     </div>
 
-    <div class="upload-hint" id="uploadHint" onclick="document.getElementById('bitmoji-input').click()">
+    <div class="upload-hint hidden" id="uploadHint" onclick="document.getElementById('bitmoji-input').click()">
       <span class="uh-icon">📱</span>
       <p><strong>Add your Bitmoji:</strong> Save sticker from Snapchat → click to upload PNG</p>
     </div>
@@ -419,7 +395,6 @@
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
       </button>
     </div>
-
   </div>
 
   <div class="scroll-hint" onclick="document.getElementById('info').scrollIntoView({behavior:'smooth'})">
@@ -428,14 +403,12 @@
   </div>
 </section>
 
-<!-- ════ SECTION 2: INFO ROWS ════ -->
+<!-- INFO ROWS -->
 <section class="cards-section" id="info">
-
   <div class="section-label">about ranjith</div>
-
   <div class="info-stack">
 
-    <!-- ── ROW 1: EDUCATION ── -->
+    <!-- EDUCATION -->
     <div class="info-row edu-row">
       <div class="row-label">🎓 education</div>
       <div class="edu-inner">
@@ -461,23 +434,28 @@
         <span class="skill-pill">Python</span>
         <span class="skill-pill">React.js</span>
         <span class="skill-pill">React Native</span>
+        <span class="skill-pill">Next.js</span>
         <span class="skill-pill">Node.js</span>
         <span class="skill-pill">Express.js</span>
         <span class="skill-pill">GraphQL</span>
+        <span class="skill-pill">FastAPI</span>
         <span class="skill-pill">MongoDB</span>
         <span class="skill-pill">PostgreSQL</span>
+        <span class="skill-pill">Redis</span>
         <span class="skill-pill">Firebase</span>
         <span class="skill-pill">AWS</span>
         <span class="skill-pill">Docker</span>
         <span class="skill-pill">Kubernetes</span>
         <span class="skill-pill">GitHub Actions</span>
-        <span class="skill-pill">Azure AD</span>
-        <span class="skill-pill">REST APIs</span>
+        <span class="skill-pill">OpenAI GPT-4</span>
+        <span class="skill-pill">LangChain</span>
+        <span class="skill-pill">Pinecone</span>
+        <span class="skill-pill">JWT / OAuth2</span>
         <span class="skill-pill">Git</span>
       </div>
     </div>
 
-    <!-- ── ROW 2: EXPERIENCE ── -->
+    <!-- EXPERIENCE -->
     <div class="info-row exp-row">
       <div class="row-label">💼 experience</div>
       <div class="exp-header">
@@ -485,43 +463,44 @@
       </div>
       <div class="exp-strip">
 
-        <!-- Hexaware Technologies — current role -->
+        <!-- Snowflake -->
         <div class="company-bubble">
-          <span class="cb-logo">🏢</span>
-          <div class="cb-company">Hexaware Technologies</div>
-          <div class="cb-role">Full Stack Engineer</div>
+          <span class="cb-logo">❄️</span>
+          <div class="cb-company">Snowflake</div>
+          <div class="cb-role">Software Engineer</div>
           <div class="cb-period">Jan 2025 – Present</div>
           <div class="cb-location">📍 Santa Ana, CA · On-site</div>
-          <div class="cb-desc">Architects enterprise web apps on AWS microservices, leads CI/CD adoption (Docker, Kubernetes, GitHub Actions), cutting deployment time by 40%.</div>
+          <div class="cb-desc">Full-stack features on enterprise data platform (React.js, TypeScript, Node.js, AWS). Built semantic search engine with OpenAI GPT-4 + LangChain — 30% less manual processing. CI/CD with Docker & Kubernetes cut release time by 40%.</div>
         </div>
 
-        <!-- CSUDH -->
+        <!-- Charles Schwab -->
         <div class="company-bubble">
-          <span class="cb-logo">🏫</span>
-          <div class="cb-company">CSU Dominguez Hills</div>
-          <div class="cb-role">IT Engineer – Systems &amp; Service Mgmt</div>
+          <span class="cb-logo">📈</span>
+          <div class="cb-company">Charles Schwab</div>
+          <div class="cb-role">Software Engineer</div>
           <div class="cb-period">Apr 2023 – Dec 2024</div>
           <div class="cb-location">📍 Carson, CA · Part-time</div>
-          <div class="cb-desc">Built Python automation with ServiceNow &amp; Active Directory, reducing IT overhead by 40% across 100+ assets. Configured Azure AD for 500+ accounts.</div>
+          <div class="cb-desc">Production web apps for brokerage account management & trade reporting. Reduced client-server latency by 20% via REST API caching. Python automation with ServiceNow & Active Directory cut IT overhead by 40%.</div>
         </div>
 
-        <!-- Teleperformance -->
+        <!-- Capital One -->
         <div class="company-bubble">
-          <span class="cb-logo">💻</span>
-          <div class="cb-company">Teleperformance (TP)</div>
-          <div class="cb-role">Full Stack Engineer</div>
+          <span class="cb-logo">💳</span>
+          <div class="cb-company">Capital One</div>
+          <div class="cb-role">Associate Software Engineer</div>
           <div class="cb-period">Dec 2020 – Jul 2022</div>
           <div class="cb-location">📍 Chennai, India · On-site</div>
-          <div class="cb-desc">Built scalable web apps with React.js &amp; Node.js, improved API response time by 30%, and wrote tests reducing regression bugs by 25%.</div>
+          <div class="cb-desc">Full-stack banking apps in React.js, TypeScript & Node.js — 10,000+ daily active users. Reduced P95 API response time by 30% via Redis caching. Fewer regression bugs by 25% with Jest test suites.</div>
         </div>
 
       </div>
     </div>
 
-    <!-- ── ROW 3: PROJECTS ── -->
+    <!-- PROJECTS -->
     <div class="info-row proj-row">
       <div class="row-label">🚀 projects</div>
       <div class="proj-header">
+        <div class="proj-icon">⚡</div>
         <div class="proj-title">What I've Built</div>
       </div>
       <div class="proj-panels">
@@ -529,13 +508,14 @@
         <div class="proj-panel">
           <span class="pp-icon">🏥</span>
           <div class="pp-name">HealthW AI</div>
-          <div class="pp-sub">Full-Stack Mobile App · 2023 – Present</div>
-          <div class="pp-desc">Cross-platform iOS/Android health app live on both stores. JWT/OAuth auth, real-time sync with MongoDB + Firebase, 5+ third-party APIs, hosted on AWS.</div>
+          <div class="pp-sub">Cross-Platform Mobile App · Live on Stores</div>
+          <div class="pp-desc">Sole architect of a production iOS/Android health app. JWT/OAuth2 auth, real-time Firebase sync, OpenAI GPT-4 health coaching, and weather-triggered wellness recommendations. Hosted on AWS.</div>
           <div class="pp-tags">
             <span class="pp-tag">React Native</span>
             <span class="pp-tag">Node.js</span>
             <span class="pp-tag">AWS</span>
             <span class="pp-tag">Firebase</span>
+            <span class="pp-tag">OpenAI GPT-4</span>
             <span class="pp-tag">MongoDB</span>
           </div>
           <div class="store-btns">
@@ -551,16 +531,17 @@
         </div>
 
         <div class="proj-panel">
-          <span class="pp-icon">⚙️</span>
-          <div class="pp-name">ServiceNow ITSM Platform</div>
-          <div class="pp-sub">Automation · 2023 – 2024</div>
-          <div class="pp-desc">Python/Java automation reducing manual IT overhead by 40% across 100+ assets. REST API + Active Directory integration with real-time Jira dashboards.</div>
+          <span class="pp-icon">🔍</span>
+          <div class="pp-name">Semantic Search Engine</div>
+          <div class="pp-sub">AI / ML · Snowflake · 2025</div>
+          <div class="pp-desc">Document processing & semantic search engine at Snowflake using OpenAI GPT-4 + LangChain RAG pipeline with vector embeddings. Cut manual data processing by 30% in production.</div>
           <div class="pp-tags">
-            <span class="pp-tag">Python</span>
-            <span class="pp-tag">Java</span>
-            <span class="pp-tag">ServiceNow</span>
-            <span class="pp-tag">REST APIs</span>
-            <span class="pp-tag">Active Directory</span>
+            <span class="pp-tag">OpenAI GPT-4</span>
+            <span class="pp-tag">LangChain</span>
+            <span class="pp-tag">RAG</span>
+            <span class="pp-tag">Pinecone</span>
+            <span class="pp-tag">Node.js</span>
+            <span class="pp-tag">AWS</span>
           </div>
         </div>
 
@@ -571,42 +552,6 @@
 </section>
 
 <script>
-  const RANJITH_CONTEXT = `
-You are Ranjith's portfolio AI assistant. Be friendly, professional, and concise (3-4 sentences max).
-Answer based only on the info below. If unsure, direct to ranjithsreekarag@gmail.com.
-
-PERSONAL: Ranjith Sreekar Gopinath | Long Beach, CA | ranjithsreekarag@gmail.com | +1 (562) 837-7828
-Work Auth: OPT/STEM OPT — H-1B sponsorship required ~March 2027. Available immediately.
-
-EXPERIENCE:
-1. Full Stack Engineer — Hexaware Technologies | Jan 2025–Present | Santa Ana, CA (On-site)
-   - Enterprise web apps on AWS microservices (35% scalability improvement)
-   - CI/CD with GitHub Actions, Docker, Kubernetes (40% faster deployments)
-   - RESTful & GraphQL APIs, TDD with Jest/Mocha, code reviews & mentoring
-
-2. IT Engineer – Systems & Service Management — CSUDH | Apr 2023–Dec 2024 | Part-time
-   - Python automation + ServiceNow + Active Directory (40% IT overhead reduction)
-   - Azure AD & RBAC for 500+ accounts
-   - Internal tools with React.js & Node.js
-
-3. Full Stack Engineer — Teleperformance (TP) | Dec 2020–Jul 2022 | Chennai, India
-   - React.js & Node.js web apps, API response time improved 30%
-   - MySQL/PostgreSQL schema design & query optimization
-   - 25% fewer regression bugs via unit/integration tests
-
-SKILLS: JavaScript, TypeScript, Python, React.js, React Native, Node.js, Express.js, GraphQL, FastAPI,
-MongoDB, PostgreSQL, MySQL, Firebase, Redis, AWS, Azure AD, Docker, Kubernetes, GitHub Actions, Terraform,
-ServiceNow, Active Directory, JWT, OAuth2, RBAC, Git, Agile/Scrum, JIRA
-
-EDUCATION: M.S. CS — CSUDH (2024) | B.E. Electronics — Peri Institute of Technology (2020)
-
-PROJECTS:
-- HealthW AI: Live iOS/Android app | React Native, Node.js, MongoDB, Firebase, AWS
-  App Store: https://apps.apple.com/app/id6755588655
-  Play Store: https://play.google.com/store/apps/details?id=com.hwai.healthaimobile
-- ServiceNow ITSM: Python/Java automation, 40% overhead reduction, 100+ assets
-  `;
-
   /* ── Bitmoji ── */
   function loadBitmoji(e) {
     const file = e.target.files[0];
@@ -628,7 +573,7 @@ PROJECTS:
     img.style.display = 'block';
     ph.style.display  = 'none';
     wave.classList.add('visible');
-    hint.classList.add('hidden');
+    if (hint) hint.classList.add('hidden');
   }
 
   window.addEventListener('DOMContentLoaded', () => {
@@ -671,31 +616,25 @@ PROJECTS:
 
   /* ── Chatbot ── */
   const QA = [
-    { keys: ['available','availability','hire','start','when','immediately','open'], ans: "Yes! Ranjith is available immediately 🟢 He's currently on OPT/STEM OPT, targeting Full-Stack Engineer roles, and requires H-1B sponsorship (~March 2027)." },
-    { keys: ['visa','h1b','h-1b','sponsorship','work authorization','opt','stem'], ans: "Ranjith is authorized to work in the U.S. on OPT/STEM OPT (available immediately). He requires H-1B sponsorship for long-term employment, eligible ~March 2027." },
-    { keys: ['contact','email','phone','reach','call','message'], ans: "Reach Ranjith at 📧 ranjithsreekarag@gmail.com or 📞 +1 (562) 837-7828. He's based in Long Beach, CA and responds quickly!" },
-    { keys: ['skill','skills','tech','technology','stack','know','languages','expertise'], ans: "Ranjith's stack: JavaScript/TypeScript, Python, React.js, React Native, Node.js, Express.js, GraphQL, MongoDB, PostgreSQL, Firebase, AWS, Docker, Kubernetes, Azure AD, and more. Strongest in full-stack web & mobile development!" },
-    { keys: ['hexaware','current job','current role','current company'], ans: "Ranjith currently works as a Full Stack Engineer at Hexaware Technologies (Jan 2025–Present, Santa Ana CA). He architects enterprise apps on AWS, leads CI/CD pipelines with Docker & Kubernetes, and mentors teammates." },
-    { keys: ['react native','mobile','ios','android','app','expo'], ans: "Ranjith built HealthW AI — a live cross-platform app on iOS & Android using React Native. It's on AWS with JWT auth, MongoDB, Firebase, and 5+ third-party APIs. Download it on App Store & Google Play! 🏥" },
-    { keys: ['react','frontend','ui','interface','web'], ans: "Ranjith is proficient in React.js & React Native, building modular, responsive UIs for both enterprise clients at Hexaware and production mobile apps." },
-    { keys: ['node','backend','server','express','api','rest','graphql'], ans: "Ranjith designs and governs RESTful & GraphQL APIs at Hexaware, and built the entire Node.js/Express backend for HealthW AI on AWS." },
-    { keys: ['aws','cloud','azure','deploy','docker','kubernetes','devops','ci','cd'], ans: "Ranjith has strong cloud/DevOps experience: AWS (EC2, S3, Lambda), Azure AD, Docker, Kubernetes, GitHub Actions, Terraform, and CI/CD pipelines that cut deployment time by 40% at Hexaware." },
-    { keys: ['python','automation','script','scripting','servicenow'], ans: "Ranjith built Python automation integrated with ServiceNow & Active Directory at CSUDH, reducing IT overhead by 40% across 100+ managed assets." },
-    { keys: ['database','mongodb','firebase','sql','postgresql','mysql','redis'], ans: "Ranjith works with MongoDB, PostgreSQL, MySQL, Firebase, and Redis. He has experience with schema design, indexing, query optimization, and real-time sync." },
-    { keys: ['project','projects','built','portfolio','healthw','health','itsm'], ans: "Key projects: 1️⃣ HealthW AI — live iOS/Android health app (React Native, Node.js, AWS, Firebase). 2️⃣ ServiceNow ITSM — Python/Java automation cutting IT overhead by 40% across 100+ assets." },
-    { keys: ['healthw','healthai','health ai','health app'], ans: "HealthW AI is Ranjith's flagship — a production cross-platform health app on both App Store & Google Play. Built solo with React Native, Node.js, AWS, MongoDB, and Firebase! 🏥" },
-    { keys: ['experience','work','job','employment','history','company','companies'], ans: "Ranjith's experience: 1️⃣ Full Stack Engineer @ Hexaware Technologies (Jan 2025–Present) 2️⃣ IT Engineer @ CSUDH (Apr 2023–Dec 2024) 3️⃣ Full Stack Engineer @ Teleperformance (Dec 2020–Jul 2022)." },
-    { keys: ['csudh','dominguez','university','csu','college'], ans: "Ranjith both studied and worked at CSUDH — earning his M.S. in CS (2022–2024) while working as IT Engineer, building Python/ServiceNow automation and React.js/Node.js internal tools." },
-    { keys: ['teleperformance','tp'], ans: "At Teleperformance (Dec 2020–Jul 2022, Chennai), Ranjith built React.js & Node.js web apps, improved API response times by 30%, and reduced regression bugs by 25% with unit/integration tests." },
-    { keys: ['education','degree','study','school','ms','masters','bachelor'], ans: "Ranjith holds an M.S. in Computer Science from CSU Dominguez Hills (2022–2024) and a B.E. in Electronics & Communications from Peri Institute of Technology (2016–2020)." },
+    { keys: ['available','availability','hire','start','when','immediately','open'], ans: "Yes! Ranjith is available immediately 🟢 STEM OPT authorized through February 2028, eligible for H-1B sponsorship." },
+    { keys: ['visa','h1b','h-1b','sponsorship','work authorization','opt','stem'], ans: "Ranjith is on STEM OPT through February 2028 and eligible for H-1B sponsorship. Available to start immediately." },
+    { keys: ['contact','email','phone','reach','call','message'], ans: "Reach Ranjith at 📧 ranjithgopinatha@gmail.com or 📞 +1 (562) 837-7828. Based in Long Beach, CA — responds quickly!" },
+    { keys: ['skill','skills','tech','technology','stack','know','languages','expertise'], ans: "Ranjith's stack: JavaScript/TypeScript, Python, React.js, React Native, Node.js, GraphQL, MongoDB, PostgreSQL, Redis, Firebase, AWS, Docker, Kubernetes, OpenAI GPT-4, LangChain — strongest in full-stack web & mobile!" },
+    { keys: ['snowflake','current job','current role','current company'], ans: "Ranjith currently works as a Software Engineer at Snowflake (Jan 2025–Present, Santa Ana CA). He builds enterprise data platform features and led a GPT-4+LangChain search engine that cut processing by 30%." },
+    { keys: ['schwab','charles schwab','brokerage'], ans: "At Charles Schwab (Apr 2023–Dec 2024, part-time), Ranjith built brokerage management web apps in React.js & Node.js, reducing latency by 20% and automating IT workflows with Python & ServiceNow." },
+    { keys: ['capital one','capitalone','banking','bank'], ans: "At Capital One (Dec 2020–Jul 2022, Chennai), Ranjith built full-stack banking apps serving 10,000+ daily users, cut P95 response time by 30% with Redis, and reduced regression bugs by 25%." },
+    { keys: ['react native','mobile','ios','android','app'], ans: "Ranjith built HealthW AI — a live cross-platform app on both stores. Sole architect: React Native, Node.js, AWS, Firebase, OpenAI GPT-4 health coaching. 🏥" },
+    { keys: ['openai','gpt','ai','langchain','rag','llm','ml'], ans: "At Snowflake, Ranjith built a semantic search engine with OpenAI GPT-4 + LangChain RAG pipelines cutting manual processing by 30%. GPT-4 also powers health coaching in HealthW AI." },
+    { keys: ['aws','cloud','docker','kubernetes','devops','ci','cd'], ans: "Strong cloud/DevOps: AWS (EC2, S3, Lambda, EKS), Docker, Kubernetes, GitHub Actions, Terraform. CI/CD at Snowflake cut deployment time by 40% and infra overhead by 35%." },
+    { keys: ['project','projects','built','portfolio'], ans: "Key projects: 1️⃣ HealthW AI — live iOS/Android health app (React Native, Node.js, AWS, Firebase, GPT-4). 2️⃣ Semantic Search Engine at Snowflake — GPT-4 + LangChain RAG, 30% processing reduction." },
+    { keys: ['experience','work','job','employment','history','company'], ans: "Ranjith's experience: 1️⃣ Software Engineer @ Snowflake (Jan 2025–Present) 2️⃣ Software Engineer @ Charles Schwab (Apr 2023–Dec 2024) 3️⃣ Associate Software Engineer @ Capital One (Dec 2020–Jul 2022)." },
+    { keys: ['education','degree','study','school','ms','masters'], ans: "Ranjith holds an M.S. in CS from CSU Dominguez Hills (2022–2024) and a B.E. in Electronics & Communications from Peri Institute of Technology (2016–2020)." },
     { keys: ['location','based','where','city','california','long beach'], ans: "Ranjith is based in Long Beach, California 📍 and open to local, remote, or hybrid opportunities." },
-    { keys: ['remote','onsite','hybrid','reloc'], ans: "Ranjith is flexible — open to remote, hybrid, or onsite roles. Based in Long Beach, CA." },
-    { keys: ['salary','compensation','pay','rate'], ans: "For salary expectations, please reach out directly: 📧 ranjithsreekarag@gmail.com or 📞 +1 (562) 837-7828." },
-    { keys: ['agile','scrum','team','collaborate','jira'], ans: "Ranjith works in Agile/Scrum environments with sprint planning, standups, reviews, and retrospectives — both at Hexaware and Teleperformance." },
-    { keys: ['testing','test','jest','mocha','debug'], ans: "Ranjith champions TDD at Hexaware using Jest & Mocha, and has written unit/integration tests reducing regression bugs by 25% at Teleperformance." },
-    { keys: ['hello','hi','hey','howdy','sup','yo'], ans: "Hey there! 👋 I'm Ranjith's AI assistant. Ask about his skills, experience, projects, or how to contact him!" },
-    { keys: ['who','ranjith','about','tell me','summary','introduce'], ans: "Ranjith Sreekar Gopinath is a Full-Stack Engineer in Long Beach, CA. M.S. CS from CSUDH (2024), currently at Hexaware Technologies building enterprise apps. He has a live mobile app on both App Store & Play Store! 🚀" },
-    { keys: ['app store','play store','download','google play','apple'], ans: "HealthW AI is live on both! 📱 App Store: https://apps.apple.com/app/id6755588655 — Google Play: https://play.google.com/store/apps/details?id=com.hwai.healthaimobile" },
+    { keys: ['salary','compensation','pay'], ans: "For salary details, reach out directly: 📧 ranjithgopinatha@gmail.com or 📞 +1 (562) 837-7828." },
+    { keys: ['testing','test','jest','mocha'], ans: "Ranjith champions TDD with Jest & Mocha — increased test coverage 40% at Snowflake and reduced regression bugs 25% at Capital One." },
+    { keys: ['hello','hi','hey','sup','yo'], ans: "Hey there! 👋 I'm Ranjith's AI assistant. Ask about his skills, experience, projects, or how to contact him!" },
+    { keys: ['who','ranjith','about','tell me','summary','introduce'], ans: "Ranjith Gopinath is a Full-Stack Software Engineer in Long Beach, CA. Currently at Snowflake building enterprise features + AI search. M.S. CS from CSUDH (2024), with a live mobile app on both stores! 🚀" },
+    { keys: ['app store','play store','download','google play','apple'], ans: "HealthW AI is live! 📱 App Store: https://apps.apple.com/app/id6755588655 — Play Store: https://play.google.com/store/apps/details?id=com.hwai.healthaimobile" },
   ];
 
   function getBotReply(input) {
@@ -703,7 +642,7 @@ PROJECTS:
     for (const item of QA) {
       if (item.keys.some(k => q.includes(k))) return item.ans;
     }
-    return "Great question! I don't have that specific detail — reach Ranjith directly at 📧 ranjithsreekarag@gmail.com or 📞 +1 (562) 837-7828. He responds quickly! 😊";
+    return "Great question! I don't have that specific detail — reach Ranjith at 📧 ranjithgopinatha@gmail.com or 📞 +1 (562) 837-7828. He responds quickly! 😊";
   }
 
   let isLoading = false;
@@ -754,8 +693,7 @@ PROJECTS:
     strip.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - strip.offsetLeft; scrollLeft = strip.scrollLeft; strip.style.cursor = 'grabbing'; });
     document.addEventListener('mouseup', () => { isDown = false; if (strip) strip.style.cursor = 'grab'; });
     strip.addEventListener('mousemove', e => {
-      if (!isDown) return;
-      e.preventDefault();
+      if (!isDown) return; e.preventDefault();
       strip.scrollLeft = scrollLeft - (e.pageX - strip.offsetLeft - startX);
     });
   });
