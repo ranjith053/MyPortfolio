@@ -177,17 +177,13 @@
     .scroll-hint svg { width:20px; height:20px; stroke:var(--text-muted); fill:none; stroke-width:2; stroke-linecap:round; }
     @keyframes hintBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
 
-    /* ════ CARDS SECTION ════ */
+    /* CARDS SECTION */
     .cards-section { position: relative; padding: 80px 32px 100px; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 0; }
-
     .section-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .2em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 48px; display: flex; align-items: center; gap: 12px; }
     .section-label::before, .section-label::after { content: ''; height: 1px; width: 60px; background: var(--surface-border); }
-
     .info-stack { width: 100%; max-width: 860px; display: flex; flex-direction: column; gap: 28px; }
-
     .info-row { position: relative; background: var(--surface); border: 1px solid var(--surface-border); border-radius: 20px; overflow: hidden; transition: border-color .35s, box-shadow .35s, transform .3s; }
     .info-row:hover { border-color: var(--accent); box-shadow: 0 16px 50px rgba(0,0,0,0.35), 0 0 40px var(--accent-glow); transform: translateY(-4px); }
-
     .row-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .16em; color: var(--accent); text-transform: uppercase; padding: 14px 24px 0; }
 
     /* EDUCATION */
@@ -202,6 +198,7 @@
     .deg-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
     .deg-school { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--accent); margin-bottom: 6px; }
     .deg-year { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); }
+    .deg-note { font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--text-muted); margin-top: 4px; font-style: italic; }
     .edu-skills { display: flex; flex-wrap: wrap; gap: 6px; padding: 16px 24px 0; }
     .skill-pill { font-family: 'DM Mono', monospace; font-size: 10px; padding: 4px 10px; border-radius: 20px; background: rgba(232,201,122,.06); border: 1px solid rgba(232,201,122,.15); color: var(--accent); transition: background .25s, border-color .25s; }
     .info-row:hover .skill-pill { background: rgba(232,201,122,.12); border-color: rgba(232,201,122,.3); }
@@ -215,7 +212,7 @@
     .exp-strip::-webkit-scrollbar { height: 4px; }
     .exp-strip::-webkit-scrollbar-thumb { background: rgba(232,201,122,.35); border-radius: 4px; }
     .exp-strip::-webkit-scrollbar-track { background: transparent; }
-    .company-bubble { scroll-snap-align: start; flex-shrink: 0; background: var(--chat-bg); border: 1px solid var(--surface-border); border-radius: 16px; padding: 16px 20px; min-width: 220px; cursor: default; transition: border-color .3s, transform .3s, background .3s; position: relative; overflow: hidden; }
+    .company-bubble { scroll-snap-align: start; flex-shrink: 0; background: var(--chat-bg); border: 1px solid var(--surface-border); border-radius: 16px; padding: 16px 20px; min-width: 230px; cursor: default; transition: border-color .3s, transform .3s, background .3s; position: relative; overflow: hidden; }
     .company-bubble::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), transparent); opacity: 0; transition: opacity .3s; }
     .info-row:hover .company-bubble { border-color: rgba(232,201,122,.25); background: rgba(255,255,255,.03); }
     .info-row:hover .company-bubble:hover { transform: translateY(-3px); border-color: var(--accent); background: rgba(232,201,122,.06); }
@@ -250,6 +247,9 @@
     .store-btn { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 10px; padding: 7px 12px; border-radius: 10px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); color: var(--text); text-decoration: none; transition: background .25s, border-color .25s, transform .2s, box-shadow .2s; }
     .store-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
     .store-btn:hover { background: rgba(232,201,122,.12); border-color: var(--accent); color: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 18px var(--accent-glow); }
+
+    /* PROJ PANEL full-width variant */
+    .proj-panel.full { grid-column: 1 / -1; }
 
     @media (max-width: 768px) {
       .theme-toggle { top: 16px; right: 16px; padding: 6px 12px; font-size: 11px; }
@@ -329,39 +329,35 @@
              onclick="document.getElementById('bitmoji-input').click()"
              title="Click to upload your Bitmoji PNG">
           <div id="avatarPlaceholder" class="avatar-placeholder" style="display:none;">
-
             <span class="ph-emoji">🙂</span>
             <p class="ph-text">tap to add<br>your bitmoji</p>
           </div>
           <img id="avatarImg" class="avatar-img" src="bitmoji.png" alt="Ranjith"/>
           <div id="waveHand" class="wave-hand visible">👋</div>
-
         </div>
         <div class="avatar-shadow"></div>
       </div>
       <div class="speech-bubble">
         <div class="bubble-tag">hey there 👆</div>
         <div class="bubble-headline">Welcome to<br><span>Ranjith's</span> Portfolio</div>
-        <div class="bubble-sub">full-stack engineer · designer · builder</div>
-        
-
-<a href="./Resume.pdf" download class="resume-btn" style="
-  display: inline-flex; align-items: center; gap: 6px;
-  margin-top: 10px;
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  padding: 7px 14px; border-radius: 20px;
-  background: rgba(232,201,122,0.1);
-  border: 1px solid rgba(232,201,122,0.3);
-  color: var(--accent); text-decoration: none;
-  transition: background .25s, box-shadow .25s, transform .2s;
-  letter-spacing: 0.05em;
-" onmouseover="this.style.background='rgba(232,201,122,0.2)';this.style.boxShadow='0 4px 14px rgba(232,201,122,0.2)';this.style.transform='translateY(-1px)'"
-   onmouseout="this.style.background='rgba(232,201,122,0.1)';this.style.boxShadow='none';this.style.transform='none'">
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-  </svg>
-  Download Resume
-</a>
+        <div class="bubble-sub">full-stack · cloud · systems · mobile</div>
+        <a href="./Resume.pdf" download class="resume-btn" style="
+          display: inline-flex; align-items: center; gap: 6px;
+          margin-top: 10px;
+          font-family: 'DM Mono', monospace; font-size: 10px;
+          padding: 7px 14px; border-radius: 20px;
+          background: rgba(232,201,122,0.1);
+          border: 1px solid rgba(232,201,122,0.3);
+          color: var(--accent); text-decoration: none;
+          transition: background .25s, box-shadow .25s, transform .2s;
+          letter-spacing: 0.05em;
+        " onmouseover="this.style.background='rgba(232,201,122,0.2)';this.style.boxShadow='0 4px 14px rgba(232,201,122,0.2)';this.style.transform='translateY(-1px)'"
+           onmouseout="this.style.background='rgba(232,201,122,0.1)';this.style.boxShadow='none';this.style.transform='none'">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download Resume
+        </a>
       </div>
     </div>
 
@@ -419,6 +415,7 @@
               <div class="deg-name">M.S. Computer Science</div>
               <div class="deg-school">California State University, Dominguez Hills</div>
               <div class="deg-year">Aug 2022 – Dec 2024</div>
+              <div class="deg-note">STEM OPT authorized through Feb 2028</div>
             </div>
             <div class="edu-degree">
               <div class="deg-name">B.E. Electronics &amp; Communications</div>
@@ -429,29 +426,43 @@
         </div>
       </div>
       <div class="edu-skills">
-        <span class="skill-pill">JavaScript</span>
-        <span class="skill-pill">TypeScript</span>
         <span class="skill-pill">Python</span>
-        <span class="skill-pill">React.js</span>
+        <span class="skill-pill">JavaScript (ES6+)</span>
+        <span class="skill-pill">TypeScript</span>
+        <span class="skill-pill">Java</span>
+        <span class="skill-pill">Bash</span>
+        <span class="skill-pill">PowerShell</span>
         <span class="skill-pill">React Native</span>
+        <span class="skill-pill">React.js</span>
+        <span class="skill-pill">Expo Router</span>
+        <span class="skill-pill">Redux</span>
         <span class="skill-pill">Next.js</span>
         <span class="skill-pill">Node.js</span>
         <span class="skill-pill">Express.js</span>
+        <span class="skill-pill">REST APIs</span>
         <span class="skill-pill">GraphQL</span>
         <span class="skill-pill">FastAPI</span>
         <span class="skill-pill">MongoDB</span>
         <span class="skill-pill">PostgreSQL</span>
+        <span class="skill-pill">MySQL</span>
+        <span class="skill-pill">Firebase Firestore</span>
         <span class="skill-pill">Redis</span>
-        <span class="skill-pill">Firebase</span>
-        <span class="skill-pill">AWS</span>
+        <span class="skill-pill">AWS (EC2, S3, Lambda)</span>
+        <span class="skill-pill">Azure</span>
         <span class="skill-pill">Docker</span>
         <span class="skill-pill">Kubernetes</span>
+        <span class="skill-pill">Terraform</span>
         <span class="skill-pill">GitHub Actions</span>
+        <span class="skill-pill">CI/CD</span>
+        <span class="skill-pill">Active Directory</span>
+        <span class="skill-pill">Azure AD</span>
+        <span class="skill-pill">RBAC</span>
+        <span class="skill-pill">ServiceNow</span>
+        <span class="skill-pill">JWT / OAuth2</span>
         <span class="skill-pill">OpenAI GPT-4</span>
         <span class="skill-pill">LangChain</span>
-        <span class="skill-pill">Pinecone</span>
-        <span class="skill-pill">JWT / OAuth2</span>
-        <span class="skill-pill">Git</span>
+        <span class="skill-pill">Prometheus</span>
+        <span class="skill-pill">Grafana</span>
       </div>
     </div>
 
@@ -463,34 +474,44 @@
       </div>
       <div class="exp-strip">
 
-        <!-- Snowflake -->
+        <!-- UPS Store -->
         <div class="company-bubble">
-          <span class="cb-logo">❄️</span>
-          <div class="cb-company">Snowflake</div>
-          <div class="cb-role">Software Engineer</div>
+          <span class="cb-logo">📦</span>
+          <div class="cb-company">The UPS Store</div>
+          <div class="cb-role">IT Systems &amp; Automation Specialist</div>
           <div class="cb-period">Jan 2025 – Present</div>
-          <div class="cb-location">📍 Santa Ana, CA · On-site</div>
-          <div class="cb-desc">Full-stack features on enterprise data platform (React.js, TypeScript, Node.js, AWS). Built semantic search engine with OpenAI GPT-4 + LangChain — 30% less manual processing. CI/CD with Docker & Kubernetes cut release time by 40%.</div>
+          <div class="cb-location">📍 Santa Ana, CA · Full-time</div>
+          <div class="cb-desc">Developed Python automation scripts for patch management, software deployment &amp; system config. Built and maintained API integrations connecting UPS/USPS shipping services to POS workflows. Implemented version-controlled change management with zero unplanned downtime.</div>
         </div>
 
-        <!-- Charles Schwab -->
+        <!-- CSUDH -->
         <div class="company-bubble">
-          <span class="cb-logo">📈</span>
-          <div class="cb-company">Charles Schwab</div>
-          <div class="cb-role">Software Engineer</div>
+          <span class="cb-logo">🎓</span>
+          <div class="cb-company">Cal State Dominguez Hills</div>
+          <div class="cb-role">IT Systems &amp; Automation Specialist</div>
           <div class="cb-period">Apr 2023 – Dec 2024</div>
           <div class="cb-location">📍 Carson, CA · Part-time</div>
-          <div class="cb-desc">Production web apps for brokerage account management & trade reporting. Reduced client-server latency by 20% via REST API caching. Python automation with ServiceNow & Active Directory cut IT overhead by 40%.</div>
+          <div class="cb-desc">Built Python &amp; Java automation platform on ServiceNow REST API for full IT asset lifecycle. Developed PowerShell scripts automating Active Directory &amp; Azure AD provisioning with RBAC. Architected CI/CD pipelines via GitHub Actions and ServiceNow–Jira REST integrations.</div>
         </div>
 
-        <!-- Capital One -->
+        <!-- Sutherland / Amazon -->
         <div class="company-bubble">
-          <span class="cb-logo">💳</span>
-          <div class="cb-company">Capital One</div>
-          <div class="cb-role">Associate Software Engineer</div>
-          <div class="cb-period">Dec 2020 – Jul 2022</div>
-          <div class="cb-location">📍 Chennai, India · On-site</div>
-          <div class="cb-desc">Full-stack banking apps in React.js, TypeScript & Node.js — 10,000+ daily active users. Reduced P95 API response time by 30% via Redis caching. Fewer regression bugs by 25% with Jest test suites.</div>
+          <span class="cb-logo">📦</span>
+          <div class="cb-company">Sutherland — Amazon</div>
+          <div class="cb-role">Technical Support Analyst</div>
+          <div class="cb-period">Apr 2022 – Jul 2022</div>
+          <div class="cb-location">📍 Chennai, India · Full-time</div>
+          <div class="cb-desc">Diagnosed integration and system failures across Amazon's CRM, order management, and account services platforms. Surfaced structured root-cause reports to backend engineering teams.</div>
+        </div>
+
+        <!-- Teleperformance / Flipkart -->
+        <div class="company-bubble">
+          <span class="cb-logo">🛒</span>
+          <div class="cb-company">Teleperformance — Flipkart</div>
+          <div class="cb-role">Technical Support Representative</div>
+          <div class="cb-period">Apr 2021 – Aug 2021</div>
+          <div class="cb-location">📍 Chennai, India · Full-time</div>
+          <div class="cb-desc">Identified and documented recurring platform defects in Flipkart's order and account systems, escalating structured bug reports that contributed to backend workflow improvements.</div>
         </div>
 
       </div>
@@ -505,18 +526,21 @@
       </div>
       <div class="proj-panels">
 
+        <!-- HealthW AI -->
         <div class="proj-panel">
           <span class="pp-icon">🏥</span>
           <div class="pp-name">HealthW AI</div>
-          <div class="pp-sub">Cross-Platform Mobile App · Live on Stores</div>
-          <div class="pp-desc">Sole architect of a production iOS/Android health app. JWT/OAuth2 auth, real-time Firebase sync, OpenAI GPT-4 health coaching, and weather-triggered wellness recommendations. Hosted on AWS.</div>
+          <div class="pp-sub">Cross-Platform Mobile App · Sole Architect &amp; Engineer</div>
+          <div class="pp-desc">Production iOS &amp; Android health app — sole engineer, full stack. Node.js/Express.js backend with JWT/OAuth2 auth, MongoDB multi-tenant schema, AWS (EC2, S3, Lambda) infrastructure, Firebase real-time sync, APNs/FCM push, and OpenAI GPT-4 health coaching. GitHub Actions CI/CD for zero-downtime deploys.</div>
           <div class="pp-tags">
             <span class="pp-tag">React Native</span>
             <span class="pp-tag">Node.js</span>
+            <span class="pp-tag">MongoDB</span>
             <span class="pp-tag">AWS</span>
             <span class="pp-tag">Firebase</span>
             <span class="pp-tag">OpenAI GPT-4</span>
-            <span class="pp-tag">MongoDB</span>
+            <span class="pp-tag">JWT/OAuth2</span>
+            <span class="pp-tag">GitHub Actions</span>
           </div>
           <div class="store-btns">
             <a class="store-btn" href="https://apps.apple.com/app/id6755588655" target="_blank" rel="noopener">
@@ -530,18 +554,44 @@
           </div>
         </div>
 
+        <!-- CarApp -->
         <div class="proj-panel">
-          <span class="pp-icon">🔍</span>
-          <div class="pp-name">Semantic Search Engine</div>
-          <div class="pp-sub">AI / ML · Snowflake · 2025</div>
-          <div class="pp-desc">Document processing & semantic search engine at Snowflake using OpenAI GPT-4 + LangChain RAG pipeline with vector embeddings. Cut manual data processing by 30% in production.</div>
+          <span class="pp-icon">🚗</span>
+          <div class="pp-name">CarApp</div>
+          <div class="pp-sub">AI Vehicle Insights App · Sole Engineer</div>
+          <div class="pp-desc">Production React Native app (TypeScript) with Expo Router for type-safe navigation. AI mechanic assistant (MecAi) powered by OpenAI GPT-4o-mini with streaming responses and prompt context management. Offline-first AsyncStorage layer + REST API for live vehicle data. Live on Google Play.</div>
           <div class="pp-tags">
-            <span class="pp-tag">OpenAI GPT-4</span>
-            <span class="pp-tag">LangChain</span>
-            <span class="pp-tag">RAG</span>
-            <span class="pp-tag">Pinecone</span>
-            <span class="pp-tag">Node.js</span>
-            <span class="pp-tag">AWS</span>
+            <span class="pp-tag">React Native</span>
+            <span class="pp-tag">TypeScript</span>
+            <span class="pp-tag">Expo Router</span>
+            <span class="pp-tag">OpenAI GPT-4o-mini</span>
+            <span class="pp-tag">REST APIs</span>
+            <span class="pp-tag">AsyncStorage</span>
+          </div>
+          <div class="store-btns">
+            <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.ranjith_varshu.carapp" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.19.96.07l12.14-6.98-2.61-2.61-10.49 9.52zM.44 1.6C.17 1.95.01 2.44.01 3.06v17.88c0 .62.16 1.11.43 1.46l.07.07 10.02-10.02v-.24L.51 1.53l-.07.07zM20.49 10.34l-2.89-1.66-2.93 2.93 2.93 2.93 2.91-1.67c.83-.48.83-1.26-.02-1.53zM3.18.24L15.67 7.2l-2.61 2.61L3.18.31V.24z"/></svg>
+              Play Store
+            </a>
+          </div>
+        </div>
+
+        <!-- Enterprise IT Automation Platform - full width -->
+        <div class="proj-panel full">
+          <span class="pp-icon">⚙️</span>
+          <div class="pp-name">Enterprise IT Automation Platform</div>
+          <div class="pp-sub">ServiceNow · Python · Java · Active Directory · REST APIs</div>
+          <div class="pp-desc">Python and Java automation engine integrating ServiceNow REST APIs with Active Directory to fully automate the employee identity lifecycle — provisioning, RBAC assignment, and deprovisioning. Designed real-time SLA monitoring dashboards and automated incident alerting workflows, connected via REST to Jira Service Management for cross-platform escalation and change tracking.</div>
+          <div class="pp-tags">
+            <span class="pp-tag">Python</span>
+            <span class="pp-tag">Java</span>
+            <span class="pp-tag">ServiceNow REST API</span>
+            <span class="pp-tag">Active Directory</span>
+            <span class="pp-tag">Azure AD</span>
+            <span class="pp-tag">PowerShell</span>
+            <span class="pp-tag">RBAC</span>
+            <span class="pp-tag">Jira</span>
+            <span class="pp-tag">GitHub Actions</span>
           </div>
         </div>
 
@@ -552,7 +602,7 @@
 </section>
 
 <script>
-  /* ── Bitmoji ── */
+  /* Bitmoji */
   function loadBitmoji(e) {
     const file = e.target.files[0];
     if (!file) return;
@@ -592,6 +642,7 @@
     img.onload  = () => showBitmoji();
     img.onerror = () => {
       img.style.display = 'none';
+      ph.style.display = 'flex';
       try {
         const saved = localStorage.getItem('ranjith_bitmoji');
         if (saved) { img.onload = () => showBitmoji(); img.src = saved; }
@@ -606,7 +657,7 @@
     document.getElementById('chatInput').focus();
   });
 
-  /* ── Theme ── */
+  /* Theme */
   function toggleTheme() {
     const html = document.documentElement;
     const goLight = html.dataset.theme === 'dark';
@@ -614,27 +665,30 @@
     document.getElementById('theme-label').textContent = goLight ? 'day' : 'night';
   }
 
-  /* ── Chatbot ── */
+  /* Chatbot — updated with accurate resume data */
   const QA = [
-    { keys: ['available','availability','hire','start','when','immediately','open'], ans: "Yes! Ranjith is available immediately 🟢 STEM OPT authorized through February 2028, eligible for H-1B sponsorship." },
-    { keys: ['visa','h1b','h-1b','sponsorship','work authorization','opt','stem'], ans: "Ranjith is on STEM OPT through February 2028 and eligible for H-1B sponsorship. Available to start immediately." },
-    { keys: ['contact','email','phone','reach','call','message'], ans: "Reach Ranjith at 📧 ranjithgopinatha@gmail.com or 📞 +1 (562) 837-7828. Based in Long Beach, CA — responds quickly!" },
-    { keys: ['skill','skills','tech','technology','stack','know','languages','expertise'], ans: "Ranjith's stack: JavaScript/TypeScript, Python, React.js, React Native, Node.js, GraphQL, MongoDB, PostgreSQL, Redis, Firebase, AWS, Docker, Kubernetes, OpenAI GPT-4, LangChain — strongest in full-stack web & mobile!" },
-    { keys: ['snowflake','current job','current role','current company'], ans: "Ranjith currently works as a Software Engineer at Snowflake (Jan 2025–Present, Santa Ana CA). He builds enterprise data platform features and led a GPT-4+LangChain search engine that cut processing by 30%." },
-    { keys: ['schwab','charles schwab','brokerage'], ans: "At Charles Schwab (Apr 2023–Dec 2024, part-time), Ranjith built brokerage management web apps in React.js & Node.js, reducing latency by 20% and automating IT workflows with Python & ServiceNow." },
-    { keys: ['capital one','capitalone','banking','bank'], ans: "At Capital One (Dec 2020–Jul 2022, Chennai), Ranjith built full-stack banking apps serving 10,000+ daily users, cut P95 response time by 30% with Redis, and reduced regression bugs by 25%." },
-    { keys: ['react native','mobile','ios','android','app'], ans: "Ranjith built HealthW AI — a live cross-platform app on both stores. Sole architect: React Native, Node.js, AWS, Firebase, OpenAI GPT-4 health coaching. 🏥" },
-    { keys: ['openai','gpt','ai','langchain','rag','llm','ml'], ans: "At Snowflake, Ranjith built a semantic search engine with OpenAI GPT-4 + LangChain RAG pipelines cutting manual processing by 30%. GPT-4 also powers health coaching in HealthW AI." },
-    { keys: ['aws','cloud','docker','kubernetes','devops','ci','cd'], ans: "Strong cloud/DevOps: AWS (EC2, S3, Lambda, EKS), Docker, Kubernetes, GitHub Actions, Terraform. CI/CD at Snowflake cut deployment time by 40% and infra overhead by 35%." },
-    { keys: ['project','projects','built','portfolio'], ans: "Key projects: 1️⃣ HealthW AI — live iOS/Android health app (React Native, Node.js, AWS, Firebase, GPT-4). 2️⃣ Semantic Search Engine at Snowflake — GPT-4 + LangChain RAG, 30% processing reduction." },
-    { keys: ['experience','work','job','employment','history','company'], ans: "Ranjith's experience: 1️⃣ Software Engineer @ Snowflake (Jan 2025–Present) 2️⃣ Software Engineer @ Charles Schwab (Apr 2023–Dec 2024) 3️⃣ Associate Software Engineer @ Capital One (Dec 2020–Jul 2022)." },
+    { keys: ['available','availability','hire','start','when','immediately','open'], ans: "Yes! Ranjith is available immediately 🟢 STEM OPT authorized through February 2028, open to Full Stack Engineer, Systems Engineer, and Software Engineer roles." },
+    { keys: ['visa','h1b','h-1b','sponsorship','work authorization','opt','stem'], ans: "Ranjith is on STEM OPT through February 2028 — no sponsorship needed now. Open to H-1B sponsorship later. Available to start immediately." },
+    { keys: ['contact','email','phone','reach','call','message'], ans: "Reach Ranjith at 📧 ranjithsreekarag@gmail.com or 📞 +1 (562) 837-7828. Based in Long Beach, CA — open to relocation anywhere in the U.S.!" },
+    { keys: ['skill','skills','tech','technology','stack','know','languages','expertise'], ans: "Ranjith's stack: Python, JavaScript/TypeScript, Java, Bash, PowerShell · React Native, React.js, Node.js, Express.js, REST APIs, GraphQL · MongoDB, PostgreSQL, Firebase, Redis · AWS, Azure, Docker, Kubernetes, Terraform, GitHub Actions CI/CD · Active Directory, Azure AD, RBAC, ServiceNow · OpenAI GPT-4, LangChain." },
+    { keys: ['ups','ups store','current job','current role','current company'], ans: "Ranjith currently works as an IT Systems & Automation Specialist at The UPS Store (Jan 2025–Present, Santa Ana CA). He develops Python automation scripts for patch management/deployment, builds API integrations for UPS/USPS shipping workflows, and maintains version-controlled CI/CD deployments with zero downtime." },
+    { keys: ['csudh','dominguez','university','csudh','college'], ans: "At Cal State Dominguez Hills (Apr 2023–Dec 2024, part-time), Ranjith built a Python & Java automation platform on ServiceNow REST APIs, developed PowerShell scripts automating Active Directory & Azure AD provisioning with RBAC, and architected GitHub Actions CI/CD pipelines for internal tooling." },
+    { keys: ['sutherland','amazon'], ans: "At Sutherland (Amazon, Apr–Jul 2022, Chennai), Ranjith diagnosed integration and system failures across Amazon's CRM, order management, and account services platforms, surfacing root-cause reports to backend engineering teams." },
+    { keys: ['react native','mobile','ios','android','app','carapp','car app'], ans: "Ranjith built two live apps! 🚗 CarApp: React Native + TypeScript + Expo Router + OpenAI GPT-4o-mini AI mechanic (MecAi). 🏥 HealthW AI: React Native + Node.js + AWS + Firebase + OpenAI GPT-4 — live on App Store & Google Play." },
+    { keys: ['healthw','health','healthwai'], ans: "HealthW AI is Ranjith's flagship app — production iOS & Android, sole architect. Stack: React Native, Node.js/Express.js, MongoDB, Firebase Firestore, AWS (EC2/S3/Lambda), OpenAI GPT-4, JWT/OAuth2, APNs/FCM, GitHub Actions CI/CD. Live on App Store & Google Play! 🏥" },
+    { keys: ['openai','gpt','ai','langchain','llm','ml'], ans: "Ranjith integrates AI into real products: OpenAI GPT-4 powers health coaching in HealthW AI, and GPT-4o-mini powers the MecAi car assistant in CarApp. He works with LangChain, prompt orchestration, and streaming API responses." },
+    { keys: ['aws','cloud','docker','kubernetes','devops','ci','cd','terraform'], ans: "Strong cloud/DevOps: AWS (EC2, S3, Lambda, CloudWatch), Azure, Docker, Kubernetes, Terraform, GitHub Actions CI/CD. Built full CI/CD pipelines for zero-downtime production deployments on his own apps." },
+    { keys: ['servicenow','active directory','azure ad','powershell','rbac','identity'], ans: "Strong enterprise systems background: ServiceNow REST API integrations, Active Directory & Azure AD identity management, PowerShell automation for user provisioning/deprovisioning, RBAC enforcement, Group Policy, and ServiceNow–Jira bi-directional ticket escalation workflows." },
+    { keys: ['project','projects','built','portfolio'], ans: "Ranjith's projects: 1️⃣ HealthW AI — live iOS/Android production app (React Native, Node.js, AWS, Firebase, GPT-4). 2️⃣ CarApp — AI vehicle insights app with GPT-4o-mini MecAi (React Native, TypeScript). 3️⃣ Enterprise IT Automation Platform — ServiceNow REST APIs + Active Directory identity lifecycle automation." },
+    { keys: ['experience','work','job','employment','history'], ans: "Ranjith's experience: 1️⃣ IT Systems & Automation Specialist @ The UPS Store (Jan 2025–Present) 2️⃣ IT Systems & Automation Specialist @ CSUDH (Apr 2023–Dec 2024) 3️⃣ Technical Support Analyst @ Sutherland/Amazon (Apr–Jul 2022) 4️⃣ Technical Support Representative @ Teleperformance/Flipkart (Apr–Aug 2021)." },
     { keys: ['education','degree','study','school','ms','masters'], ans: "Ranjith holds an M.S. in CS from CSU Dominguez Hills (2022–2024) and a B.E. in Electronics & Communications from Peri Institute of Technology (2016–2020)." },
-    { keys: ['location','based','where','city','california','long beach'], ans: "Ranjith is based in Long Beach, California 📍 and open to local, remote, or hybrid opportunities." },
-    { keys: ['salary','compensation','pay'], ans: "For salary details, reach out directly: 📧 ranjithgopinatha@gmail.com or 📞 +1 (562) 837-7828." },
-    { keys: ['testing','test','jest','mocha'], ans: "Ranjith champions TDD with Jest & Mocha — increased test coverage 40% at Snowflake and reduced regression bugs 25% at Capital One." },
+    { keys: ['location','based','where','city','california','long beach','relocation'], ans: "Ranjith is based in Long Beach, California 📍 and open to relocation anywhere in the U.S." },
+    { keys: ['salary','compensation','pay'], ans: "For salary details, reach out directly: 📧 ranjithsreekarag@gmail.com or 📞 +1 (562) 837-7828." },
+    { keys: ['full stack','fullstack','software engineer','systems engineer','infrastructure'], ans: "Ranjith is targeting Full Stack Engineer, Software Engineer, Systems Engineer, and Infrastructure Engineer roles. His resume covers both software dev (React Native, Node.js, REST APIs, AWS) and systems/infra (ServiceNow, Active Directory, Azure AD, PowerShell, CI/CD)." },
     { keys: ['hello','hi','hey','sup','yo'], ans: "Hey there! 👋 I'm Ranjith's AI assistant. Ask about his skills, experience, projects, or how to contact him!" },
-    { keys: ['who','ranjith','about','tell me','summary','introduce'], ans: "Ranjith Gopinath is a Full-Stack Software Engineer in Long Beach, CA. Currently at Snowflake building enterprise features + AI search. M.S. CS from CSUDH (2024), with a live mobile app on both stores! 🚀" },
-    { keys: ['app store','play store','download','google play','apple'], ans: "HealthW AI is live! 📱 App Store: https://apps.apple.com/app/id6755588655 — Play Store: https://play.google.com/store/apps/details?id=com.hwai.healthaimobile" },
+    { keys: ['who','ranjith','about','tell me','summary','introduce'], ans: "Ranjith Gopinath is a CS graduate (M.S., CSUDH 2024) based in Long Beach, CA. He's an IT Systems & Automation Specialist with full-stack development, cloud infrastructure, and enterprise systems engineering experience. Sole architect of two live mobile apps (App Store + Google Play). STEM OPT through Feb 2028. 🚀" },
+    { keys: ['app store','play store','download','google play','apple'], ans: "Both apps are live! 🏥 HealthW AI → App Store: https://apps.apple.com/app/id6755588655 | Play Store: https://play.google.com/store/apps/details?id=com.hwai.healthaimobile 🚗 CarApp → Play Store: https://play.google.com/store/apps/details?id=com.ranjith_varshu.carapp" },
+    { keys: ['github','portfolio','linkedin'], ans: "Find Ranjith online: 💻 GitHub: https://github.com/ranjith053 · 🌐 Portfolio: https://ranjith053.github.io/MyPortfolio/ · 💼 LinkedIn: https://www.linkedin.com/in/ag-ranjith-6957011a2/" },
   ];
 
   function getBotReply(input) {
@@ -642,7 +696,7 @@
     for (const item of QA) {
       if (item.keys.some(k => q.includes(k))) return item.ans;
     }
-    return "Great question! I don't have that specific detail — reach Ranjith at 📧 ranjithgopinatha@gmail.com or 📞 +1 (562) 837-7828. He responds quickly! 😊";
+    return "Great question! I don't have that specific detail — reach Ranjith at 📧 ranjithsreekarag@gmail.com or 📞 +1 (562) 837-7828. He responds quickly! 😊";
   }
 
   let isLoading = false;
