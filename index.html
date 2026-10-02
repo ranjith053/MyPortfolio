@@ -2,24 +2,28 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Ranjith's Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ranjith Gopinath · Sr. AI/ML Engineer · C2C Contracts</title>
+  <meta name="description" content="Ranjith Gopinath, Senior AI/ML Engineer (LLMs, RAG, AI agents, NLP, MLOps). Open to Corp-to-Corp (C2C) contract opportunities only."/>
+  <!-- Apple devices use SF Pro; Inter is the fallback elsewhere -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Inter", "Segoe UI", Roboto, Arial, sans-serif;
       --bg: #080808;
       --surface: rgba(255,255,255,0.04);
       --surface-border: rgba(255,255,255,0.08);
       --text: #f0ede6;
-      --text-muted: rgba(240,237,230,0.45);
+      --text-muted: rgba(240,237,230,0.55);
       --accent: #e8c97a;
       --accent-glow: rgba(232,201,122,0.18);
       --chat-bg: rgba(255,255,255,0.03);
       --user-bubble: rgba(232,201,122,0.15);
       --input-bg: rgba(255,255,255,0.05);
       --scrollbar: rgba(255,255,255,0.07);
+      --ok: #4ade80;
       --transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
     [data-theme="light"] {
@@ -27,42 +31,37 @@
       --surface: rgba(255,255,255,0.7);
       --surface-border: rgba(0,0,0,0.08);
       --text: #1a1612;
-      --text-muted: rgba(26,22,18,0.45);
-      --accent: #c8860a;
+      --text-muted: rgba(26,22,18,0.6);
+      --accent: #a86d00;
       --accent-glow: rgba(200,134,10,0.12);
       --chat-bg: rgba(255,255,255,0.5);
       --user-bubble: rgba(200,134,10,0.12);
       --input-bg: rgba(255,255,255,0.6);
       --scrollbar: rgba(0,0,0,0.08);
+      --ok: #15803d;
     }
 
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Syne', sans-serif;
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
       background: var(--bg);
       color: var(--text);
       transition: background var(--transition), color var(--transition);
       overflow-x: hidden;
     }
+    a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
     body::before {
-      content: '';
-      position: fixed; inset: 0;
+      content: ''; position: fixed; inset: 0;
       background-image: radial-gradient(circle, rgba(255,255,255,0.55) 1px, transparent 1px);
-      background-size: 80px 80px;
-      opacity: 0.025;
-      pointer-events: none;
-      z-index: 0;
+      background-size: 80px 80px; opacity: 0.025; pointer-events: none; z-index: 0;
     }
     [data-theme="light"] body::before { opacity: 0.06; }
-
     body::after {
-      content: '';
-      position: fixed; inset: 0;
+      content: ''; position: fixed; inset: 0;
       background: radial-gradient(ellipse 70% 50% at 50% 40%, var(--accent-glow), transparent 70%);
-      pointer-events: none;
-      transition: background var(--transition);
-      z-index: 0;
+      pointer-events: none; transition: background var(--transition); z-index: 0;
     }
 
     .theme-toggle {
@@ -70,7 +69,7 @@
       background: var(--surface); border: 1px solid var(--surface-border);
       border-radius: 50px; padding: 8px 16px; cursor: pointer;
       display: flex; align-items: center; gap: 8px;
-      font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-muted);
+      font-family: var(--font); font-size: 12px; color: var(--text-muted);
       letter-spacing: 0.05em; backdrop-filter: blur(12px);
       transition: all 0.3s ease, background var(--transition);
     }
@@ -89,9 +88,8 @@
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       padding: 24px; z-index: 1;
     }
-
     .card {
-      width: 100%; max-width: 540px;
+      width: 100%; max-width: 560px;
       background: var(--surface); border: 1px solid var(--surface-border);
       border-radius: 24px; padding: 28px; backdrop-filter: blur(20px);
       box-shadow: 0 32px 80px rgba(0,0,0,0.4), 0 0 0 1px var(--surface-border);
@@ -100,11 +98,7 @@
 
     .bitmoji-row { display: flex; align-items: flex-end; gap: 18px; margin-bottom: 18px; }
     .avatar-col { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-
-    .avatar-wrap {
-      position: relative; width: 100px; cursor: pointer;
-      animation: bodyFloat 3.6s ease-in-out infinite; transform-origin: bottom center;
-    }
+    .avatar-wrap { position: relative; width: 100px; cursor: pointer; animation: bodyFloat 3.6s ease-in-out infinite; transform-origin: bottom center; }
     @keyframes bodyFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
     .avatar-img { width:100px; height:110px; object-fit:contain; display:block; filter:drop-shadow(0 10px 28px rgba(232,201,122,0.3)); transition:filter 0.4s; }
     .avatar-wrap:hover .avatar-img { filter:drop-shadow(0 14px 36px rgba(232,201,122,0.5)); }
@@ -114,44 +108,47 @@
       0%,100%{transform:rotate(-15deg)} 25%{transform:rotate(20deg) translateX(3px) translateY(-3px)}
       50%{transform:rotate(-8deg)} 75%{transform:rotate(16deg) translateX(2px) translateY(-2px)}
     }
-    .avatar-placeholder { width:100px; height:110px; border-radius:20px; border:2px dashed var(--surface-border); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; background:var(--chat-bg); transition:border-color .25s, background .25s; }
-    .avatar-placeholder:hover { border-color:var(--accent); background:var(--accent-glow); }
+    .avatar-placeholder { width:100px; height:110px; border-radius:20px; border:2px dashed var(--surface-border); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; background:var(--chat-bg); }
     .avatar-placeholder .ph-emoji { font-size:30px; }
-    .avatar-placeholder .ph-text { font-family:'DM Mono',monospace; font-size:9px; color:var(--text-muted); text-align:center; line-height:1.4; padding:0 8px; }
+    .avatar-placeholder .ph-text { font-family:var(--font); font-size:9px; color:var(--text-muted); text-align:center; line-height:1.4; padding:0 8px; }
     .avatar-shadow { width:55px; height:8px; background:radial-gradient(ellipse, rgba(232,201,122,0.22) 0%, transparent 70%); border-radius:50%; margin-top:-2px; animation:shadowPulse 3.6s ease-in-out infinite; }
     @keyframes shadowPulse { 0%,100%{transform:scaleX(1);opacity:.7} 50%{transform:scaleX(.65);opacity:.25} }
 
-    .speech-bubble { flex:1; position:relative; background:var(--chat-bg); border:1px solid var(--surface-border); border-radius:16px; border-bottom-left-radius:4px; padding:14px 16px; margin-bottom:8px; transition:background var(--transition), border-color var(--transition); }
+    .speech-bubble { flex:1; position:relative; background:var(--chat-bg); border:1px solid var(--surface-border); border-radius:16px; border-bottom-left-radius:4px; padding:14px 16px; margin-bottom:8px; }
     .speech-bubble::before { content:''; position:absolute; left:-9px; bottom:14px; border:8px solid transparent; border-right-color:var(--surface-border); }
     .speech-bubble::after  { content:''; position:absolute; left:-7px; bottom:15px; border:7px solid transparent; border-right-color:var(--chat-bg); }
-    .bubble-tag { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.14em; color:var(--accent); text-transform:uppercase; margin-bottom:5px; }
+    .c2c-badge { display:inline-flex; align-items:center; gap:6px; font-family:var(--font); font-size:10px; letter-spacing:.06em; color:var(--ok); background:rgba(74,222,128,.08); border:1px solid rgba(74,222,128,.3); padding:3px 10px; border-radius:20px; margin-bottom:8px; }
+    .c2c-badge::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--ok); box-shadow:0 0 6px var(--ok); }
     .bubble-headline { font-size:clamp(17px,3.5vw,22px); font-weight:800; letter-spacing:-.02em; line-height:1.2; color:var(--text); }
     .bubble-headline span { color:var(--accent); }
-    .bubble-sub { font-family:'DM Mono',monospace; font-size:11px; color:var(--text-muted); margin-top:6px; }
+    .bubble-sub { font-family:var(--font); font-size:11px; color:var(--text-muted); margin-top:6px; line-height:1.5; }
+
+    .hero-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+    .pill-btn {
+      display:inline-flex; align-items:center; gap:6px;
+      font-family:var(--font); font-size:10px; letter-spacing:.05em;
+      padding:7px 14px; border-radius:20px; text-decoration:none;
+      background:rgba(232,201,122,0.1); border:1px solid rgba(232,201,122,0.3); color:var(--accent);
+      transition: background .25s, box-shadow .25s, transform .2s;
+    }
+    .pill-btn:hover { background:rgba(232,201,122,0.2); box-shadow:0 4px 14px rgba(232,201,122,0.2); transform:translateY(-1px); }
+    .pill-btn.solid { background:var(--accent); color:#080808; border-color:var(--accent); }
+    .pill-btn svg { width:12px; height:12px; }
 
     #bitmoji-input { display:none; }
-    .upload-hint { display:flex; align-items:flex-start; gap:10px; margin-bottom:16px; padding:10px 14px; background:rgba(232,201,122,0.04); border:1px dashed rgba(232,201,122,0.22); border-radius:10px; cursor:pointer; transition:background .25s, border-color .25s; }
-    .upload-hint:hover { background:var(--accent-glow); border-color:var(--accent); }
-    .upload-hint .uh-icon { font-size:20px; flex-shrink:0; margin-top:1px; }
-    .upload-hint p { font-family:'DM Mono',monospace; font-size:10.5px; color:var(--text-muted); line-height:1.55; }
-    .upload-hint p strong { color:var(--accent); }
-    .upload-hint.hidden { display:none; }
+    .divider { height:1px; background:var(--surface-border); margin:16px 0; }
 
-    .divider { height:1px; background:var(--surface-border); margin:16px 0; transition:background var(--transition); }
-
-    .chat-label { font-family:'DM Mono',monospace; font-size:10.5px; letter-spacing:.12em; color:var(--text-muted); text-transform:uppercase; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+    .chat-label { font-family:var(--font); font-size:10.5px; letter-spacing:.12em; color:var(--text-muted); text-transform:uppercase; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
     .chat-label::before { content:''; width:6px; height:6px; border-radius:50%; background:#4ade80; box-shadow:0 0 6px #4ade80; }
-
-    .chat-messages { min-height:80px; max-height:175px; overflow-y:auto; margin-bottom:10px; display:flex; flex-direction:column; gap:8px; scrollbar-width:thin; scrollbar-color:var(--scrollbar) transparent; padding-right:4px; }
+    .chat-messages { min-height:80px; max-height:190px; overflow-y:auto; margin-bottom:10px; display:flex; flex-direction:column; gap:8px; scrollbar-width:thin; scrollbar-color:var(--scrollbar) transparent; padding-right:4px; }
     .chat-messages::-webkit-scrollbar { width:3px; }
     .chat-messages::-webkit-scrollbar-thumb { background:var(--scrollbar); border-radius:4px; }
-
     .msg { display:flex; flex-direction:column; animation:msgIn .3s cubic-bezier(.34,1.56,.64,1) both; }
     @keyframes msgIn { from{opacity:0;transform:translateY(8px) scale(.97)} to{opacity:1;transform:none} }
-    .msg-bubble { padding:9px 13px; border-radius:13px; font-family:'DM Mono',monospace; font-size:12px; line-height:1.55; max-width:88%; }
+    .msg-bubble { padding:9px 13px; border-radius:13px; font-family:var(--font); font-size:12px; line-height:1.55; max-width:88%; }
+    .msg-bubble a { color:var(--accent); }
     .msg.bot  .msg-bubble { background:var(--chat-bg); border:1px solid var(--surface-border); color:var(--text); border-bottom-left-radius:4px; align-self:flex-start; }
     .msg.user .msg-bubble { background:var(--user-bubble); border:1px solid rgba(232,201,122,.2); color:var(--text); border-bottom-right-radius:4px; align-self:flex-end; }
-
     .typing-indicator { display:none; gap:4px; padding:9px 13px; background:var(--chat-bg); border:1px solid var(--surface-border); border-radius:13px; border-bottom-left-radius:4px; width:fit-content; align-self:flex-start; }
     .typing-indicator.visible { display:flex; }
     .typing-indicator span { width:5px; height:5px; border-radius:50%; background:var(--text-muted); animation:typingBounce 1.2s ease-in-out infinite; }
@@ -159,155 +156,130 @@
     @keyframes typingBounce { 0%,60%,100%{transform:translateY(0);opacity:.4} 30%{transform:translateY(-5px);opacity:1} }
 
     .chat-input-row { display:flex; gap:8px; align-items:center; }
-    .chat-input { flex:1; background:var(--input-bg); border:1px solid var(--surface-border); border-radius:11px; padding:9px 13px; font-family:'DM Mono',monospace; font-size:12px; color:var(--text); outline:none; transition:border-color .25s, background var(--transition), color var(--transition); }
+    .chat-input { flex:1; min-width:0; background:var(--input-bg); border:1px solid var(--surface-border); border-radius:11px; padding:9px 13px; font-family:var(--font); font-size:12px; color:var(--text); outline:none; transition:border-color .25s; }
     .chat-input::placeholder { color:var(--text-muted); }
     .chat-input:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-glow); }
     .send-btn { width:38px; height:38px; border-radius:11px; background:var(--accent); border:none; cursor:pointer; display:grid; place-items:center; flex-shrink:0; transition:transform .18s, box-shadow .18s, opacity .18s; }
     .send-btn:hover { transform:translateY(-1px); box-shadow:0 6px 20px var(--accent-glow); }
-    .send-btn:active { transform:scale(.95); }
     .send-btn:disabled { opacity:.4; cursor:not-allowed; transform:none; }
     .send-btn svg { width:15px; height:15px; fill:#080808; }
 
-    .quick-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
-    .chip { font-family: 'DM Mono', monospace; font-size: 10.5px; padding: 5px 11px; border-radius: 20px; background: var(--input-bg); border: 1px solid var(--surface-border); color: var(--text-muted); cursor: pointer; transition: background .2s, border-color .2s, color .2s; white-space: nowrap; }
-    .chip:hover { background: var(--accent-glow); border-color: var(--accent); color: var(--accent); }
+    .quick-chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px; }
+    .chip { font-family:var(--font); font-size:10.5px; padding:5px 11px; border-radius:20px; background:var(--input-bg); border:1px solid var(--surface-border); color:var(--text-muted); cursor:pointer; transition:background .2s, border-color .2s, color .2s; white-space:nowrap; }
+    .chip:hover { background:var(--accent-glow); border-color:var(--accent); color:var(--accent); }
 
-    .scroll-hint { margin-top: 28px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; animation: hintBounce 2s ease-in-out infinite; }
-    .scroll-hint span { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.12em; color:var(--text-muted); text-transform:uppercase; }
+    .scroll-hint { margin-top:28px; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; background:none; border:none; animation:hintBounce 2s ease-in-out infinite; }
+    .scroll-hint span { font-family:var(--font); font-size:10px; letter-spacing:.12em; color:var(--text-muted); text-transform:uppercase; }
     .scroll-hint svg { width:20px; height:20px; stroke:var(--text-muted); fill:none; stroke-width:2; stroke-linecap:round; }
     @keyframes hintBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
 
-    /* ════ CARDS SECTION ════ */
-    .cards-section { position: relative; padding: 80px 32px 100px; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 0; }
+    /* ════ INFO SECTION ════ */
+    .cards-section { position:relative; padding:80px 32px 100px; z-index:1; display:flex; flex-direction:column; align-items:center; }
+    .section-label { font-family:var(--font); font-size:11px; letter-spacing:.2em; color:var(--text-muted); text-transform:uppercase; margin-bottom:48px; display:flex; align-items:center; gap:12px; }
+    .section-label::before, .section-label::after { content:''; height:1px; width:60px; background:var(--surface-border); }
+    .info-stack { width:100%; max-width:860px; display:flex; flex-direction:column; gap:28px; }
+    .info-row { position:relative; background:var(--surface); border:1px solid var(--surface-border); border-radius:20px; overflow:hidden; transition:border-color .35s, box-shadow .35s; }
+    .info-row:hover { border-color:rgba(232,201,122,.45); box-shadow:0 16px 50px rgba(0,0,0,0.3), 0 0 40px var(--accent-glow); }
+    .row-label { font-family:var(--font); font-size:10px; letter-spacing:.16em; color:var(--accent); text-transform:uppercase; padding:14px 24px 0; }
+    .row-title { font-size:24px; font-weight:800; letter-spacing:-.02em; line-height:1.15; padding:12px 24px 0; }
+    .row-lede { font-family:var(--font); font-size:11.5px; line-height:1.65; color:var(--text-muted); padding:10px 24px 0; max-width:70ch; }
 
-    .section-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .2em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 48px; display: flex; align-items: center; gap: 12px; }
-    .section-label::before, .section-label::after { content: ''; height: 1px; width: 60px; background: var(--surface-border); }
+    /* C2C ROW */
+    .c2c-row { padding-bottom:24px; border-color:rgba(232,201,122,.35); }
+    .terms-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:12px; padding:18px 24px 0; }
+    .term { background:var(--chat-bg); border:1px solid var(--surface-border); border-radius:14px; padding:14px 16px; }
+    .term dt { font-family:var(--font); font-size:10px; color:var(--text-muted); margin-bottom:6px; }
+    .term dd { font-size:14px; font-weight:700; line-height:1.35; }
+    .term dd small { display:block; font-family:var(--font); font-weight:400; font-size:10px; color:var(--text-muted); margin-top:4px; }
+    .term.key dd { color:var(--accent); }
+    .submit-box { margin:18px 24px 0; padding:16px 18px; border:1px dashed rgba(232,201,122,.35); border-radius:14px; background:rgba(232,201,122,.04); }
+    .submit-box h3 { font-size:14px; font-weight:800; margin-bottom:8px; }
+    .submit-box ul { list-style:none; display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
+    .submit-box li { font-family:var(--font); font-size:10.5px; padding:4px 10px; border-radius:20px; border:1px solid var(--surface-border); background:var(--chat-bg); color:var(--text); }
+    .submit-box p { font-family:var(--font); font-size:10.5px; color:var(--text-muted); margin-top:10px; line-height:1.5; }
 
-    .info-stack { width: 100%; max-width: 860px; display: flex; flex-direction: column; gap: 28px; }
-
-    .info-row { position: relative; background: var(--surface); border: 1px solid var(--surface-border); border-radius: 20px; overflow: hidden; transition: border-color .35s, box-shadow .35s, transform .3s; }
-    .info-row:hover { border-color: var(--accent); box-shadow: 0 16px 50px rgba(0,0,0,0.35), 0 0 40px var(--accent-glow); transform: translateY(-4px); }
-
-    .row-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .16em; color: var(--accent); text-transform: uppercase; padding: 14px 24px 0; }
-
-    /* EDUCATION */
-    .edu-row { padding-bottom: 24px; }
-    .edu-inner { display: flex; align-items: flex-start; gap: 32px; padding: 16px 24px 0; }
-    .edu-main { flex: 1; }
-    .edu-title { font-size: 26px; font-weight: 800; letter-spacing: -.02em; line-height: 1.1; margin-bottom: 14px; }
-    .edu-title span { color: var(--accent); }
-    .edu-degrees { display: flex; gap: 16px; flex-wrap: wrap; }
-    .edu-degree { flex: 1; min-width: 200px; background: var(--chat-bg); border: 1px solid var(--surface-border); border-radius: 14px; padding: 14px 16px; transition: border-color .3s, background .3s; }
-    .info-row:hover .edu-degree { border-color: rgba(232,201,122,.2); background: rgba(232,201,122,.03); }
-    .deg-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
-    .deg-school { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--accent); margin-bottom: 6px; }
-    .deg-year { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); }
-    .edu-skills { display: flex; flex-wrap: wrap; gap: 6px; padding: 16px 24px 0; }
-    .skill-pill { font-family: 'DM Mono', monospace; font-size: 10px; padding: 4px 10px; border-radius: 20px; background: rgba(232,201,122,.06); border: 1px solid rgba(232,201,122,.15); color: var(--accent); transition: background .25s, border-color .25s; }
-    .info-row:hover .skill-pill { background: rgba(232,201,122,.12); border-color: rgba(232,201,122,.3); }
+    /* SKILLS */
+    .skills-row { padding-bottom:24px; }
+    .skill-groups { display:grid; grid-template-columns:repeat(2, 1fr); gap:16px 24px; padding:18px 24px 0; }
+    .skill-group h3 { font-size:12px; font-weight:700; color:var(--text); margin-bottom:8px; }
+    .skill-group .pills { display:flex; flex-wrap:wrap; gap:6px; }
+    .skill-pill { font-family:var(--font); font-size:10px; padding:4px 10px; border-radius:20px; background:rgba(232,201,122,.06); border:1px solid rgba(232,201,122,.15); color:var(--accent); }
 
     /* EXPERIENCE */
-    .exp-row { padding-bottom: 24px; }
-    .exp-header { display: flex; align-items: center; gap: 12px; padding: 16px 24px 0; }
-    .exp-title { font-size: 22px; font-weight: 800; letter-spacing: -.02em; }
-    .exp-strip { display: flex; gap: 14px; padding: 16px 24px 20px; overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: rgba(232,201,122,.35) transparent; cursor: grab; }
-    .exp-strip:active { cursor: grabbing; }
-    .exp-strip::-webkit-scrollbar { height: 4px; }
-    .exp-strip::-webkit-scrollbar-thumb { background: rgba(232,201,122,.35); border-radius: 4px; }
-    .exp-strip::-webkit-scrollbar-track { background: transparent; }
-    .company-bubble { scroll-snap-align: start; flex-shrink: 0; background: var(--chat-bg); border: 1px solid var(--surface-border); border-radius: 16px; padding: 16px 20px; min-width: 220px; cursor: default; transition: border-color .3s, transform .3s, background .3s; position: relative; overflow: hidden; }
-    .company-bubble::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), transparent); opacity: 0; transition: opacity .3s; }
-    .info-row:hover .company-bubble { border-color: rgba(232,201,122,.25); background: rgba(255,255,255,.03); }
-    .info-row:hover .company-bubble:hover { transform: translateY(-3px); border-color: var(--accent); background: rgba(232,201,122,.06); }
-    .info-row:hover .company-bubble:hover::before { opacity: 1; }
-    .cb-logo { font-size: 22px; margin-bottom: 8px; display: block; transition: transform .3s; }
-    .company-bubble:hover .cb-logo { transform: scale(1.2); }
-    .cb-company { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
-    .cb-role { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); margin-bottom: 5px; }
-    .cb-period { font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--text-muted); margin-bottom: 4px; }
-    .cb-location { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-muted); margin-bottom: 8px; }
-    .cb-desc { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); line-height: 1.5; }
+    .exp-row { padding-bottom:24px; }
+    .exp-strip { display:flex; gap:14px; padding:16px 24px 20px; overflow-x:auto; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; scrollbar-width:thin; scrollbar-color:rgba(232,201,122,.35) transparent; cursor:grab; }
+    .exp-strip:active { cursor:grabbing; }
+    .exp-strip::-webkit-scrollbar { height:4px; }
+    .exp-strip::-webkit-scrollbar-thumb { background:rgba(232,201,122,.35); border-radius:4px; }
+    .company-bubble { scroll-snap-align:start; flex-shrink:0; width:250px; background:var(--chat-bg); border:1px solid var(--surface-border); border-radius:16px; padding:16px 20px; position:relative; overflow:hidden; transition:border-color .3s, transform .3s, background .3s; }
+    .company-bubble:hover { transform:translateY(-3px); border-color:var(--accent); background:rgba(232,201,122,.05); }
+    .cb-logo { font-size:22px; margin-bottom:8px; display:block; }
+    .cb-type { font-family:var(--font); font-size:9px; color:var(--text-muted); margin-bottom:2px; }
+    .cb-company { font-size:13px; font-weight:700; color:var(--text); margin-bottom:3px; }
+    .cb-role { font-family:var(--font); font-size:10px; color:var(--accent); margin-bottom:5px; }
+    .cb-period { font-family:var(--font); font-size:9.5px; color:var(--text-muted); margin-bottom:4px; }
+    .cb-location { font-family:var(--font); font-size:9px; color:var(--text-muted); margin-bottom:8px; }
+    .cb-desc { font-family:var(--font); font-size:10px; color:var(--text-muted); line-height:1.55; }
 
-    /* PROJECTS */
-    .proj-row { padding: 20px 24px 24px; }
-    .proj-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
-    .proj-icon { font-size: 28px; transition: transform .4s cubic-bezier(.34,1.56,.64,1); }
-    .info-row:hover .proj-icon { transform: rotate(-8deg) scale(1.15); }
-    .proj-title { font-size: 22px; font-weight: 800; letter-spacing: -.02em; }
-    .proj-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .proj-panel { background: var(--chat-bg); border: 1px solid var(--surface-border); border-radius: 16px; padding: 18px 20px; position: relative; overflow: hidden; transition: border-color .3s, transform .3s, background .3s; }
-    .proj-panel::after { content: ''; position: absolute; bottom: 0; right: 0; width: 60px; height: 60px; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); opacity: 0; transition: opacity .3s; }
-    .info-row:hover .proj-panel { border-color: rgba(232,201,122,.2); }
-    .info-row:hover .proj-panel:hover { transform: translateY(-3px); border-color: var(--accent); background: rgba(232,201,122,.04); }
-    .info-row:hover .proj-panel:hover::after { opacity: 1; }
-    .pp-icon { font-size: 24px; margin-bottom: 10px; display: block; }
-    .pp-name { font-size: 14px; font-weight: 800; color: var(--text); margin-bottom: 4px; letter-spacing: -.01em; }
-    .pp-sub { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); margin-bottom: 8px; }
-    .pp-desc { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); line-height: 1.55; margin-bottom: 10px; }
-    .pp-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-    .pp-tag { font-family: 'DM Mono', monospace; font-size: 9px; padding: 3px 8px; border-radius: 20px; background: rgba(232,201,122,.08); border: 1px solid rgba(232,201,122,.18); color: var(--accent); }
-    .store-btns { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-    .store-btn { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 10px; padding: 7px 12px; border-radius: 10px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); color: var(--text); text-decoration: none; transition: background .25s, border-color .25s, transform .2s, box-shadow .2s; }
-    .store-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
-    .store-btn:hover { background: rgba(232,201,122,.12); border-color: var(--accent); color: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 18px var(--accent-glow); }
+    /* PROJECTS & RESEARCH */
+    .proj-row { padding-bottom:24px; }
+    .proj-panels { display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:18px 24px 0; }
+    .proj-panel { background:var(--chat-bg); border:1px solid var(--surface-border); border-radius:16px; padding:18px 20px; display:flex; flex-direction:column; transition:border-color .3s, transform .3s; }
+    .proj-panel:hover { transform:translateY(-3px); border-color:var(--accent); }
+    .pp-icon { font-size:24px; margin-bottom:10px; display:block; }
+    .pp-name { font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px; letter-spacing:-.01em; line-height:1.3; }
+    .pp-sub { font-family:var(--font); font-size:10px; color:var(--accent); margin-bottom:8px; }
+    .pp-meta { font-family:var(--font); font-size:9.5px; color:var(--text-muted); margin-bottom:8px; }
+    .pp-desc { font-family:var(--font); font-size:10px; color:var(--text-muted); line-height:1.6; margin-bottom:10px; }
+    .pp-tags { display:flex; flex-wrap:wrap; gap:5px; }
+    .pp-tag { font-family:var(--font); font-size:9px; padding:3px 8px; border-radius:20px; background:rgba(232,201,122,.08); border:1px solid rgba(232,201,122,.18); color:var(--accent); }
+    .store-btns { display:flex; gap:8px; margin-top:auto; padding-top:12px; flex-wrap:wrap; }
+    .store-btn { display:inline-flex; align-items:center; gap:6px; font-family:var(--font); font-size:10px; padding:7px 12px; border-radius:10px; background:rgba(255,255,255,.05); border:1px solid var(--surface-border); color:var(--text); text-decoration:none; transition:background .25s, border-color .25s, transform .2s; }
+    [data-theme="light"] .store-btn { background:rgba(0,0,0,.03); }
+    .store-btn svg { width:14px; height:14px; flex-shrink:0; }
+    .store-btn:hover { background:rgba(232,201,122,.12); border-color:var(--accent); color:var(--accent); transform:translateY(-2px); }
 
+    /* CONTACT */
+    .contact-row { padding-bottom:24px; }
+    .contact-links { display:flex; flex-wrap:wrap; gap:10px; padding:18px 24px 0; }
+
+    footer { position:relative; z-index:1; text-align:center; padding:0 16px 40px; font-family:var(--font); font-size:10px; color:var(--text-muted); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation:none !important; transition:none !important; }
+      html { scroll-behavior:auto; }
+    }
     @media (max-width: 768px) {
-      .theme-toggle { top: 16px; right: 16px; padding: 6px 12px; font-size: 11px; }
-      .orb { width: 18px; height: 18px; }
-      .hero-section { padding: 16px; }
-      .card { padding: 20px; border-radius: 20px; }
-      .bitmoji-row { gap: 14px; }
-      .avatar-wrap { width: 80px; }
-      .avatar-img { width: 80px; height: 90px; }
-      .avatar-placeholder { width: 80px; height: 90px; }
-      .bubble-headline { font-size: 18px; }
-      .cards-section { padding: 48px 16px 64px; }
-      .info-stack { gap: 20px; }
-      .edu-title { font-size: 22px; }
-      .exp-title, .proj-title { font-size: 20px; }
-      .company-bubble { min-width: 200px; }
+      .theme-toggle { top:16px; right:16px; padding:6px 12px; font-size:11px; }
+      .orb { width:18px; height:18px; }
+      .hero-section { padding:64px 16px 16px; }
+      .card { padding:20px; border-radius:20px; }
+      .avatar-wrap { width:80px; }
+      .avatar-img, .avatar-placeholder { width:80px; height:90px; }
+      .cards-section { padding:48px 16px 64px; }
+      .info-stack { gap:20px; }
+      .row-title { font-size:20px; }
     }
     @media (max-width: 640px) {
-      .edu-degrees { flex-direction: column; gap: 10px; }
-      .edu-inner { flex-direction: column; gap: 12px; }
-      .edu-title { font-size: 20px; }
-      .proj-panels { grid-template-columns: 1fr; gap: 12px; }
-      .exp-strip { flex-direction: column; overflow-x: visible; cursor: default; padding: 12px 18px 16px; gap: 12px; }
-      .company-bubble { min-width: unset; width: 100%; scroll-snap-align: unset; }
-      .section-label { margin-bottom: 28px; }
-      .section-label::before, .section-label::after { width: 30px; }
-      .row-label { font-size: 9.5px; padding: 12px 18px 0; }
-      .edu-inner { padding: 12px 18px 0; }
-      .edu-skills { padding: 12px 18px 0; }
-      .exp-header { padding: 12px 18px 0; }
-      .proj-row { padding: 14px 18px 18px; }
+      .skill-groups { grid-template-columns:1fr; }
+      .proj-panels { grid-template-columns:1fr; gap:12px; }
+      .exp-strip { flex-direction:column; overflow-x:visible; cursor:default; padding:12px 18px 16px; gap:12px; }
+      .company-bubble { width:100%; scroll-snap-align:unset; }
+      .section-label { margin-bottom:28px; }
+      .section-label::before, .section-label::after { width:30px; }
+      .row-label { padding:12px 18px 0; }
+      .row-title, .row-lede { padding-left:18px; padding-right:18px; }
+      .terms-grid, .skill-groups, .proj-panels, .contact-links { padding-left:18px; padding-right:18px; }
+      .submit-box { margin-left:18px; margin-right:18px; }
     }
     @media (max-width: 480px) {
-      .bubble-headline { font-size: 16px; }
-      .card { padding: 16px; border-radius: 16px; }
-      .bitmoji-row { gap: 10px; margin-bottom: 12px; }
-      .avatar-wrap { width: 72px; }
-      .avatar-img { width: 72px; height: 80px; }
-      .avatar-placeholder { width: 72px; height: 80px; }
-      .wave-hand { font-size: 22px; right: -10px; top: 0; }
-      .cards-section { padding: 36px 12px 56px; }
-      .info-stack { gap: 16px; }
-      .info-row { border-radius: 16px; }
-      .edu-title { font-size: 18px; }
-      .exp-title, .proj-title { font-size: 18px; }
-      .company-bubble { min-width: unset; width: 100%; padding: 14px 16px; border-radius: 14px; }
-      .proj-panel { padding: 14px 16px; border-radius: 14px; }
-      .edu-degree { padding: 12px 14px; border-radius: 12px; }
-    }
-    @media (max-width: 360px) {
-      .bubble-headline { font-size: 15px; }
-      .card { padding: 14px; }
-      .avatar-wrap { width: 64px; }
-      .avatar-img { width: 64px; height: 72px; }
-      .avatar-placeholder { width: 64px; height: 72px; }
-      .edu-title { font-size: 16px; }
-      .exp-title, .proj-title { font-size: 16px; }
-      .skill-pill { font-size: 9px; padding: 3px 8px; }
+      .card { padding:16px; border-radius:16px; }
+      .bitmoji-row { gap:10px; margin-bottom:12px; }
+      .avatar-wrap { width:72px; }
+      .avatar-img, .avatar-placeholder { width:72px; height:80px; }
+      .wave-hand { font-size:22px; right:-10px; top:0; }
+      .info-row { border-radius:16px; }
+      .row-title { font-size:18px; }
     }
   </style>
 </head>
@@ -315,7 +287,7 @@
 
 <input type="file" id="bitmoji-input" accept="image/*" onchange="loadBitmoji(event)"/>
 
-<button class="theme-toggle" onclick="toggleTheme()">
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light and dark theme">
   <div class="orb"></div>
   <span id="theme-label">night</span>
 </button>
@@ -329,78 +301,57 @@
              onclick="document.getElementById('bitmoji-input').click()"
              title="Click to upload your Bitmoji PNG">
           <div id="avatarPlaceholder" class="avatar-placeholder" style="display:none;">
-
             <span class="ph-emoji">🙂</span>
             <p class="ph-text">tap to add<br>your bitmoji</p>
           </div>
-          <img id="avatarImg" class="avatar-img" src="bitmoji.png" alt="Ranjith"/>
+          <img id="avatarImg" class="avatar-img" src="bitmoji.png" alt="Ranjith Gopinath"/>
           <div id="waveHand" class="wave-hand visible">👋</div>
-
         </div>
         <div class="avatar-shadow"></div>
       </div>
       <div class="speech-bubble">
-        <div class="bubble-tag">hey there 👆</div>
-        <div class="bubble-headline">Welcome to<br><span>Ranjith's</span> Portfolio</div>
-        <div class="bubble-sub">full-stack engineer · designer · builder</div>
-        
-
-<a href="./Resume.pdf" download class="resume-btn" style="
-  display: inline-flex; align-items: center; gap: 6px;
-  margin-top: 10px;
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  padding: 7px 14px; border-radius: 20px;
-  background: rgba(232,201,122,0.1);
-  border: 1px solid rgba(232,201,122,0.3);
-  color: var(--accent); text-decoration: none;
-  transition: background .25s, box-shadow .25s, transform .2s;
-  letter-spacing: 0.05em;
-" onmouseover="this.style.background='rgba(232,201,122,0.2)';this.style.boxShadow='0 4px 14px rgba(232,201,122,0.2)';this.style.transform='translateY(-1px)'"
-   onmouseout="this.style.background='rgba(232,201,122,0.1)';this.style.boxShadow='none';this.style.transform='none'">
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-  </svg>
-  Download Resume
-</a>
+        <div class="c2c-badge">Open to C2C contracts only</div>
+        <div class="bubble-headline">Hi, I'm <span>Ranjith Gopinath</span></div>
+        <div class="bubble-sub">Sr. AI/ML engineer with ~7 years in Python, ML, NLP, LLMs, RAG and AI agents</div>
+        <div class="hero-actions">
+          <a href="#c2c" class="pill-btn solid">C2C details</a>
+          <a href="./Resume.pdf" download class="pill-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download resume
+          </a>
+        </div>
       </div>
-    </div>
-
-    <div class="upload-hint hidden" id="uploadHint" onclick="document.getElementById('bitmoji-input').click()">
-      <span class="uh-icon">📱</span>
-      <p><strong>Add your Bitmoji:</strong> Save sticker from Snapchat → click to upload PNG</p>
     </div>
 
     <div class="divider"></div>
 
     <div class="chat-label">ask me about ranjith</div>
-    <div class="chat-messages" id="chatMessages">
+    <div class="chat-messages" id="chatMessages" aria-live="polite">
       <div class="msg bot">
-        <div class="msg-bubble">Hey! 👋 I'm Ranjith's AI assistant. Ask me anything — his skills, experience, projects, availability, or how to get in touch!</div>
+        <div class="msg-bubble">Hi! 👋 I'm Ranjith's assistant. Ask about C2C terms, his AI/ML skills, client experience, apps or research.</div>
       </div>
-      <div class="typing-indicator" id="typingIndicator">
-        <span></span><span></span><span></span>
-      </div>
+      <div class="typing-indicator" id="typingIndicator"><span></span><span></span><span></span></div>
     </div>
 
     <div class="quick-chips">
-      <button class="chip" onclick="askChip('Is he available to work?')">Available? 🟢</button>
+      <button class="chip" onclick="askChip('Is he open to C2C?')">C2C terms 🤝</button>
       <button class="chip" onclick="askChip('What are his top skills?')">Top skills</button>
-      <button class="chip" onclick="askChip('Tell me about his projects')">Projects 🚀</button>
-      <button class="chip" onclick="askChip('How can I contact Ranjith?')">Contact 📬</button>
+      <button class="chip" onclick="askChip('Tell me about his research')">Research 📄</button>
+      <button class="chip" onclick="askChip('How do I submit a C2C role?')">Submit a role 📬</button>
     </div>
 
     <div class="chat-input-row">
-      <input class="chat-input" id="chatInput" type="text" placeholder="e.g. what are his skills? is he available?" autocomplete="off" onkeydown="if(event.key==='Enter') sendMessage()"/>
-      <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+      <input class="chat-input" id="chatInput" type="text" placeholder="e.g. does he do C2C? RAG experience?" autocomplete="off" aria-label="Ask a question" onkeydown="if(event.key==='Enter') sendMessage()"/>
+      <button class="send-btn" id="sendBtn" onclick="sendMessage()" aria-label="Send">
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
       </button>
     </div>
   </div>
 
-  <div class="scroll-hint" onclick="document.getElementById('info').scrollIntoView({behavior:'smooth'})">
+  <button class="scroll-hint" onclick="document.getElementById('info').scrollIntoView({behavior:'smooth'})">
     <span>scroll to explore</span>
     <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-  </div>
+  </button>
 </section>
 
 <!-- INFO ROWS -->
@@ -408,115 +359,133 @@
   <div class="section-label">about ranjith</div>
   <div class="info-stack">
 
-    <!-- EDUCATION -->
-    <div class="info-row edu-row">
-      <div class="row-label">🎓 education</div>
-      <div class="edu-inner">
-        <div class="edu-main">
-          <div class="edu-title">Academic <span>Background</span></div>
-          <div class="edu-degrees">
-            <div class="edu-degree">
-              <div class="deg-name">M.S. Computer Science</div>
-              <div class="deg-school">California State University, Dominguez Hills</div>
-              <div class="deg-year">Aug 2022 – Dec 2024</div>
-            </div>
-            <div class="edu-degree">
-              <div class="deg-name">B.E. Electronics &amp; Communications</div>
-              <div class="deg-school">Peri Institute of Technology</div>
-              <div class="deg-year">Aug 2016 – Dec 2020</div>
-            </div>
+    <!-- C2C ENGAGEMENT -->
+    <div class="info-row c2c-row" id="c2c">
+      <div class="row-label">🤝 for vendors &amp; recruiters</div>
+      <h2 class="row-title">C2C contract opportunities only</h2>
+      <p class="row-lede">I'm taking Corp-to-Corp (C2C) contract roles in AI/ML and Generative AI. I'm not considering W2, 1099 or full-time positions, so please only reach out with C2C requirements.</p>
+      <dl class="terms-grid">
+        <div class="term key"><dt>Engagement</dt><dd>Corp-to-Corp (C2C)<small>No W2, 1099 or full-time</small></dd></div>
+        <div class="term"><dt>Target roles</dt><dd>Sr. AI/ML Engineer, GenAI / LLM Engineer, NLP Engineer</dd></div>
+        <div class="term"><dt>Work mode</dt><dd>Remote, hybrid or onsite<small>Based in Long Beach, CA</small></dd></div>
+        <div class="term"><dt>Domains</dt><dd>Financial services, healthcare &amp; life sciences, enterprise</dd></div>
+      </dl>
+      <div class="submit-box">
+        <h3>To submit a role, please include</h3>
+        <ul>
+          <li>Job description</li>
+          <li>End client &amp; implementation partner</li>
+          <li>Location &amp; work mode</li>
+          <li>Contract duration</li>
+          <li>C2C rate</li>
+        </ul>
+        <a class="pill-btn solid" href="mailto:ranjithgopinath878@gmail.com?subject=C2C%20Opportunity%3A%20%5BRole%5D%20-%20%5BClient%5D&body=Job%20title%3A%0AEnd%20client%20%2F%20implementation%20partner%3A%0ALocation%20%26%20work%20mode%3A%0ADuration%3A%0AC2C%20rate%3A%0A%0AJob%20description%3A%0A">Email a C2C requirement</a>
+        <p>Requirements without a C2C rate or that are W2-only won't get a reply.</p>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="info-row skills-row">
+      <div class="row-label">🧠 expertise</div>
+      <h2 class="row-title">What I bring to a contract</h2>
+      <p class="row-lede">Production ML, NLP and LLM systems across financial services, healthcare and enterprise technology, built on a backend and full-stack engineering foundation.</p>
+      <div class="skill-groups">
+        <div class="skill-group">
+          <h3>Generative AI &amp; agents</h3>
+          <div class="pills">
+            <span class="skill-pill">LLMs</span><span class="skill-pill">OpenAI APIs / GPT-4</span><span class="skill-pill">Hugging Face</span><span class="skill-pill">Transformers</span><span class="skill-pill">RAG</span><span class="skill-pill">LangChain</span><span class="skill-pill">LangGraph</span><span class="skill-pill">CrewAI</span><span class="skill-pill">Prompt engineering</span><span class="skill-pill">LLM evaluation</span>
           </div>
         </div>
-      </div>
-      <div class="edu-skills">
-        <span class="skill-pill">JavaScript</span>
-        <span class="skill-pill">TypeScript</span>
-        <span class="skill-pill">Python</span>
-        <span class="skill-pill">React.js</span>
-        <span class="skill-pill">React Native</span>
-        <span class="skill-pill">Next.js</span>
-        <span class="skill-pill">Node.js</span>
-        <span class="skill-pill">Express.js</span>
-        <span class="skill-pill">GraphQL</span>
-        <span class="skill-pill">FastAPI</span>
-        <span class="skill-pill">MongoDB</span>
-        <span class="skill-pill">PostgreSQL</span>
-        <span class="skill-pill">Redis</span>
-        <span class="skill-pill">Firebase</span>
-        <span class="skill-pill">AWS</span>
-        <span class="skill-pill">Docker</span>
-        <span class="skill-pill">Kubernetes</span>
-        <span class="skill-pill">GitHub Actions</span>
-        <span class="skill-pill">OpenAI GPT-4</span>
-        <span class="skill-pill">LangChain</span>
-        <span class="skill-pill">Pinecone</span>
-        <span class="skill-pill">JWT / OAuth2</span>
-        <span class="skill-pill">Git</span>
+        <div class="skill-group">
+          <h3>Machine learning &amp; NLP</h3>
+          <div class="pills">
+            <span class="skill-pill">PyTorch</span><span class="skill-pill">TensorFlow</span><span class="skill-pill">Scikit-learn</span><span class="skill-pill">Pandas</span><span class="skill-pill">NumPy</span><span class="skill-pill">NER</span><span class="skill-pill">Text classification</span><span class="skill-pill">Semantic search</span><span class="skill-pill">Summarization</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Vector search</h3>
+          <div class="pills">
+            <span class="skill-pill">FAISS</span><span class="skill-pill">Pinecone</span><span class="skill-pill">Weaviate</span><span class="skill-pill">Azure AI Search</span><span class="skill-pill">Embeddings</span><span class="skill-pill">Chunking</span><span class="skill-pill">Metadata filtering</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>MLOps, cloud &amp; DevOps</h3>
+          <div class="pills">
+            <span class="skill-pill">MLflow</span><span class="skill-pill">LLMOps</span><span class="skill-pill">Docker</span><span class="skill-pill">Kubernetes</span><span class="skill-pill">GitHub Actions</span><span class="skill-pill">Jenkins</span><span class="skill-pill">Azure</span><span class="skill-pill">CI/CD</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Backend &amp; data</h3>
+          <div class="pills">
+            <span class="skill-pill">Python</span><span class="skill-pill">FastAPI</span><span class="skill-pill">Django / DRF</span><span class="skill-pill">Flask</span><span class="skill-pill">REST APIs</span><span class="skill-pill">SQL</span><span class="skill-pill">PostgreSQL</span><span class="skill-pill">SQL Server</span><span class="skill-pill">SQLAlchemy</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Frontend &amp; testing</h3>
+          <div class="pills">
+            <span class="skill-pill">React.js</span><span class="skill-pill">JavaScript</span><span class="skill-pill">HTML5 / CSS3</span><span class="skill-pill">PyTest</span><span class="skill-pill">Postman</span><span class="skill-pill">Agile / Scrum</span><span class="skill-pill">JIRA</span>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- EXPERIENCE -->
     <div class="info-row exp-row">
-      <div class="row-label">💼 experience</div>
-      <div class="exp-header">
-        <div class="exp-title">Work History</div>
-      </div>
+      <div class="row-label">💼 client experience</div>
+      <h2 class="row-title">Work history</h2>
       <div class="exp-strip">
-
-        <!-- Snowflake -->
         <div class="company-bubble">
-          <span class="cb-logo">❄️</span>
-          <div class="cb-company">Snowflake</div>
-          <div class="cb-role">Software Engineer</div>
-          <div class="cb-period">Jan 2025 – Present</div>
-          <div class="cb-location">📍 Santa Ana, CA · On-site</div>
-          <div class="cb-desc">Full-stack features on enterprise data platform (React.js, TypeScript, Node.js, AWS). Built semantic search engine with OpenAI GPT-4 + LangChain — 30% less manual processing. CI/CD with Docker & Kubernetes cut release time by 40%.</div>
+          <span class="cb-logo">🏦</span>
+          <div class="cb-type">Client</div>
+          <div class="cb-company">Prudential Financial</div>
+          <div class="cb-role">Sr. AI/ML Engineer</div>
+          <div class="cb-period">Dec 2025 – Present</div>
+          <div class="cb-location">📍 Newark, NJ</div>
+          <div class="cb-desc">Leads enterprise AI/ML for document intelligence and workflow automation. Production RAG pipelines, LangGraph and CrewAI agents, MLflow-based LLMOps, and PII controls and audit logging in LLM workflows.</div>
         </div>
-
-        <!-- Charles Schwab -->
         <div class="company-bubble">
-          <span class="cb-logo">📈</span>
-          <div class="cb-company">Charles Schwab</div>
-          <div class="cb-role">Software Engineer</div>
-          <div class="cb-period">Apr 2023 – Dec 2024</div>
-          <div class="cb-location">📍 Carson, CA · Part-time</div>
-          <div class="cb-desc">Production web apps for brokerage account management & trade reporting. Reduced client-server latency by 20% via REST API caching. Python automation with ServiceNow & Active Directory cut IT overhead by 40%.</div>
+          <span class="cb-logo">💊</span>
+          <div class="cb-type">Client</div>
+          <div class="cb-company">Pfizer</div>
+          <div class="cb-role">ML Engineer</div>
+          <div class="cb-period">Feb 2025 – Nov 2025</div>
+          <div class="cb-location">📍 New York, NY</div>
+          <div class="cb-desc">ML and NLP for healthcare and life-sciences data: entity extraction, classification and RAG with FAISS, Pinecone and Azure AI Search. Dockerized inference on Kubernetes with CI/CD and LLM groundedness checks.</div>
         </div>
-
-        <!-- Capital One -->
         <div class="company-bubble">
-          <span class="cb-logo">💳</span>
-          <div class="cb-company">Capital One</div>
-          <div class="cb-role">Associate Software Engineer</div>
-          <div class="cb-period">Dec 2020 – Jul 2022</div>
-          <div class="cb-location">📍 Chennai, India · On-site</div>
-          <div class="cb-desc">Full-stack banking apps in React.js, TypeScript & Node.js — 10,000+ daily active users. Reduced P95 API response time by 30% via Redis caching. Fewer regression bugs by 25% with Jest test suites.</div>
+          <span class="cb-logo">🏭</span>
+          <div class="cb-type">Client</div>
+          <div class="cb-company">Honeywell</div>
+          <div class="cb-role">Python Full Stack Developer</div>
+          <div class="cb-period">Jan 2023 – Nov 2023</div>
+          <div class="cb-location">📍 Charlotte, NC</div>
+          <div class="cb-desc">Enterprise web apps with Django, FastAPI and React.js for equipment and operational data. REST APIs on PostgreSQL and SQL Server, PyTest coverage and Jenkins CI/CD.</div>
         </div>
-
+        <div class="company-bubble">
+          <span class="cb-logo">⚙️</span>
+          <div class="cb-type">Employer</div>
+          <div class="cb-company">Cyient</div>
+          <div class="cb-role">Python Developer</div>
+          <div class="cb-period">Jul 2018 – Jul 2022</div>
+          <div class="cb-location">📍 Hyderabad, India</div>
+          <div class="cb-desc">Python and Flask REST services with SQLAlchemy, data validation and automation scripts, plus SIT/UAT and production support.</div>
+        </div>
       </div>
     </div>
 
-    <!-- PROJECTS -->
-    <div class="info-row proj-row">
-      <div class="row-label">🚀 projects</div>
-      <div class="proj-header">
-        <div class="proj-icon">⚡</div>
-        <div class="proj-title">What I've Built</div>
-      </div>
+    <!-- APPS & RESEARCH -->
+    <div class="info-row proj-row" id="work">
+      <div class="row-label">🚀 apps &amp; research</div>
+      <h2 class="row-title">Published work</h2>
       <div class="proj-panels">
 
         <div class="proj-panel">
           <span class="pp-icon">🏥</span>
           <div class="pp-name">HealthW AI</div>
-          <div class="pp-sub">Cross-Platform Mobile App · Live on Stores</div>
-          <div class="pp-desc">Sole architect of a production iOS/Android health app. JWT/OAuth2 auth, real-time Firebase sync, OpenAI GPT-4 health coaching, and weather-triggered wellness recommendations. Hosted on AWS.</div>
+          <div class="pp-sub">Mobile app · Live on App Store &amp; Google Play</div>
+          <div class="pp-desc">Cross-platform iOS/Android health app with GPT-4 health coaching, real-time Firebase sync, JWT/OAuth2 auth and weather-triggered wellness recommendations.</div>
           <div class="pp-tags">
-            <span class="pp-tag">React Native</span>
-            <span class="pp-tag">Node.js</span>
-            <span class="pp-tag">AWS</span>
-            <span class="pp-tag">Firebase</span>
-            <span class="pp-tag">OpenAI GPT-4</span>
-            <span class="pp-tag">MongoDB</span>
+            <span class="pp-tag">React Native</span><span class="pp-tag">Node.js</span><span class="pp-tag">OpenAI GPT-4</span><span class="pp-tag">Firebase</span><span class="pp-tag">AWS</span>
           </div>
           <div class="store-btns">
             <a class="store-btn" href="https://apps.apple.com/app/id6755588655" target="_blank" rel="noopener">
@@ -525,33 +494,49 @@
             </a>
             <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.hwai.healthaimobile" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.19.96.07l12.14-6.98-2.61-2.61-10.49 9.52zM.44 1.6C.17 1.95.01 2.44.01 3.06v17.88c0 .62.16 1.11.43 1.46l.07.07 10.02-10.02v-.24L.51 1.53l-.07.07zM20.49 10.34l-2.89-1.66-2.93 2.93 2.93 2.93 2.91-1.67c.83-.48.83-1.26-.02-1.53zM3.18.24L15.67 7.2l-2.61 2.61L3.18.31V.24z"/></svg>
-              Play Store
+              Google Play
             </a>
           </div>
         </div>
 
         <div class="proj-panel">
-          <span class="pp-icon">🔍</span>
-          <div class="pp-name">Semantic Search Engine</div>
-          <div class="pp-sub">AI / ML · Snowflake · 2025</div>
-          <div class="pp-desc">Document processing & semantic search engine at Snowflake using OpenAI GPT-4 + LangChain RAG pipeline with vector embeddings. Cut manual data processing by 30% in production.</div>
+          <span class="pp-icon">📄</span>
+          <div class="pp-name">Forecasting Monthly Pothole Reporting Episodes Using Municipal Pavement Asset Identifiers: A Retrospective San Diego Study</div>
+          <div class="pp-sub">Preprint · Zenodo · Sep 2026 · CC BY 4.0</div>
+          <div class="pp-meta">DOI 10.5281/zenodo.22754867</div>
+          <div class="pp-desc">Links ~104k San Diego pothole requests (2020–2025) to 32,745 pavement assets and tests whether gradient boosting and logistic regression beat simple baselines at ranking next-month reporting, using time-split validation and block-bootstrap intervals.</div>
           <div class="pp-tags">
-            <span class="pp-tag">OpenAI GPT-4</span>
-            <span class="pp-tag">LangChain</span>
-            <span class="pp-tag">RAG</span>
-            <span class="pp-tag">Pinecone</span>
-            <span class="pp-tag">Node.js</span>
-            <span class="pp-tag">AWS</span>
+            <span class="pp-tag">Python</span><span class="pp-tag">Gradient boosting</span><span class="pp-tag">Forecasting</span><span class="pp-tag">Civic data</span>
+          </div>
+          <div class="store-btns">
+            <a class="store-btn" href="https://zenodo.org/records/22754867" target="_blank" rel="noopener">Read on Zenodo</a>
+            <a class="store-btn" href="https://doi.org/10.5281/zenodo.22754867" target="_blank" rel="noopener">DOI link</a>
           </div>
         </div>
 
       </div>
     </div>
 
+    <!-- CONTACT -->
+    <div class="info-row contact-row" id="contact">
+      <div class="row-label">📬 contact</div>
+      <h2 class="row-title">Send a C2C requirement</h2>
+      <p class="row-lede">Email is the fastest way to reach me. Please include the JD and C2C rate.</p>
+      <div class="contact-links">
+        <a class="store-btn" href="mailto:ranjithgopinath878@gmail.com?subject=C2C%20Opportunity">📧 ranjithgopinath878@gmail.com</a>
+        <a class="store-btn" href="tel:+15623366647">📞 +1 (562) 336-6647</a>
+        <a class="store-btn" href="https://www.linkedin.com/in/ag-ranjith-6957011a2/" target="_blank" rel="noopener">in LinkedIn</a>
+      </div>
+    </div>
+
   </div>
 </section>
 
+<footer>© <span id="yr"></span> Ranjith Gopinath · C2C contracts only</footer>
+
 <script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
   /* ── Bitmoji ── */
   function loadBitmoji(e) {
     const file = e.target.files[0];
@@ -563,47 +548,23 @@
     };
     r.readAsDataURL(file);
   }
-
   function applyBitmoji(src) {
-    const img  = document.getElementById('avatarImg');
-    const ph   = document.getElementById('avatarPlaceholder');
-    const wave = document.getElementById('waveHand');
-    const hint = document.getElementById('uploadHint');
-    img.src = src;
-    img.style.display = 'block';
-    ph.style.display  = 'none';
-    wave.classList.add('visible');
-    if (hint) hint.classList.add('hidden');
+    const img = document.getElementById('avatarImg');
+    img.src = src; img.style.display = 'block';
+    document.getElementById('avatarPlaceholder').style.display = 'none';
+    document.getElementById('waveHand').classList.add('visible');
   }
-
   window.addEventListener('DOMContentLoaded', () => {
     const img  = document.getElementById('avatarImg');
     const ph   = document.getElementById('avatarPlaceholder');
     const wave = document.getElementById('waveHand');
-    const hint = document.getElementById('uploadHint');
-
-    function showBitmoji() {
-      img.style.display = 'block';
-      ph.style.display  = 'none';
-      wave.classList.add('visible');
-      if (hint) hint.classList.add('hidden');
-    }
-
-    img.onload  = () => showBitmoji();
+    const show = () => { img.style.display = 'block'; ph.style.display = 'none'; wave.classList.add('visible'); };
+    img.onload = show;
     img.onerror = () => {
-      img.style.display = 'none';
-      try {
-        const saved = localStorage.getItem('ranjith_bitmoji');
-        if (saved) { img.onload = () => showBitmoji(); img.src = saved; }
-      } catch(_) {}
+      img.style.display = 'none'; ph.style.display = 'flex'; wave.classList.remove('visible');
+      try { const saved = localStorage.getItem('ranjith_bitmoji'); if (saved) { img.onerror = null; img.src = saved; } } catch(_) {}
     };
-
-    try {
-      const saved = localStorage.getItem('ranjith_bitmoji');
-      img.src = saved || 'bitmoji.png';
-    } catch(_) { img.src = 'bitmoji.png'; }
-
-    document.getElementById('chatInput').focus();
+    try { img.src = localStorage.getItem('ranjith_bitmoji') || 'bitmoji.png'; } catch(_) { img.src = 'bitmoji.png'; }
   });
 
   /* ── Theme ── */
@@ -615,83 +576,104 @@
   }
 
   /* ── Chatbot ── */
+  const EMAIL = '<a href="mailto:ranjithgopinath878@gmail.com?subject=C2C%20Opportunity">ranjithgopinath878@gmail.com</a>';
+  const PHONE = '<a href="tel:+15623366647">+1 (562) 336-6647</a>';
   const QA = [
-    { keys: ['available','availability','hire','start','when','immediately','open'], ans: "Yes! Ranjith is available immediately 🟢 STEM OPT authorized through February 2028, eligible for H-1B sponsorship." },
-    { keys: ['visa','h1b','h-1b','sponsorship','work authorization','opt','stem'], ans: "Ranjith is on STEM OPT through February 2028 and eligible for H-1B sponsorship. Available to start immediately." },
-    { keys: ['contact','email','phone','reach','call','message'], ans: "Reach Ranjith at 📧 ranjithgopinatha@gmail.com or 📞 +1 (562) 837-7828. Based in Long Beach, CA — responds quickly!" },
-    { keys: ['skill','skills','tech','technology','stack','know','languages','expertise'], ans: "Ranjith's stack: JavaScript/TypeScript, Python, React.js, React Native, Node.js, GraphQL, MongoDB, PostgreSQL, Redis, Firebase, AWS, Docker, Kubernetes, OpenAI GPT-4, LangChain — strongest in full-stack web & mobile!" },
-    { keys: ['snowflake','current job','current role','current company'], ans: "Ranjith currently works as a Software Engineer at Snowflake (Jan 2025–Present, Santa Ana CA). He builds enterprise data platform features and led a GPT-4+LangChain search engine that cut processing by 30%." },
-    { keys: ['schwab','charles schwab','brokerage'], ans: "At Charles Schwab (Apr 2023–Dec 2024, part-time), Ranjith built brokerage management web apps in React.js & Node.js, reducing latency by 20% and automating IT workflows with Python & ServiceNow." },
-    { keys: ['capital one','capitalone','banking','bank'], ans: "At Capital One (Dec 2020–Jul 2022, Chennai), Ranjith built full-stack banking apps serving 10,000+ daily users, cut P95 response time by 30% with Redis, and reduced regression bugs by 25%." },
-    { keys: ['react native','mobile','ios','android','app'], ans: "Ranjith built HealthW AI — a live cross-platform app on both stores. Sole architect: React Native, Node.js, AWS, Firebase, OpenAI GPT-4 health coaching. 🏥" },
-    { keys: ['openai','gpt','ai','langchain','rag','llm','ml'], ans: "At Snowflake, Ranjith built a semantic search engine with OpenAI GPT-4 + LangChain RAG pipelines cutting manual processing by 30%. GPT-4 also powers health coaching in HealthW AI." },
-    { keys: ['aws','cloud','docker','kubernetes','devops','ci','cd'], ans: "Strong cloud/DevOps: AWS (EC2, S3, Lambda, EKS), Docker, Kubernetes, GitHub Actions, Terraform. CI/CD at Snowflake cut deployment time by 40% and infra overhead by 35%." },
-    { keys: ['project','projects','built','portfolio'], ans: "Key projects: 1️⃣ HealthW AI — live iOS/Android health app (React Native, Node.js, AWS, Firebase, GPT-4). 2️⃣ Semantic Search Engine at Snowflake — GPT-4 + LangChain RAG, 30% processing reduction." },
-    { keys: ['experience','work','job','employment','history','company'], ans: "Ranjith's experience: 1️⃣ Software Engineer @ Snowflake (Jan 2025–Present) 2️⃣ Software Engineer @ Charles Schwab (Apr 2023–Dec 2024) 3️⃣ Associate Software Engineer @ Capital One (Dec 2020–Jul 2022)." },
-    { keys: ['education','degree','study','school','ms','masters'], ans: "Ranjith holds an M.S. in CS from CSU Dominguez Hills (2022–2024) and a B.E. in Electronics & Communications from Peri Institute of Technology (2016–2020)." },
-    { keys: ['location','based','where','city','california','long beach'], ans: "Ranjith is based in Long Beach, California 📍 and open to local, remote, or hybrid opportunities." },
-    { keys: ['salary','compensation','pay'], ans: "For salary details, reach out directly: 📧 ranjithgopinatha@gmail.com or 📞 +1 (562) 837-7828." },
-    { keys: ['testing','test','jest','mocha'], ans: "Ranjith champions TDD with Jest & Mocha — increased test coverage 40% at Snowflake and reduced regression bugs 25% at Capital One." },
-    { keys: ['hello','hi','hey','sup','yo'], ans: "Hey there! 👋 I'm Ranjith's AI assistant. Ask about his skills, experience, projects, or how to contact him!" },
-    { keys: ['who','ranjith','about','tell me','summary','introduce'], ans: "Ranjith Gopinath is a Full-Stack Software Engineer in Long Beach, CA. Currently at Snowflake building enterprise features + AI search. M.S. CS from CSUDH (2024), with a live mobile app on both stores! 🚀" },
-    { keys: ['app store','play store','download','google play','apple'], ans: "HealthW AI is live! 📱 App Store: https://apps.apple.com/app/id6755588655 — Play Store: https://play.google.com/store/apps/details?id=com.hwai.healthaimobile" },
+    { keys: ['w2','1099','full time','full-time','fulltime','permanent','perm','in-house'],
+      ans: `Ranjith is only taking C2C (corp-to-corp) contracts right now, so W2, 1099 and full-time roles aren't a fit. If you have a C2C version of the role, email the details to ${EMAIL}.` },
+    { keys: ['c2c','corp to corp','corp-to-corp','contract','vendor','recruiter','engagement','terms'],
+      ans: `Yes, Ranjith is open to C2C contracts only 🤝 Target roles: Sr. AI/ML, GenAI/LLM and NLP engineer, remote, hybrid or onsite. Send the JD, end client, location, duration and C2C rate to ${EMAIL}.` },
+    { keys: ['submit','send a role','requirement','jd','job description','opening','position'],
+      ans: `Email ${EMAIL} with the job description, end client and implementation partner, location and work mode, duration and C2C rate. There's a pre-filled template in the <a href="#c2c">C2C section</a>.` },
+    { keys: ['rate','salary','compensation','pay','hourly','price'],
+      ans: `Rates are discussed per role. Please include your C2C rate when you email ${EMAIL}.` },
+    { keys: ['available','availability','start','notice','free'],
+      ans: `Ranjith is open to new C2C contracts. Share the start date and duration and he'll confirm availability: ${EMAIL}.` },
+    { keys: ['visa','h1b','h-1b','sponsor','authorization','work auth','gc','ead','citizen'],
+      ans: `Work authorization details are shared directly with vendors during submission. Please email ${EMAIL}.` },
+    { keys: ['contact','email','phone','reach','call','linkedin'],
+      ans: `📧 ${EMAIL} · 📞 ${PHONE} · <a href="https://www.linkedin.com/in/ag-ranjith-6957011a2/" target="_blank" rel="noopener">LinkedIn</a>. Email is fastest.` },
+    { keys: ['research','paper','journal','publication','preprint','zenodo','doi','pothole','study'],
+      ans: `Ranjith's preprint on Zenodo forecasts monthly pothole reporting across 32,745 San Diego pavement assets, comparing gradient boosting and logistic regression with simple baselines. <a href="https://zenodo.org/records/22754867" target="_blank" rel="noopener">Read it on Zenodo</a> (DOI 10.5281/zenodo.22754867).` },
+    { keys: ['app','apps','healthw','mobile','ios','android','play store','app store','application'],
+      ans: `HealthW AI is live on both stores 🏥 <a href="https://apps.apple.com/app/id6755588655" target="_blank" rel="noopener">App Store</a> · <a href="https://play.google.com/store/apps/details?id=com.hwai.healthaimobile" target="_blank" rel="noopener">Google Play</a>. It uses React Native, Node.js, Firebase, AWS and GPT-4 health coaching.` },
+    { keys: ['prudential'],
+      ans: "At Prudential Financial (Newark, NJ · Dec 2025–present), Ranjith is a Sr. AI/ML Engineer building production RAG pipelines, LangGraph/CrewAI agents, NLP pipelines and MLflow-based LLMOps with PII controls." },
+    { keys: ['pfizer'],
+      ans: "At Pfizer (New York, NY · Feb–Nov 2025), Ranjith was an ML Engineer working on healthcare NLP, RAG with FAISS, Pinecone and Azure AI Search, MLflow and Dockerized inference on Kubernetes." },
+    { keys: ['honeywell'],
+      ans: "At Honeywell (Charlotte, NC · Jan–Nov 2023), Ranjith was a Python Full Stack Developer building Django, FastAPI and React.js apps on PostgreSQL and SQL Server." },
+    { keys: ['cyient'],
+      ans: "At Cyient (Hyderabad · Jul 2018–Jul 2022), Ranjith was a Python Developer building Flask REST services, SQLAlchemy data access and automation scripts." },
+    { keys: ['rag','llm','genai','generative','gpt','openai','langchain','langgraph','agent','crewai','vector','pinecone','faiss','weaviate'],
+      ans: "GenAI is Ranjith's core: production RAG (ingestion, chunking, embeddings, metadata filtering, grounded generation), LangChain/LangGraph workflows, CrewAI agents, OpenAI and Hugging Face models, plus hallucination and groundedness evaluation." },
+    { keys: ['mlops','llmops','mlflow','docker','kubernetes','ci/cd','devops','azure','cloud','deploy'],
+      ans: "MLOps/LLMOps with MLflow (tracking, versioning, artifacts, controlled promotion), Docker, Kubernetes, GitHub Actions, Jenkins and Azure, including Azure AI Search." },
+    { keys: ['nlp','ner','entity','classification','summarization','pytorch','tensorflow','scikit','machine learning'],
+      ans: "ML and NLP with PyTorch, TensorFlow and Scikit-learn: text classification, NER, information extraction, semantic similarity and summarization, evaluated with precision, recall and F1." },
+    { keys: ['skill','skills','tech','stack','expertise','tools'],
+      ans: "Top skills: Python, PyTorch, TensorFlow, Scikit-learn, LLMs/GPT-4, RAG, LangChain, LangGraph, CrewAI, FAISS/Pinecone/Weaviate, MLflow, Docker, Kubernetes, FastAPI/Django and SQL." },
+    { keys: ['experience','work','history','clients','companies','years','background'],
+      ans: "~7 years: 1️⃣ Sr. AI/ML Engineer @ Prudential (Dec 2025–present) 2️⃣ ML Engineer @ Pfizer (Feb–Nov 2025) 3️⃣ Python Full Stack Dev @ Honeywell (2023) 4️⃣ Python Developer @ Cyient (2018–2022)." },
+    { keys: ['location','based','where','remote','onsite','hybrid','relocate'],
+      ans: "Ranjith is based in Long Beach, CA and open to remote, hybrid or onsite C2C contracts." },
+    { keys: ['resume','cv'],
+      ans: 'Download it here: <a href="./Resume.pdf" download>Resume.pdf</a>.' },
+    { keys: ['hello','hi','hey','yo'],
+      ans: "Hi there! 👋 Ask about C2C terms, skills, client experience, apps or research." },
+    { keys: ['who','ranjith','about','summary','introduce'],
+      ans: "Ranjith Gopinath is a Sr. AI/ML Engineer with ~7 years across financial services, healthcare and enterprise tech, specializing in LLMs, RAG, AI agents, NLP and MLOps. Open to C2C contracts only." },
   ];
 
+  function matches(q, k) {
+    if (k.length <= 3) return new RegExp('(^|[^a-z0-9])' + k.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&') + '($|[^a-z0-9])').test(q);
+    return q.includes(k);
+  }
   function getBotReply(input) {
     const q = input.toLowerCase();
-    for (const item of QA) {
-      if (item.keys.some(k => q.includes(k))) return item.ans;
-    }
-    return "Great question! I don't have that specific detail — reach Ranjith at 📧 ranjithgopinatha@gmail.com or 📞 +1 (562) 837-7828. He responds quickly! 😊";
+    for (const item of QA) if (item.keys.some(k => matches(q, k))) return item.ans;
+    return `I don't have that detail. Email ${EMAIL} with your question or C2C requirement.`;
   }
 
   let isLoading = false;
-
-  function appendMessage(role, text) {
+  function appendMessage(role, html) {
     const box = document.getElementById('chatMessages');
-    const ind = document.getElementById('typingIndicator');
     const div = document.createElement('div');
     div.className = `msg ${role}`;
-    div.innerHTML = `<div class="msg-bubble">${text}</div>`;
-    box.insertBefore(div, ind);
+    const bubble = document.createElement('div');
+    bubble.className = 'msg-bubble';
+    if (role === 'user') bubble.textContent = html; else bubble.innerHTML = html;
+    div.appendChild(bubble);
+    box.insertBefore(div, document.getElementById('typingIndicator'));
     box.scrollTop = box.scrollHeight;
   }
-
   function setTyping(show) {
     document.getElementById('typingIndicator').classList.toggle('visible', show);
     document.getElementById('chatMessages').scrollTop = 9999;
   }
-
-  function askChip(question) {
-    document.getElementById('chatInput').value = question;
-    sendMessage();
-  }
-
+  function askChip(q) { document.getElementById('chatInput').value = q; sendMessage(); }
   function sendMessage() {
     const input = document.getElementById('chatInput');
-    const btn   = document.getElementById('sendBtn');
-    const text  = input.value.trim();
+    const btn = document.getElementById('sendBtn');
+    const text = input.value.trim();
     if (!text || isLoading) return;
-    input.value = '';
-    isLoading = true;
-    btn.disabled = true;
+    input.value = ''; isLoading = true; btn.disabled = true;
     appendMessage('user', text);
     setTyping(true);
     setTimeout(() => {
       setTyping(false);
       appendMessage('bot', getBotReply(text));
-      isLoading = false;
-      btn.disabled = false;
-      input.focus();
-    }, 700 + Math.random() * 500);
+      isLoading = false; btn.disabled = false;
+    }, 600 + Math.random() * 400);
   }
 
+  /* ── Drag-scroll for experience strip ── */
   document.addEventListener('DOMContentLoaded', () => {
     const strip = document.querySelector('.exp-strip');
     if (!strip) return;
     let isDown = false, startX, scrollLeft;
-    strip.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - strip.offsetLeft; scrollLeft = strip.scrollLeft; strip.style.cursor = 'grabbing'; });
-    document.addEventListener('mouseup', () => { isDown = false; if (strip) strip.style.cursor = 'grab'; });
+    strip.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - strip.offsetLeft; scrollLeft = strip.scrollLeft; });
+    document.addEventListener('mouseup', () => { isDown = false; });
     strip.addEventListener('mousemove', e => {
       if (!isDown) return; e.preventDefault();
       strip.scrollLeft = scrollLeft - (e.pageX - strip.offsetLeft - startX);
